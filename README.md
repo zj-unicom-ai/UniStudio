@@ -67,6 +67,10 @@ python3 web/serve.py --pipeline 127.0.0.1:8898
 - `productions/` 是运行时产出目录，已在 `.gitignore` 中，不纳入版本库；仓库只保留模板源码与平台代码。
 - 样片 MP4 与部分字体由 Git LFS 管理；本地未检出（文件只有一百多字节指针）时先执行 `git lfs pull`。
 
+## 关于
+
+UniStudio 是**浙江联通开源**的 AI 视频创作工作室，由 zj-unicom-ai 团队维护，欢迎社区共建。
+
 ## License
 
-[MIT](./LICENSE)
+[MIT](./LICENSE) · Copyright (c) 2026 zj-unicom-ai contributors
