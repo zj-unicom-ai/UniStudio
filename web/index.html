@@ -52,13 +52,8 @@ button{font-family:inherit;cursor:pointer}
 .home-hero{position:relative;overflow:hidden;background:radial-gradient(900px 340px at 50% -160px,rgba(23,35,64,.95) 0%,rgba(11,18,32,0) 62%);padding:56px 0 34px;border-bottom:1px solid var(--line)}
 .hero-shine{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .hero-flow{position:absolute;inset:-20%;background:linear-gradient(100deg,transparent 20%,rgba(92,219,232,.10) 38%,rgba(255,200,87,.10) 50%,rgba(201,166,255,.10) 62%,transparent 80%);background-size:200% 100%;animation:heroFlow 7s linear infinite}
-.hero-band{position:absolute;left:-30%;width:160%;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(92,219,232,.35),rgba(255,200,87,.35),transparent);filter:blur(1px);opacity:.5}
-.hero-band.b1{top:30%;animation:bandDrift 9s ease-in-out infinite alternate}
-.hero-band.b2{top:62%;animation:bandDrift 12s ease-in-out infinite alternate-reverse}
-.hero-band.b3{top:80%;opacity:.25;animation:bandDrift 15s ease-in-out infinite alternate}
 @keyframes heroFlow{from{background-position:200% 0}to{background-position:-200% 0}}
-@keyframes bandDrift{0%{transform:translateX(-6%)}100%{transform:translateX(6%)}}
-@media (prefers-reduced-motion:reduce){.hero-flow,.hero-band{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.hero-flow{animation:none!important}}
 .eyebrow{font-size:12px;letter-spacing:.18em;color:var(--faint);margin-bottom:14px}
 .eyebrow b{color:var(--amber);font-weight:500}
 .home-hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(2rem,6.5vw,3.2rem);line-height:1.15;letter-spacing:.02em}
@@ -360,9 +355,6 @@ main,.topnav,footer{position:relative;z-index:1}
     <div class="home-hero">
       <div class="hero-shine" aria-hidden="true">
         <div class="hero-flow"></div>
-        <div class="hero-band b1"></div>
-        <div class="hero-band b2"></div>
-        <div class="hero-band b3"></div>
       </div>
       <div class="wrap">
         <p class="eyebrow"><b>UNISTUDIO</b> · 你的 AI 视频创作工作室</p>
