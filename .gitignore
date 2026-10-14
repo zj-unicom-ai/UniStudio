@@ -22,3 +22,6 @@ venv/
 dist/
 build/
 *.log
+
+# 视频产出目录（本地运行产物，不入库）
+productions/
