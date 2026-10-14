@@ -1,0 +1,8 @@
+renders/
+snapshots/
+node_modules/
+.hyperframes/
+.thumbnails/
+.waveform-cache/
+__pycache__/
+.DS_Store

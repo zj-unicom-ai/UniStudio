@@ -1,0 +1,138 @@
+{
+  "src": "http://127.0.0.1:8610/web/index.html",
+  "url": "http://127.0.0.1:8610/web/index.html",
+  "outdir": "/Users/wrg/Important/uni-ai-video-templates/web/_shots/publish",
+  "include": [
+    "lint",
+    "screenshots",
+    "structure"
+  ],
+  "shots": {
+    "desktop": {
+      "screenshot": "/Users/wrg/Important/uni-ai-video-templates/web/_shots/publish/127_0_0_1_desktop.jpg",
+      "screenshotBytes": 61229,
+      "truncated": false,
+      "structure": {
+        "title": "自媒体数字员工平台 · Uni AI Video Templates",
+        "firstH1": "自媒体数字员工平台",
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "fullpage": {
+          "w": 1440,
+          "h": 1329
+        },
+        "counts": {
+          "section": 9,
+          "h1": 4,
+          "h2": 6,
+          "img": 5,
+          "canvas": 0,
+          "svg": 12,
+          "links": 35,
+          "buttons": 17
+        }
+      },
+      "consoleErrors": [],
+      "consoleWarnings": [],
+      "horizontalOverflow": [],
+      "resourceErrors": [],
+      "misalignedBlocks": [
+        {
+          "tag": "div.home-hero",
+          "text": "UNI AI VIDEO TEMPLATES · 自媒体视频生产数字化\n        自媒体数字员工平台\n      ",
+          "rect": [
+            0,
+            62,
+            1440,
+            321
+          ],
+          "widthDeltaVsGrid": 260,
+          "gridWidth": 1180,
+          "containerWidth": 1440,
+          "containerTag": "section#page-home"
+        }
+      ],
+      "misalignedBlocksHint": "含义：section/main/article 直接子级里，个别元素撑到父容器全宽、其他兄弟明显更窄。widthDeltaVsGrid=比栅格宽多少 px、gridWidth=正常栅格宽度、containerWidth=父容器宽度。最常见根因：HTML 标签闭合错位（<p> 忘了 </p> 等）导致元素跳出 .wrap/.container 层级，浏览器容错解析、不报 console 错但布局层级已被打乱。 | 修法：从 containerTag 定位到出问题的 section，逐行检查该 section 内前面的 HTML 标签闭合。 | 豁免：(1) **full-bleed / breakout 布局**——故意做全宽 hero、全宽 gradient divider、文章里跳出正文栏的大图/引用块（杂志排版）。看截图确认是设计意图后忽略；(2) sticky/absolute 顶栏错放在 section 直接子级下（罕见）。",
+      "reportSource": "cdp"
+    }
+  },
+  "engine": "chrome_cli",
+  "chromiumExec": "/Users/wrg/Library/Caches/ms-playwright/chromium_headless_shell-1223/chrome-headless-shell-mac-arm64/chrome-headless-shell",
+  "evalIgnored": "chrome_cli 降级模式不支持 --eval 注入，本次已忽略；如需注入 JS，请装 playwright。",
+  "engineDegraded": true,
+  "engineDegradedReason": "playwright 未装",
+  "elapsedSec": 3.06,
+  "schemaVersion": 2,
+  "status": "warning",
+  "engineInfo": {
+    "name": "chrome_cli",
+    "degraded": true,
+    "degradedReasons": [
+      "playwright 未装"
+    ]
+  },
+  "input": {
+    "original": "http://127.0.0.1:8610/web/index.html",
+    "resolvedPath": null,
+    "baseUrl": "http://127.0.0.1:8610/web/index.html",
+    "protocol": "http",
+    "cwd": "/Users/wrg/Important/uni-ai-video-templates",
+    "mediaMode": {
+      "reducedMotion": true
+    }
+  },
+  "artifacts": {
+    "screenshots": [
+      {
+        "viewport": "desktop",
+        "path": "/Users/wrg/Important/uni-ai-video-templates/web/_shots/publish/127_0_0_1_desktop.jpg",
+        "size": 61229,
+        "visualCoverage": {
+          "complete": true,
+          "reason": null
+        }
+      }
+    ]
+  },
+  "summary": {
+    "blocker": 0,
+    "error": 0,
+    "warning": 1,
+    "info": 0
+  },
+  "findings": [
+    {
+      "ruleId": "misalignedBlocks",
+      "severity": "warning",
+      "kind": "layout",
+      "viewport": "desktop",
+      "selector": "div.home-hero",
+      "evidence": {
+        "tag": "div.home-hero",
+        "text": "UNI AI VIDEO TEMPLATES · 自媒体视频生产数字化\n        自媒体数字员工平台\n      ",
+        "rect": [
+          0,
+          62,
+          1440,
+          321
+        ],
+        "widthDeltaVsGrid": 260,
+        "gridWidth": 1180,
+        "containerWidth": 1440,
+        "containerTag": "section#page-home"
+      },
+      "dedupeKey": "misalignedBlocks|desktop|div.home-hero|0"
+    }
+  ],
+  "prioritizedActions": [
+    {
+      "ruleId": "misalignedBlocks",
+      "severity": "warning",
+      "viewport": "desktop",
+      "selector": "div.home-hero"
+    }
+  ],
+  "reportPath": "/Users/wrg/Important/uni-ai-video-templates/web/_shots/publish/report.json"
+}

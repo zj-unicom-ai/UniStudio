@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+</head>
+<body>
+<template>
+<style>
+
+@font-face {
+  font-family:'ZCOOL QingKe HuangYou';
+  src:url('assets/fonts/ZCOOLQingKeHuangYou-Regular.ttf') format('truetype');
+  font-weight:400; font-display:block;
+}
+@font-face {
+  font-family:'Noto Sans SC';
+  src:url('assets/fonts/NotoSansSC-VF.ttf') format('truetype');
+  font-weight:100 900; font-display:block;
+}
+@font-face {
+  font-family:'JetBrains Mono';
+  src:url('assets/fonts/JetBrainsMono-VF.ttf') format('truetype');
+  font-weight:100 800; font-display:block;
+}
+
+
+* { box-sizing:border-box; }
+html,body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; }
+#root { position:absolute; inset:0; overflow:hidden; font-family:'Noto Sans SC',sans-serif; }
+
+/* 背景 */
+.bg-ink { background:#0F1E2E; color:#F3F6F8; }
+.bg-paper { background:#EDF0EE; color:#0F1E2E; }
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255,255,255,.045) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 2px, transparent 2px);
+  background-size:77px 77px;
+}
+
+/* 顶栏 */
+.bar {
+  position:absolute; left:115px; right:115px; top:73px;
+  display:flex; justify-content:space-between; align-items:center; gap:24px;
+}
+.logo { font-family:'Noto Sans SC',sans-serif; font-weight:900; font-size:40px; letter-spacing:.02em; white-space:nowrap; }
+.logo .logo-main { color:inherit; }
+.logo b { background:#FFD23F; color:#0F1E2E; padding:0 9px; margin-left:3px; }
+.bg-paper .logo b { background:#0F1E2E; color:#FFD23F; }
+.bar .src {
+  font-family:'JetBrains Mono',monospace; font-size:27px; letter-spacing:.05em;
+  opacity:.62; white-space:nowrap; overflow:hidden;
+}
+.bar .cnt { font-family:'JetBrains Mono',monospace; font-weight:700; font-size:36px; letter-spacing:.04em; white-space:nowrap; }
+.bar .cnt i { font-style:normal; opacity:.45; }
+
+/* 标签 chip */
+.chip {
+  display:inline-block; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:29px;
+  letter-spacing:.08em; padding:7px 21px; background:#FFD23F; color:#0F1E2E;
+}
+.chip.dk { background:#0F1E2E; color:#F3F6F8; }
+.chip.ol { background:transparent; color:#FFD23F; box-shadow:inset 0 0 0 3px #FFD23F; }
+.chip.dk.ol { background:transparent; color:#0F1E2E; box-shadow:inset 0 0 0 3px #0F1E2E; }
+
+/* 荧光笔（关键词） */
+.hl-word { position:relative; display:inline-block; white-space:nowrap; }
+.hl-bg {
+  position:absolute; inset:0; z-index:0;
+  background:linear-gradient(transparent 52%, #FFD23F 52% 94%, transparent 94%);
+  transform-origin:left center;
+}
+.hl-text { position:relative; z-index:1; }
+
+/* 硬边卡片 */
+.hard {
+  border:4.8px solid #0F1E2E; background:#fff;
+  box-shadow:17px 17px 0 #0F1E2E;
+}
+
+/* 底部进度条 */
+.prog {
+  position:absolute; left:0; right:0; bottom:0; height:19px;
+  display:grid; grid-template-columns:repeat(5,1fr); gap:6px;
+}
+.prog i { background:rgba(15,30,46,.16); }
+.prog i.on { background:#0F1E2E; }
+.prog i.cur { background:#FFD23F; box-shadow:inset 0 -4px 0 #0F1E2E; }
+.bg-ink .prog i { background:rgba(255,255,255,.14); }
+.bg-ink .prog i.on { background:#182C41; }
+.bg-ink .prog i.cur { background:#FFD23F; box-shadow:inset 0 -4px 0 #0F1E2E; }
+
+
+#root {
+  background:#0F1E2E; color:#fff;
+  background-image:
+    linear-gradient(rgba(255,255,255,.045) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 2px, transparent 2px);
+  background-size:77px 77px;
+}
+
+.waves {
+  position:absolute; right:-269px; top:50%; width:1190px; aspect-ratio:1;
+  border-radius:50%;
+  background:repeating-radial-gradient(circle,transparent 0 44px,rgba(58,116,255,.7) 44px 46px);
+  -webkit-mask-image:radial-gradient(circle,#000 18%,transparent 68%);
+  mask-image:radial-gradient(circle,#000 18%,transparent 68%);
+}
+
+.c-top { position:absolute; left:115px; top:88px; right:115px;
+  display:flex; justify-content:space-between; align-items:center; }
+
+.c-title { position:absolute; left:115px; top:288px; }
+.c-title .t1 { font-family:'ZCOOL QingKe HuangYou',sans-serif; font-size:259px; line-height:1;
+  letter-spacing:.01em; display:flex; align-items:center; gap:27px; }
+.c-title .t1 .ai { background:#FFD23F; color:#0F1E2E; padding:0 27px 12px; font-family:'ZCOOL QingKe HuangYou',sans-serif; line-height:1.05; }
+.c-title .sub { margin-top:61px; font-size:52px; font-weight:700; max-width:768px; line-height:1.5; }
+.c-title .sub mark { background:linear-gradient(transparent 55%,rgba(255,210,63,.9) 55% 95%,transparent 95%); color:#fff; }
+.c-title .sub2 { margin-top:23px; font-size:33px; color:#8A98A6; }
+
+.c-stamp { position:absolute; right:134px; top:326px; width:461px;
+  border:6px solid #FFD23F; padding:38px 46px; background:rgba(15,30,46,.82);
+  box-shadow:19px 19px 0 #3A74FF; }
+.c-stamp .d { font-family:'JetBrains Mono',monospace; font-weight:700; font-size:154px; line-height:1; color:#FFD23F; letter-spacing:-.02em; }
+.c-stamp .w { margin-top:23px; font-weight:700; font-size:40px; }
+.c-stamp .n { font-family:'JetBrains Mono',monospace; font-size:27px; color:#8A98A6; margin-top:12px; letter-spacing:.06em; }
+
+.ticker { position:absolute; left:0; right:0; bottom:0; height:100px;
+  background:#FFD23F; color:#0F1E2E; display:flex; align-items:center;
+  white-space:nowrap; overflow:hidden;
+  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:33px; letter-spacing:.14em; }
+.ticker span { padding-left:38px; }
+
+</style>
+<div id="root" class="bg" data-composition-id="cover-h" data-width="1920"
+     data-height="1080" data-duration="3.5">
+
+<div class="waves"></div>
+<div class="c-top">
+  <span class="chip">AI 科技周报盘点</span>
+  <span class="logo"><span class="logo-main">AI</span><b>周见</b></span>
+</div>
+<div class="c-title">
+  <div class="t1"><span>AI</span><span class="ai">周见</span></div>
+  <div class="sub">每期 3–10 条，盘点一周<mark>值得关注</mark>的 AI 科技</div>
+  <div class="sub2">每周一见，看见 AI 的下一步</div>
+</div>
+<div class="c-stamp">
+  <div class="d">10.10</div>
+  <div class="w">周六 · 本周 5 条</div>
+  <div class="n">第 1 期</div>
+</div>
+<div class="ticker"><span>本周热点 · 模型 · 产品 · 融资 · 政策 · 开源 · 本周热点 · 模型 · 产品 · 融资 · 政策 · 开源 · 本周热点 · 模型 · 产品 · 融资 · 政策 · 开源 · </span></div>
+
+</div>
+<script src="assets/vendor/gsap.min.js"></script>
+<script>
+
+const root = document.querySelector('[data-composition-id="cover-h"]');
+const q = (s) => root.querySelectorAll(s);
+const tl = gsap.timeline({paused:true});
+
+tl.set(q('.waves'), {yPercent:-50, scale:.98}, 0);
+tl.set(q('.c-top'), {autoAlpha:0, y:-20}, 0);
+tl.set(q('.c-title .t1'), {autoAlpha:0, y:40}, 0);
+tl.set(q('.c-title .sub'), {autoAlpha:0, y:24}, 0);
+tl.set(q('.c-title .sub2'), {autoAlpha:0, y:24}, 0);
+tl.set(q('.c-stamp'), {autoAlpha:0, x:40}, 0);
+tl.set(q('.ticker'), {yPercent:100}, 0);
+
+tl.to(q('.c-top'), {autoAlpha:1, y:0, duration:0.5, ease:'power3.out'}, 0);
+tl.to(q('.c-title .t1'), {autoAlpha:1, y:0, duration:0.5, ease:'power3.out'}, 0.2);
+tl.to(q('.c-title .sub'), {autoAlpha:1, y:0, duration:0.45, ease:'power3.out'}, 0.5);
+tl.to(q('.c-title .sub2'), {autoAlpha:1, y:0, duration:0.45, ease:'power3.out'}, 0.65);
+tl.to(q('.c-stamp'), {autoAlpha:1, x:0, duration:0.5, ease:'power3.out'}, 0.5);
+tl.to(q('.waves'), {scale:1.05, duration:3, ease:'sine.inOut'}, 0.2);
+tl.to(q('.ticker'), {yPercent:0, duration:0.4, ease:'power3.out'}, 0.7);
+tl.to(q('.ticker span'), {x:-160, duration:2.4, ease:'none'}, 1.0);
+
+window.__timelines['cover-h'] = tl;
+
+</script>
+</template>
+</body>
+</html>

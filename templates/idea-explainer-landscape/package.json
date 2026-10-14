@@ -1,0 +1,13 @@
+{
+  "name": "idea-explainer-landscape",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:sample": "node scripts/build.mjs data/sample-episode.json",
+    "synthesize": "python3 scripts/generate_voiceover.py",
+    "check": "HYPERFRAMES_NO_TELEMETRY=1 npx --yes hyperframes@0.8.145 check",
+    "preview": "HYPERFRAMES_NO_TELEMETRY=1 npx --yes hyperframes@0.8.145 preview --background",
+    "render": "HYPERFRAMES_NO_TELEMETRY=1 npx --yes hyperframes@0.8.145 render --output out/demo.mp4"
+  }
+}

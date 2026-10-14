@@ -1,0 +1,359 @@
+[
+ {
+  "id": "p01",
+  "ch": 0,
+  "type": "opening",
+  "start": 0,
+  "dur": 5.85
+ },
+ {
+  "id": "p02",
+  "ch": 0,
+  "type": "point",
+  "start": 5.85,
+  "dur": 8.31
+ },
+ {
+  "id": "p03",
+  "ch": 0,
+  "type": "point",
+  "start": 14.16,
+  "dur": 15.23
+ },
+ {
+  "id": "p04",
+  "ch": 0,
+  "type": "point",
+  "start": 29.39,
+  "dur": 9.33
+ },
+ {
+  "id": "p05",
+  "ch": 0,
+  "type": "quote",
+  "start": 38.72,
+  "dur": 7.75
+ },
+ {
+  "id": "p06",
+  "ch": 0,
+  "type": "point",
+  "start": 46.47,
+  "dur": 17.71
+ },
+ {
+  "id": "p07",
+  "ch": 1,
+  "type": "point",
+  "start": 64.18,
+  "dur": 6.51
+ },
+ {
+  "id": "p08",
+  "ch": 1,
+  "type": "point",
+  "start": 70.69,
+  "dur": 15.92
+ },
+ {
+  "id": "p09",
+  "ch": 1,
+  "type": "point",
+  "start": 86.61,
+  "dur": 10.11
+ },
+ {
+  "id": "p10",
+  "ch": 1,
+  "type": "point",
+  "start": 96.72,
+  "dur": 16.63
+ },
+ {
+  "id": "p11",
+  "ch": 1,
+  "type": "ledger",
+  "start": 113.35,
+  "dur": 15.23
+ },
+ {
+  "id": "p12",
+  "ch": 1,
+  "type": "point",
+  "start": 128.58,
+  "dur": 18.61
+ },
+ {
+  "id": "p13",
+  "ch": 1,
+  "type": "point",
+  "start": 147.19,
+  "dur": 11.47
+ },
+ {
+  "id": "p14",
+  "ch": 1,
+  "type": "ledger",
+  "start": 158.66,
+  "dur": 15.59
+ },
+ {
+  "id": "p15",
+  "ch": 1,
+  "type": "point",
+  "start": 174.25,
+  "dur": 17.95
+ },
+ {
+  "id": "p16",
+  "ch": 1,
+  "type": "quote",
+  "start": 192.2,
+  "dur": 13.9
+ },
+ {
+  "id": "p17",
+  "ch": 2,
+  "type": "point",
+  "start": 206.1,
+  "dur": 18.11
+ },
+ {
+  "id": "p18",
+  "ch": 2,
+  "type": "quote",
+  "start": 224.21,
+  "dur": 12.15
+ },
+ {
+  "id": "p19",
+  "ch": 2,
+  "type": "point",
+  "start": 236.36,
+  "dur": 7.71
+ },
+ {
+  "id": "p20",
+  "ch": 2,
+  "type": "point",
+  "start": 244.07,
+  "dur": 15.94
+ },
+ {
+  "id": "p21",
+  "ch": 2,
+  "type": "point",
+  "start": 260.01,
+  "dur": 12.08
+ },
+ {
+  "id": "p22",
+  "ch": 2,
+  "type": "point",
+  "start": 272.09,
+  "dur": 11.94
+ },
+ {
+  "id": "p23",
+  "ch": 2,
+  "type": "point",
+  "start": 284.03,
+  "dur": 10.23
+ },
+ {
+  "id": "p24",
+  "ch": 2,
+  "type": "quote",
+  "start": 294.26,
+  "dur": 17.29
+ },
+ {
+  "id": "p25",
+  "ch": 2,
+  "type": "point",
+  "start": 311.55,
+  "dur": 26.15
+ },
+ {
+  "id": "p26",
+  "ch": 2,
+  "type": "point",
+  "start": 337.7,
+  "dur": 17.07
+ },
+ {
+  "id": "p27",
+  "ch": 2,
+  "type": "quote",
+  "start": 354.77,
+  "dur": 20.55
+ },
+ {
+  "id": "p28",
+  "ch": 2,
+  "type": "quote",
+  "start": 375.32,
+  "dur": 6.59
+ },
+ {
+  "id": "p29",
+  "ch": 2,
+  "type": "point",
+  "start": 381.91,
+  "dur": 13.71
+ },
+ {
+  "id": "p30",
+  "ch": 2,
+  "type": "point",
+  "start": 395.62,
+  "dur": 21.59
+ },
+ {
+  "id": "p31",
+  "ch": 2,
+  "type": "quote",
+  "start": 417.21,
+  "dur": 9.53
+ },
+ {
+  "id": "p32",
+  "ch": 2,
+  "type": "ledger",
+  "start": 426.74,
+  "dur": 23.56
+ },
+ {
+  "id": "p33",
+  "ch": 2,
+  "type": "point",
+  "start": 450.3,
+  "dur": 13.61
+ },
+ {
+  "id": "p34",
+  "ch": 2,
+  "type": "point",
+  "start": 463.91,
+  "dur": 16.47
+ },
+ {
+  "id": "p35",
+  "ch": 2,
+  "type": "point",
+  "start": 480.38,
+  "dur": 13.67
+ },
+ {
+  "id": "p36",
+  "ch": 3,
+  "type": "point",
+  "start": 494.05,
+  "dur": 7.19
+ },
+ {
+  "id": "p37",
+  "ch": 3,
+  "type": "ledger",
+  "start": 501.24,
+  "dur": 15.71
+ },
+ {
+  "id": "p38",
+  "ch": 3,
+  "type": "ledger",
+  "start": 516.95,
+  "dur": 23.23
+ },
+ {
+  "id": "p39",
+  "ch": 3,
+  "type": "point",
+  "start": 540.18,
+  "dur": 14.99
+ },
+ {
+  "id": "p40",
+  "ch": 3,
+  "type": "quote",
+  "start": 555.17,
+  "dur": 15.59
+ },
+ {
+  "id": "p41",
+  "ch": 3,
+  "type": "ledger",
+  "start": 570.76,
+  "dur": 24.3
+ },
+ {
+  "id": "p42",
+  "ch": 3,
+  "type": "point",
+  "start": 595.06,
+  "dur": 11.34
+ },
+ {
+  "id": "p43",
+  "ch": 3,
+  "type": "quote",
+  "start": 606.4,
+  "dur": 16.63
+ },
+ {
+  "id": "p44",
+  "ch": 3,
+  "type": "point",
+  "start": 623.03,
+  "dur": 13.35
+ },
+ {
+  "id": "p45",
+  "ch": 3,
+  "type": "grid4",
+  "start": 636.38,
+  "dur": 23.08
+ },
+ {
+  "id": "p46",
+  "ch": 3,
+  "type": "point",
+  "start": 659.46,
+  "dur": 15.23
+ },
+ {
+  "id": "p47",
+  "ch": 3,
+  "type": "point",
+  "start": 674.69,
+  "dur": 19.86
+ },
+ {
+  "id": "p48",
+  "ch": 4,
+  "type": "quote",
+  "start": 694.55,
+  "dur": 18.64
+ },
+ {
+  "id": "p49",
+  "ch": 4,
+  "type": "point",
+  "start": 713.19,
+  "dur": 20.27
+ },
+ {
+  "id": "p50",
+  "ch": 4,
+  "type": "quote",
+  "start": 733.46,
+  "dur": 13.53
+ },
+ {
+  "id": "p51",
+  "ch": 4,
+  "type": "ending",
+  "start": 746.99,
+  "dur": 22.99
+ }
+]

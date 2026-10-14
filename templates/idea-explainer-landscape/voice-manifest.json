@@ -1,0 +1,371 @@
+{
+  "speed": 1.0,
+  "response_format": "wav",
+  "segments": [
+    {
+      "id": "welcome",
+      "path": "assets/audio/welcome.wav",
+      "duration_s": 1.9,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "bridge",
+      "path": "assets/audio/bridge.wav",
+      "duration_s": 3.8,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p02",
+      "path": "assets/audio/p02.wav",
+      "duration_s": 6.96,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p03",
+      "path": "assets/audio/p03.wav",
+      "duration_s": 13.88,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p04",
+      "path": "assets/audio/p04.wav",
+      "duration_s": 7.98,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p05",
+      "path": "assets/audio/p05.wav",
+      "duration_s": 6.4,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p06",
+      "path": "assets/audio/p06.wav",
+      "duration_s": 16.36,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p07",
+      "path": "assets/audio/p07.wav",
+      "duration_s": 5.16,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p08",
+      "path": "assets/audio/p08.wav",
+      "duration_s": 14.57,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p09",
+      "path": "assets/audio/p09.wav",
+      "duration_s": 8.76,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p10",
+      "path": "assets/audio/p10.wav",
+      "duration_s": 15.28,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p11",
+      "path": "assets/audio/p11.wav",
+      "duration_s": 13.88,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p12",
+      "path": "assets/audio/p12.wav",
+      "duration_s": 17.26,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p13",
+      "path": "assets/audio/p13.wav",
+      "duration_s": 10.12,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p14",
+      "path": "assets/audio/p14.wav",
+      "duration_s": 14.24,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p15",
+      "path": "assets/audio/p15.wav",
+      "duration_s": 16.6,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p16",
+      "path": "assets/audio/p16.wav",
+      "duration_s": 12.55,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p17",
+      "path": "assets/audio/p17.wav",
+      "duration_s": 16.76,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p18",
+      "path": "assets/audio/p18.wav",
+      "duration_s": 10.8,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p19",
+      "path": "assets/audio/p19.wav",
+      "duration_s": 6.36,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p20",
+      "path": "assets/audio/p20.wav",
+      "duration_s": 14.59,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p21",
+      "path": "assets/audio/p21.wav",
+      "duration_s": 10.73,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p22",
+      "path": "assets/audio/p22.wav",
+      "duration_s": 10.59,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p23",
+      "path": "assets/audio/p23.wav",
+      "duration_s": 8.88,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p24",
+      "path": "assets/audio/p24.wav",
+      "duration_s": 15.94,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p25",
+      "path": "assets/audio/p25.wav",
+      "duration_s": 24.8,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p26",
+      "path": "assets/audio/p26.wav",
+      "duration_s": 15.72,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p27",
+      "path": "assets/audio/p27.wav",
+      "duration_s": 19.2,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p28",
+      "path": "assets/audio/p28.wav",
+      "duration_s": 5.24,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p29",
+      "path": "assets/audio/p29.wav",
+      "duration_s": 12.36,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p30",
+      "path": "assets/audio/p30.wav",
+      "duration_s": 20.24,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p31",
+      "path": "assets/audio/p31.wav",
+      "duration_s": 8.18,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p32",
+      "path": "assets/audio/p32.wav",
+      "duration_s": 22.21,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p33",
+      "path": "assets/audio/p33.wav",
+      "duration_s": 12.26,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p34",
+      "path": "assets/audio/p34.wav",
+      "duration_s": 15.12,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p35",
+      "path": "assets/audio/p35.wav",
+      "duration_s": 12.32,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p36",
+      "path": "assets/audio/p36.wav",
+      "duration_s": 5.84,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p37",
+      "path": "assets/audio/p37.wav",
+      "duration_s": 14.36,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p38",
+      "path": "assets/audio/p38.wav",
+      "duration_s": 21.88,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p39",
+      "path": "assets/audio/p39.wav",
+      "duration_s": 13.64,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p40",
+      "path": "assets/audio/p40.wav",
+      "duration_s": 14.24,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p41",
+      "path": "assets/audio/p41.wav",
+      "duration_s": 22.95,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p42",
+      "path": "assets/audio/p42.wav",
+      "duration_s": 9.99,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p43",
+      "path": "assets/audio/p43.wav",
+      "duration_s": 15.28,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p44",
+      "path": "assets/audio/p44.wav",
+      "duration_s": 12.0,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p45",
+      "path": "assets/audio/p45.wav",
+      "duration_s": 21.73,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p46",
+      "path": "assets/audio/p46.wav",
+      "duration_s": 13.88,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p47",
+      "path": "assets/audio/p47.wav",
+      "duration_s": 18.51,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p48",
+      "path": "assets/audio/p48.wav",
+      "duration_s": 17.29,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p49",
+      "path": "assets/audio/p49.wav",
+      "duration_s": 18.92,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p50",
+      "path": "assets/audio/p50.wav",
+      "duration_s": 12.18,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "p51",
+      "path": "assets/audio/p51.wav",
+      "duration_s": 21.64,
+      "sample_rate": 24000,
+      "channels": 1
+    }
+  ],
+  "sample_note": "Bundled demo narration; see SOURCES.md for scope and rights."
+}

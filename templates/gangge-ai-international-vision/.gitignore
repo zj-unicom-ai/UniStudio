@@ -1,0 +1,10 @@
+out/
+**/renders/
+**/snapshots/
+**/.hyperframes/
+**/.thumbnails/
+**/.waveform-cache/
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store

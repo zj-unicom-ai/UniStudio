@@ -1,0 +1,10 @@
+{
+  "name": "gangge-ai-international-vision-template",
+  "private": true,
+  "scripts": {
+    "compose": "python3 scripts/build_composition.py",
+    "check": "npx --yes hyperframes@0.8.133 check",
+    "render": "python3 scripts/render_and_cover.py",
+    "dev": "npx --yes hyperframes@0.8.133 preview --background"
+  }
+}

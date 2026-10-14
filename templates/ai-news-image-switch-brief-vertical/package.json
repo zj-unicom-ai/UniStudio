@@ -1,0 +1,11 @@
+{
+  "name": "ai-news-image-switch-brief-vertical",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "python3 scripts/build_episode.py",
+    "dev": "npx --yes hyperframes@0.6.46 preview",
+    "check": "npx --yes hyperframes@0.6.46 lint && npx --yes hyperframes@0.6.46 validate && npx --yes hyperframes@0.6.46 inspect",
+    "render": "python3 scripts/render_delivery.py"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "src": "http://127.0.0.1:8610/web/index.html#/publish",
+  "url": "http://127.0.0.1:8610/web/index.html#/publish",
+  "outdir": "/Users/wrg/Important/uni-ai-video-templates/web/_shots/publishC",
+  "include": [
+    "lint",
+    "screenshots",
+    "structure"
+  ],
+  "shots": {
+    "desktop": {
+      "screenshot": "/Users/wrg/Important/uni-ai-video-templates/web/_shots/publishC/127_0_0_1_desktop.jpg",
+      "screenshotBytes": 133915,
+      "truncated": false,
+      "structure": {
+        "title": "自媒体数字员工平台 · Uni AI Video Templates",
+        "firstH1": "自媒体数字员工平台",
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "fullpage": {
+          "w": 1440,
+          "h": 2680
+        },
+        "counts": {
+          "section": 10,
+          "h1": 4,
+          "h2": 9,
+          "img": 5,
+          "canvas": 0,
+          "svg": 12,
+          "links": 36,
+          "buttons": 17
+        }
+      },
+      "consoleErrors": [],
+      "consoleWarnings": [],
+      "horizontalOverflow": [],
+      "resourceErrors": [],
+      "reportSource": "cdp"
+    }
+  },
+  "engine": "chrome_cli",
+  "chromiumExec": "/Users/wrg/Library/Caches/ms-playwright/chromium_headless_shell-1223/chrome-headless-shell-mac-arm64/chrome-headless-shell",
+  "engineDegraded": true,
+  "engineDegradedReason": "playwright 未装",
+  "elapsedSec": 3.45,
+  "schemaVersion": 2,
+  "status": "pass",
+  "engineInfo": {
+    "name": "chrome_cli",
+    "degraded": true,
+    "degradedReasons": [
+      "playwright 未装"
+    ]
+  },
+  "input": {
+    "original": "http://127.0.0.1:8610/web/index.html#/publish",
+    "resolvedPath": null,
+    "baseUrl": "http://127.0.0.1:8610/web/index.html#/publish",
+    "protocol": "http",
+    "cwd": "/Users/wrg/Important/uni-ai-video-templates",
+    "mediaMode": {
+      "reducedMotion": true
+    }
+  },
+  "artifacts": {
+    "screenshots": [
+      {
+        "viewport": "desktop",
+        "path": "/Users/wrg/Important/uni-ai-video-templates/web/_shots/publishC/127_0_0_1_desktop.jpg",
+        "size": 133915,
+        "visualCoverage": {
+          "complete": true,
+          "reason": null
+        }
+      }
+    ]
+  },
+  "summary": {
+    "blocker": 0,
+    "error": 0,
+    "warning": 0,
+    "info": 0
+  },
+  "findings": [],
+  "prioritizedActions": [],
+  "reportPath": "/Users/wrg/Important/uni-ai-video-templates/web/_shots/publishC/report.json"
+}

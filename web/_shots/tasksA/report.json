@@ -1,0 +1,192 @@
+{
+  "src": "http://127.0.0.1:8610/web/index.html#/tasks",
+  "url": "http://127.0.0.1:8610/web/index.html#/tasks",
+  "outdir": "/Users/wrg/Important/uni-ai-video-templates/web/_shots/tasksA",
+  "include": [
+    "lint",
+    "screenshots",
+    "structure"
+  ],
+  "shots": {
+    "desktop": {
+      "slices": [
+        "/Users/wrg/Important/uni-ai-video-templates/web/_shots/tasksA/127_0_0_1_desktop_p1of3.jpg",
+        "/Users/wrg/Important/uni-ai-video-templates/web/_shots/tasksA/127_0_0_1_desktop_p2of3.jpg",
+        "/Users/wrg/Important/uni-ai-video-templates/web/_shots/tasksA/127_0_0_1_desktop_p3of3.jpg"
+      ],
+      "sliceHint": "按顺序 Read slices 里的各分片。",
+      "truncated": false,
+      "structure": {
+        "title": "自媒体数字员工平台 · Uni AI Video Templates",
+        "firstH1": "自媒体数字员工平台",
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "fullpage": {
+          "w": 1440,
+          "h": 11279
+        },
+        "counts": {
+          "section": 9,
+          "h1": 4,
+          "h2": 6,
+          "img": 46,
+          "canvas": 0,
+          "svg": 53,
+          "links": 35,
+          "buttons": 17
+        }
+      },
+      "consoleErrors": [],
+      "consoleWarnings": [],
+      "horizontalOverflow": [],
+      "resourceErrors": [],
+      "orphanCardsWarning": [
+        {
+          "tag": "div",
+          "count": 10,
+          "cols": 3,
+          "rows": [
+            3,
+            3,
+            3,
+            1
+          ],
+          "rect": [
+            150,
+            558,
+            1140,
+            3328
+          ],
+          "cls": "b-cards"
+        },
+        {
+          "tag": "div",
+          "count": 4,
+          "cols": 3,
+          "rows": [
+            3,
+            1
+          ],
+          "rect": [
+            150,
+            5312,
+            1140,
+            1657
+          ],
+          "cls": "b-cards"
+        }
+      ],
+      "orphanCardsHint": "warning · 含义：等宽卡片组最后一行只剩 1 个（`rows` 是每行个数，如 `[3,1]`），右侧拖一大片空白、上重下轻。判据是 `N % C == 1`（卡片数对列数取余）。 | 修法：让列数序列**跳过**这一档——4 张走 `4 → 2 → 1`（跳过 3 列）。卡片数固定就直接给这个栅格改断点即可；数量运行时才定，用 `.cards:has(> :nth-child(4):last-child)` 配媒体查询切列数，**通用那条要写成 `:not(:has(...))` 与它互斥**，否则 `:has()` 特异性更高，会压住宽屏那档、把 4 张永久钉在 2 列。 | 豁免：(1) 2 列档不报——那时孤儿等价于 N 为奇数，无解；(2) 最后一个已跨满整行的不报；(3) 瀑布流、自然宽度、刻意的非对称布局。",
+      "reportSource": "cdp"
+    }
+  },
+  "engine": "chrome_cli",
+  "chromiumExec": "/Users/wrg/Library/Caches/ms-playwright/chromium_headless_shell-1223/chrome-headless-shell-mac-arm64/chrome-headless-shell",
+  "engineDegraded": true,
+  "engineDegradedReason": "playwright 未装",
+  "elapsedSec": 3.63,
+  "schemaVersion": 2,
+  "status": "warning",
+  "engineInfo": {
+    "name": "chrome_cli",
+    "degraded": true,
+    "degradedReasons": [
+      "playwright 未装"
+    ]
+  },
+  "input": {
+    "original": "http://127.0.0.1:8610/web/index.html#/tasks",
+    "resolvedPath": null,
+    "baseUrl": "http://127.0.0.1:8610/web/index.html#/tasks",
+    "protocol": "http",
+    "cwd": "/Users/wrg/Important/uni-ai-video-templates",
+    "mediaMode": {
+      "reducedMotion": true
+    }
+  },
+  "artifacts": {
+    "screenshots": [
+      {
+        "viewport": "desktop",
+        "tiles": [
+          "/Users/wrg/Important/uni-ai-video-templates/web/_shots/tasksA/127_0_0_1_desktop_p1of3.jpg",
+          "/Users/wrg/Important/uni-ai-video-templates/web/_shots/tasksA/127_0_0_1_desktop_p2of3.jpg",
+          "/Users/wrg/Important/uni-ai-video-templates/web/_shots/tasksA/127_0_0_1_desktop_p3of3.jpg"
+        ],
+        "visualCoverage": {
+          "complete": true,
+          "reason": null
+        }
+      }
+    ]
+  },
+  "summary": {
+    "blocker": 0,
+    "error": 0,
+    "warning": 2,
+    "info": 0
+  },
+  "findings": [
+    {
+      "ruleId": "orphanCardsWarning",
+      "severity": "warning",
+      "kind": "layout",
+      "viewport": "desktop",
+      "selector": "div.b-cards",
+      "evidence": {
+        "tag": "div",
+        "count": 10,
+        "cols": 3,
+        "rows": [
+          3,
+          3,
+          3,
+          1
+        ],
+        "rect": [
+          150,
+          558,
+          1140,
+          3328
+        ],
+        "cls": "b-cards"
+      },
+      "dedupeKey": "orphanCardsWarning|desktop|div.b-cards|0"
+    },
+    {
+      "ruleId": "orphanCardsWarning",
+      "severity": "warning",
+      "kind": "layout",
+      "viewport": "desktop",
+      "selector": "div.b-cards",
+      "evidence": {
+        "tag": "div",
+        "count": 4,
+        "cols": 3,
+        "rows": [
+          3,
+          1
+        ],
+        "rect": [
+          150,
+          5312,
+          1140,
+          1657
+        ],
+        "cls": "b-cards"
+      },
+      "dedupeKey": "orphanCardsWarning|desktop|div.b-cards|1"
+    }
+  ],
+  "prioritizedActions": [
+    {
+      "ruleId": "orphanCardsWarning",
+      "severity": "warning",
+      "viewport": "desktop",
+      "selector": "div.b-cards"
+    }
+  ],
+  "reportPath": "/Users/wrg/Important/uni-ai-video-templates/web/_shots/tasksA/report.json"
+}

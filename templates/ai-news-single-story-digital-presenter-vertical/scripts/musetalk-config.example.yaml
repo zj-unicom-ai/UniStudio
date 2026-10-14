@@ -1,0 +1,10 @@
+# MuseTalk v1.5 本地推理配置示例（封面口型）
+#
+# 复制为工程内的实际配置后，把两条路径改成本机绝对路径：
+#   video_path  —— 主持人形象图（正面、无遮挡、纯色或透明底效果最好）
+#   audio_path  —— 由 scripts/prepare_musetalk_audio.py 生成的 16 kHz 单声道 WAV
+# MuseTalk 代码与模型权重不随模板提供，安装方式见上游 README。
+task_0:
+  video_path: "assets/presenter/host-source.png"
+  audio_path: "assets/voice/cover-musetalk-input-16k.wav"
+  result_name: "host-cover-musetalk.mp4"

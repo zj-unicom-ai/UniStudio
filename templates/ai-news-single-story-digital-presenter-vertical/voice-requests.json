@@ -1,0 +1,37 @@
+{
+  "model": "omnivoice",
+  "voice": "YOUR_VOICE_ID",
+  "language": "zh",
+  "response_format": "wav",
+  "speed": 1.0,
+  "segments": [
+    {
+      "id": "00-intro",
+      "text": "大家好，今天是十月八日，星期四。欢迎来到刚哥聊 AI，我们不止看资讯，更看见本质。今天这条：Anthropic 补齐了 Claude 五点五家族，还把缓存读取的价格砍了一半。"
+    },
+    {
+      "id": "01-launch",
+      "text": "九月二十八日，Sonnet 五点五上线，官方称比上一代快百分之三十以上，Terminal-Bench 四点零得分从百分之十点三跳到百分之七十点六。十天后 Haiku 五点五接棒，被官方称为迄今最便宜、最快、能力最强的小模型。"
+    },
+    {
+      "id": "02-price",
+      "text": "价格的刀口落在缓存上：Sonnet 五点五缓存读取从每百万 token 零点二美元降到零点一美元，官方称长期任务成本因此再降约百分之二十。Haiku 五点五十万 token 以内，输入零点一、输出零点五美元，超过十万才涨到零点五和两点五。"
+    },
+    {
+      "id": "03-bench",
+      "text": "但第三方评测给出不同答案。Artificial Analysis 给 Sonnet 五点五智能指数五十六分，仅次于 Opus 五点五。而 Arena 的 Agent Arena 里它排第三，单任务中位成本两点七四美元，比第二名的 Opus 五点五高约百分之七十三，没有进入帕累托前沿。"
+    },
+    {
+      "id": "04-eco",
+      "text": "生态上，两款模型已在 Claude 平台、AWS、Google Cloud 和 Azure 全量上线，Cursor、OpenRouter、Devin 也陆续接入。但要提醒：Haiku 五点五的手动 extended thinking 会返回四百错误，为四点五写的代码可能失效。"
+    },
+    {
+      "id": "05-insight",
+      "text": "刚哥观察：这次把降价集中在缓存和长上下文，正是智能体任务最烧钱的两段。小模型跑高并发，大模型兜底，按能力分层计费正在成为默认形态。而榜单分歧也提醒我们，跑分接近，不等于性价比接近。"
+    },
+    {
+      "id": "99-outro",
+      "text": "以上就是今天的刚哥聊 AI。明天继续，看见资讯背后的本质。"
+    }
+  ]
+}

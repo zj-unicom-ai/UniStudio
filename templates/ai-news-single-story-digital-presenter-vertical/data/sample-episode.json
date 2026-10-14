@@ -1,0 +1,76 @@
+{
+  "date": "2026.10.08",
+  "cover": {
+    "em": "Claude 5.5",
+    "lines": ["两款新模型齐发，", "缓存价直接砍半"],
+    "slogan": "看懂AI资讯，看清背后本质",
+    "keywords": ["模型竞争", "定价策略", "评测分歧"]
+  },
+  "stories": [
+    {
+      "id": "launch",
+      "voice": "01-launch",
+      "kicker": "01 / 发布",
+      "title": "5.5 家族补齐",
+      "facts": [
+        "9 月 28 日 Claude Sonnet 5.5 上线：官方称比 Sonnet 5 快 30% 以上，多数任务成本最多降 30%，定价维持 $2 / $10 每百万 token。",
+        "Terminal-Bench 4.0 得分 70.6%，上一代 Sonnet 5 为 10.3%；并成为 claude.ai 免费档位模型。",
+        "10 月 7 日 Claude Haiku 5.5 接棒：官方称迄今最便宜、最快、能力最强的小模型。"
+      ],
+      "stat": {"value": "70.6%", "label": "Terminal-Bench 4.0", "note": "Sonnet 5 为 10.3%"},
+      "source": "Anthropic Newsroom · 2026-09-28 / 10-07"
+    },
+    {
+      "id": "price",
+      "voice": "02-price",
+      "kicker": "02 / 价格",
+      "title": "刀口落在缓存上",
+      "facts": [
+        "Sonnet 5.5 缓存读取 $0.20 → $0.10 每百万 token，官方称长期运行任务成本因此再降约 20%。",
+        "Haiku 5.5 在 10 万 token 以内：输入 $0.10、输出 $0.50、缓存读取 $0.01。",
+        "超过 10 万 token 升至 $0.50 / $2.50；Haiku 4.5 原价为 $1.00 / $5.00。"
+      ],
+      "stat": {"value": "-50%", "label": "缓存读取价", "note": "Sonnet 5.5 每百万 token"},
+      "source": "Claude · 2026-10-08 02:01"
+    },
+    {
+      "id": "bench",
+      "voice": "03-bench",
+      "kicker": "03 / 评测",
+      "title": "榜单不给同一答案",
+      "facts": [
+        "Artificial Analysis：Sonnet 5.5 智能指数 56 分，仅次于 Opus 5.5 (max)。",
+        "Arena Agent Arena：Sonnet 5.5 排第 3，净提升 +12.5%，Chat 类别排第 1。",
+        "但其单任务中位成本 $2.74，比第 2 名 Opus 5.5 的 $1.58 高约 73%，未进入 Pareto 前沿。"
+      ],
+      "stat": {"value": "$2.74", "label": "单任务中位成本", "note": "Opus 5.5 为 $1.58"},
+      "source": "Artificial Analysis · Arena（10-03 快照）"
+    },
+    {
+      "id": "eco",
+      "voice": "04-eco",
+      "kicker": "04 / 生态",
+      "title": "全渠道，但有坑",
+      "facts": [
+        "Claude 平台、Claude Code、AWS、Google Cloud、Azure 全量上线。",
+        "Cursor、OpenRouter、Devin、OpenCode 陆续接入；Haiku 5.5 支持 1M 上下文与 128k 输出。",
+        "迁移提醒：manual extended thinking 返回 400 错误，为 Haiku 4.5 写的代码可能失效。"
+      ],
+      "stat": {"value": "1M", "label": "上下文窗口", "note": "Haiku 5.5，128k 最大输出"},
+      "source": "Claude Platform 版本说明 · 10-07"
+    },
+    {
+      "id": "insight",
+      "voice": "05-insight",
+      "kicker": "05 / 刚哥观察",
+      "title": "降价降在刀刃上",
+      "facts": [
+        "缓存与长上下文是智能体任务最烧钱的两段，这次价格调整集中于此。",
+        "小模型跑高并发，大模型负责兜底，按能力分层计费正在成为默认形态。",
+        "榜单分歧提醒：跑分接近，不等于性价比接近。"
+      ],
+      "stat": null,
+      "source": "编辑判断 · 依据见 SOURCES.md"
+    }
+  ]
+}

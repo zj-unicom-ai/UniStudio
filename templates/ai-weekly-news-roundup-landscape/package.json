@@ -1,0 +1,10 @@
+{
+  "name": "ai-weekly-news-roundup-landscape",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.133 preview",
+    "check": "npx --yes hyperframes@0.8.133 check",
+    "render": "npx --yes hyperframes@0.8.133 render"
+  }
+}

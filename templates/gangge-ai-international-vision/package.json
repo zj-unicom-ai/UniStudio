@@ -1,0 +1,10 @@
+{
+  "name": "gangge-ai-international-vision",
+  "private": true,
+  "scripts": {
+    "compose": "python3 scripts/run_template.py compose",
+    "check": "python3 scripts/run_template.py check",
+    "render": "python3 scripts/run_template.py render",
+    "dev": "python3 scripts/run_template.py dev"
+  }
+}

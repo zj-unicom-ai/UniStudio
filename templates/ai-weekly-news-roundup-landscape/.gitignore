@@ -1,0 +1,12 @@
+.DS_Store
+__pycache__/
+*.pyc
+node_modules/
+out/
+preview/work-*/
+preview/.*.hf-transaction-*/
+voice-manifest.json
+assets/audio/*.wav
+assets/shots/*
+!assets/shots/.gitkeep
+data/my-episode.json

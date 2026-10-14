@@ -1,0 +1,954 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=1920, height=1080">
+<title>《一念三千》第 1 期</title>
+<style>@font-face {
+  font-family: "Noto Sans SC";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: block;
+  src: url("fonts/NotoSansSC-VF.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Noto Serif SC";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: block;
+  src: url("fonts/NotoSerifSC-VF.woff2") format("woff2");
+}
+</style>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#0d1116}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:#151A21;color:#E9E4D8;isolation:isolate;
+  font-family:'Noto Sans SC',system-ui,sans-serif}
+.serif,.ttl,.qt,.lttl,.ask,.op-title,.formula,.cl,.cq{font-family:'Noto Serif SC',serif}
+.flow{position:absolute;left:0;top:0;z-index:0;pointer-events:none}
+.fb,.fx{fill:none;stroke:#E9E4D8;stroke-width:1.3;stroke-linecap:round}
+.fx{stroke-opacity:.22;stroke-dasharray:120 880}
+.page{position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:2;visibility:hidden}
+.persist{position:absolute;z-index:3;visibility:hidden}
+.hdr{left:144px;right:144px;top:64px;display:flex;justify-content:space-between;font-size:33px;color:#9AA3AE}
+.hdr .no{font-variant-numeric:tabular-nums}
+.progress{left:144px;right:144px;bottom:56px}
+.segs{display:flex;gap:6px;height:9px}
+.seg{background:#3A4654;border-radius:5px}
+.segl{display:flex;gap:6px;margin-top:14px;font-size:27px;color:#9AA3AE}
+.sl{white-space:nowrap}
+.body{position:absolute;left:144px;right:144px;top:132px;bottom:132px;display:flex}
+/* 要点页 */
+.point .body{align-items:center;justify-content:space-between;gap:48px}
+.textcol{display:flex;gap:48px;align-items:stretch;min-width:0}
+.withIllus .textcol{width:1000px}
+.bar{width:6px;background:#B7A2D6;flex:none;transform-origin:50% 0}
+.tx{display:flex;flex-direction:column;gap:34px;min-width:0}
+.lbl{font-size:40px;color:#9AA3AE;letter-spacing:.04em}
+.ttl{font-weight:600;font-size:84px;line-height:1.28}
+.ln{white-space:nowrap}
+em{font-style:normal;color:#E8B66A}
+.rows{display:flex;flex-direction:column}
+.row{font-size:47px;line-height:1.4;padding:17px 0;border-top:1.5px solid #2C3642;white-space:nowrap}
+.formula{font-size:44px;color:#9AA3AE;letter-spacing:.06em;margin-top:10px;font-variant-numeric:tabular-nums}
+.illus{flex:none;width:660px;height:528px}
+.fl{width:660px;height:528px}
+/* 金句页 */
+.qbg{position:absolute;left:320px;top:28px;width:1280px;height:1024px;z-index:1}
+.q{flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:40px;z-index:2}
+.qt{font-weight:600;letter-spacing:.04em}
+.q1{font-size:150px;letter-spacing:.14em}.q2{font-size:108px;line-height:1.3}.q3{font-size:88px;line-height:1.32}
+.qln{white-space:nowrap}
+.subs{display:flex;flex-direction:column;gap:10px;min-height:60px}
+.sub{font-size:44px;line-height:1.5;color:#9AA3AE}
+/* 对照页 */
+.led{flex-direction:column;gap:34px;justify-content:center}
+.lttl{font-weight:600;font-size:68px;line-height:1.3}
+.cols{position:relative;display:flex;gap:80px}
+.col{flex:1;background:#1D242D;border-radius:20px;padding:44px 52px;display:flex;flex-direction:column;gap:22px;min-height:360px}
+.chead{font-size:34px;color:#9AA3AE;letter-spacing:.05em;margin-bottom:6px}
+.cl{font-size:50px;line-height:1.45}
+.cl.strong{font-weight:700;color:#FFF6E4}
+.mid{position:absolute;left:50%;top:44px;bottom:44px;width:2px;background:#2C3642}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.card{background:#1D242D;border-radius:20px;padding:36px 44px;display:flex;flex-direction:column;gap:14px;min-height:240px}
+.tag{font-size:34px;color:#9AA3AE}
+.cq{font-size:46px;line-height:1.45}
+/* 片头 */
+.opening{background:#151A21}
+.bg{position:absolute;left:0;top:0;width:1920px;height:1080px;object-fit:cover}
+.op{position:absolute;inset:0;padding:96px 144px;display:flex;flex-direction:column;justify-content:space-between}
+.op-mid{display:flex;flex-direction:column;gap:42px}
+.op-rule{width:96px;height:6px;background:#E8B66A;transform-origin:0 50%}
+.op-title{font-weight:600;font-size:168px;line-height:1.15;letter-spacing:.08em}
+.op-sub{font-size:60px;line-height:1.5}
+.op-slogan{font-size:39px;color:#9AA3AE;letter-spacing:.1em}
+/* 片尾 */
+.end{flex-direction:column;justify-content:center;gap:34px}
+.ask{font-weight:600;font-size:78px;line-height:1.4}
+.ask2{font-size:46px;color:#9AA3AE}
+.next{font-size:50px;margin-top:44px;padding-top:36px;border-top:1.5px solid #2C3642}
+.sign{font-size:38px;color:#9AA3AE;letter-spacing:.1em;margin-top:6px}
+</style></head>
+<body>
+<div id="stage" data-composition-id="yinian-ep01" data-width="1920" data-height="1080" data-start="0" data-duration="774.48" data-chapters='[{"name":"开场","start":0,"end":64.18,"dur":64.18},{"name":"现象","start":64.18,"end":206.1,"dur":141.92},{"name":"拆解","start":206.1,"end":494.05,"dur":287.95},{"name":"练习","start":494.05,"end":694.5500000000001,"dur":200.5},{"name":"收尾","start":694.55,"end":769.98,"dur":75.43}]'>
+<svg class="flow" data-layout-allow-overflow width="1920" height="1080" viewBox="0 0 1280 720" aria-hidden="true">
+<defs>
+<path id="fp1" pathLength="1000" d="M-40 180 C 300 130, 560 230, 840 170 S 1160 120, 1320 190"/>
+<path id="fp2" pathLength="1000" d="M-40 250 C 220 190, 460 330, 700 270 S 1100 200, 1320 280"/>
+<path id="fp3" pathLength="1000" d="M-40 330 C 260 400, 520 260, 780 340 S 1120 420, 1320 340"/>
+<path id="fp4" pathLength="1000" d="M-40 430 C 200 380, 480 500, 760 440 S 1120 380, 1320 450"/>
+<path id="fp5" pathLength="1000" d="M-40 520 C 280 580, 540 470, 820 530 S 1140 590, 1320 520"/>
+<path id="fp6" pathLength="1000" d="M-40 600 C 240 540, 500 650, 760 600 S 1120 540, 1320 610"/>
+</defs>
+<use href="#fp1" class="fb" stroke-opacity="0.05"/><use href="#fp2" class="fb" stroke-opacity="0.07"/><use href="#fp3" class="fb" stroke-opacity="0.09"/><use href="#fp4" class="fb" stroke-opacity="0.07"/><use href="#fp5" class="fb" stroke-opacity="0.06"/><use href="#fp6" class="fb" stroke-opacity="0.05"/>
+<use href="#fp1" class="fx"/><use href="#fp2" class="fx"/><use href="#fp3" class="fx"/><use href="#fp4" class="fx"/><use href="#fp5" class="fx"/><use href="#fp6" class="fx"/>
+</svg>
+<div class="hdr persist"><div>一念三千</div><div class="no">第 1 期</div></div>
+<div class="progress persist"><div class="segs"><div class="seg" data-i="0" style="flex:64.18"></div><div class="seg" data-i="1" style="flex:141.92"></div><div class="seg" data-i="2" style="flex:287.95"></div><div class="seg" data-i="3" style="flex:200.5"></div><div class="seg" data-i="4" style="flex:75.43"></div></div>
+<div class="segl"><div class="sl" data-i="0" style="flex:64.18">开场</div><div class="sl" data-i="1" style="flex:141.92">现象</div><div class="sl" data-i="2" style="flex:287.95">拆解</div><div class="sl" data-i="3" style="flex:200.5">练习</div><div class="sl" data-i="4" style="flex:75.43">收尾</div></div></div>
+
+<section id="p01" class="clip page opening" data-start="0" data-duration="5.849" data-track-index="1" data-ch="0" data-speech="0">
+<img class="bg" src="vendor/cover-bg.jpg" alt="">
+<div class="op">
+  <div class="op-top"></div>
+  <div class="op-mid">
+    <div class="op-rule"></div>
+    <div class="op-title">一念三千</div>
+    <div class="op-sub">第 1 期　同一件事，为什么你我活成了两个世界</div>
+  </div>
+  <div class="op-slogan">一个念头，想透一个世界</div>
+</div></section>
+
+<section id="p02" class="clip page point" data-start="5.85" data-duration="8.309" data-track-index="1" data-ch="0" data-speech="6.96"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">一个很小的场景</div>
+    <h1 class="ttl"><div class="ln">同事路过，</div><div class="ln">随口一句：</div><div class="ln">“我再<em>想想</em>”</div></h1>
+    <div class="rows"></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path class="d" d="M60 296 H340" stroke-opacity=".35" pathLength="1"/>
+<rect class="d" x="214" y="186" width="106" height="72" rx="6" stroke-opacity=".5" pathLength="1"/>
+<path class="d" d="M267 258 V282 M244 282 H290" stroke-opacity=".5" pathLength="1"/>
+<path class="d" d="M70 56 H208 A24 24 0 0 1 232 80 V118 A24 24 0 0 1 208 142 H128 L92 170 V142 H70 A24 24 0 0 1 46 118 V80 A24 24 0 0 1 70 56 Z" pathLength="1"/>
+<circle class="f" cx="100" cy="99" r="6" fill="#E9E4D8" stroke="none" fill-opacity=".8"/>
+<circle class="f" cx="139" cy="99" r="6" fill="#E9E4D8" stroke="none" fill-opacity=".8"/>
+<circle class="a" cx="178" cy="99" r="6" fill="#E8B66A" stroke="none"/></svg></div></div>
+</div></section>
+
+<section id="p03" class="clip page point" data-start="14.16" data-duration="15.229" data-track-index="1" data-ch="0" data-speech="13.88"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">接下来的三秒钟</div>
+    <h1 class="ttl"><div class="ln">三秒钟，</div><div class="ln">演完一整<em>部戏</em></div></h1>
+    <div class="rows"><div class="row" data-at="6.15">他是不是不满意？</div><div class="row" data-at="7.54">是不是要换人做？</div><div class="row" data-at="8.93">明天会不会被叫去谈话？</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle class="halo" cx="300" cy="170" r="84" stroke-opacity=".14"/>
+<circle class="halo" cx="300" cy="170" r="104" stroke-opacity=".08"/>
+<path class="d" d="M82 170 H138 M196 170 H236" stroke-dasharray="" stroke-opacity=".45" pathLength="1"/>
+<circle class="d" cx="70" cy="170" r="12" fill="none" pathLength="1"/>
+<circle class="d" cx="170" cy="170" r="30" stroke-opacity=".8" pathLength="1"/>
+<circle class="d" cx="300" cy="170" r="64" stroke-opacity=".65" pathLength="1"/>
+<circle class="f" cx="300" cy="170" r="42" stroke-opacity=".25"/>
+<circle class="a" cx="70" cy="170" r="6" fill="#E8B66A" stroke="none"/></svg></div></div>
+</div></section>
+
+<section id="p04" class="clip page point" data-start="29.39" data-duration="9.329" data-track-index="1" data-ch="0" data-speech="7.98"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">同样一句话</div>
+    <h1 class="ttl"><div class="ln">话只有一句，</div><div class="ln"><em>世界</em>分成了两个</div></h1>
+    <div class="rows"><div class="row" data-at="1">换一个人，听到同样一句话</div><div class="row" data-at="3.38">想的是：太好了，他认真看了</div><div class="row" data-at="4.94">还要再斟酌</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path class="d" d="M200 52 V268" stroke-dasharray="" stroke-opacity=".25" pathLength="1"/>
+<circle class="d" cx="136" cy="160" r="82" stroke-opacity=".65" pathLength="1"/>
+<circle class="d" cx="264" cy="160" r="82" stroke="#E8B66A" pathLength="1"/>
+<circle class="f" cx="136" cy="160" r="7" fill="#E9E4D8" stroke="none" fill-opacity=".85"/>
+<circle class="a" cx="264" cy="160" r="7" fill="#E8B66A" stroke="none"/>
+<circle class="halo" cx="264" cy="160" r="26" stroke="#E8B66A" stroke-opacity=".45"/></svg></div></div>
+</div></section>
+
+<section id="p05" class="clip page quote" data-start="38.72" data-duration="7.749" data-track-index="1" data-ch="0" data-speech="6.4"><div class="qbg"><svg viewBox="0 0 400 320" width="1280" height="1024" fill="none" stroke="#E9E4D8" stroke-width="1.2" style="opacity:.16">
+<g class="spin" data-deg="-24"><circle class="d" pathLength="1" cx="200" cy="160" r="46" stroke-opacity=".9"/></g>
+<g class="spin" data-deg="18"><circle class="d" pathLength="1" cx="200" cy="160" r="78" stroke-opacity=".6"/></g>
+<g class="spin" data-deg="-12"><circle class="d" pathLength="1" cx="200" cy="160" r="112" stroke-opacity=".35"/></g>
+
+</svg></div>
+<div class="body q">
+  <div class="lbl">一千四百多年前</div>
+  <h1 class="qt q1"><div class="qln"><em>一念三千</em></div></h1>
+  <div class="subs"><div class="sub" data-at="2.71">四个字，说的就是这件事</div><div class="sub" data-at="5.34">天台宗 · 智顗</div></div>
+</div></section>
+
+<section id="p06" class="clip page point" data-start="46.47" data-duration="17.709" data-track-index="1" data-ch="0" data-speech="16.36"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">这一期，做三件事</div>
+    <h1 class="ttl"><div class="ln">这一期，</div><div class="ln">只做<em>三件事</em></div></h1>
+    <div class="rows"><div class="row" data-at="7.69">它到底说了什么</div><div class="row" data-at="9.01">为什么今天依然有用</div><div class="row" data-at="11.65">明天，怎么用它</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle class="d" cx="200" cy="160" r="100" stroke-opacity=".2" pathLength="1"/>
+<circle class="f" cx="200.0" cy="60.0" r="12" fill="#E8B66A" stroke="none"/><circle class="f" cx="258.8" cy="79.1" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/><circle class="f" cx="295.1" cy="129.1" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/><circle class="f" cx="295.1" cy="190.9" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/><circle class="f" cx="258.8" cy="240.9" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/><circle class="f" cx="200.0" cy="260.0" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/><circle class="f" cx="141.2" cy="240.9" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/><circle class="f" cx="104.9" cy="190.9" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/><circle class="f" cx="104.9" cy="129.1" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/><circle class="f" cx="141.2" cy="79.1" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/>
+<circle class="f" cx="200" cy="160" r="5" fill="#E9E4D8" stroke="none" fill-opacity=".8"/></svg></div></div>
+</div></section>
+
+<section id="p07" class="clip page point" data-start="64.18" data-duration="6.509" data-track-index="1" data-ch="1" data-speech="5.16"><div class="body ">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">现象 · 四个场景</div>
+    <h1 class="ttl"><div class="ln">先看<em>四个</em>场景</div></h1>
+    <div class="rows"><div class="row" data-at="1.38">场景一 · 加班</div><div class="row" data-at="2.41">场景二 · 家里的电话</div><div class="row" data-at="3.45">场景三 · 账单</div><div class="row" data-at="4.48">场景四 · 一个人的周末夜</div></div>
+  </div></div>
+  
+</div></section>
+
+<section id="p08" class="clip page point" data-start="70.69" data-duration="15.919" data-track-index="1" data-ch="1" data-speech="14.57"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">场景一 · 加班</div>
+    <h1 class="ttl"><div class="ln">同一件事，</div><div class="ln">三种<em>念头</em></div></h1>
+    <div class="rows"><div class="row" data-at="3.81">甲：我的时间不是自己的</div><div class="row" data-at="7.54">乙：这是多学一点的机会</div><div class="row" data-at="11.74">丙：是不是我不够好</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle class="halo" cx="226" cy="187" r="54" fill="#E8B66A" fill-opacity=".04" stroke="none"/>
+<circle class="halo" cx="226" cy="187" r="34" fill="#E8B66A" fill-opacity=".07" stroke="none"/>
+<path class="d" d="M40 300 H360" stroke-opacity=".5" pathLength="1"/>
+<path class="d" d="M52 300 V198 H108 V300" stroke-opacity=".55" pathLength="1"/>
+<path class="d" d="M300 300 V150 H356 V300" stroke-opacity=".55" pathLength="1"/>
+<path class="d" d="M120 300 V76 H290 V300" pathLength="1"/>
+<g class="f" stroke-opacity=".3"><path d="M68 218 H80 M86 218 H98 M68 240 H80 M86 240 H98 M316 172 H328 M334 172 H346 M316 194 H328 M334 194 H346 M316 216 H328 M334 216 H346"/></g>
+<g class="f" stroke-opacity=".5"><rect x="138" y="96" width="24" height="22" rx="2"/><rect x="176" y="96" width="24" height="22" rx="2"/><rect x="214" y="96" width="24" height="22" rx="2"/><rect x="252" y="96" width="24" height="22" rx="2"/><rect x="138" y="136" width="24" height="22" rx="2"/><rect x="176" y="136" width="24" height="22" rx="2"/><rect x="214" y="136" width="24" height="22" rx="2"/><rect x="252" y="136" width="24" height="22" rx="2"/><rect x="138" y="176" width="24" height="22" rx="2"/><rect x="176" y="176" width="24" height="22" rx="2"/><rect x="252" y="176" width="24" height="22" rx="2"/><rect x="138" y="216" width="24" height="22" rx="2"/><rect x="176" y="216" width="24" height="22" rx="2"/><rect x="214" y="216" width="24" height="22" rx="2"/><rect x="252" y="216" width="24" height="22" rx="2"/><rect x="138" y="256" width="24" height="22" rx="2"/><rect x="176" y="256" width="24" height="22" rx="2"/><rect x="214" y="256" width="24" height="22" rx="2"/><rect x="252" y="256" width="24" height="22" rx="2"/></g>
+<circle class="d" cx="330" cy="62" r="16" stroke-opacity=".8" pathLength="1"/>
+<rect class="a" x="214" y="176" width="24" height="22" rx="2" fill="#E8B66A" stroke="#E8B66A"/>
+<circle class="a" cx="226" cy="185" r="3.5" fill="#151A21" stroke="none"/>
+<path class="a" d="M219 198 Q219 192 226 192 Q233 192 233 198 Z" fill="#151A21" stroke="none"/></svg></div></div>
+</div></section>
+
+<section id="p09" class="clip page point" data-start="86.61" data-duration="10.109" data-track-index="1" data-ch="1" data-speech="8.76"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">场景一 · 加班</div>
+    <h1 class="ttl"><div class="ln">同一间办公室，</div><div class="ln"><em>三个</em>世界</div></h1>
+    <div class="rows"><div class="row" data-at="1.93">甲 · 坐在愤怒里</div><div class="row" data-at="3.11">乙 · 坐在盘算里</div><div class="row" data-at="4.29">丙 · 坐在自责里</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path class="d" d="M40 262 H360" stroke-opacity=".3" pathLength="1"/>
+<circle class="d" cx="78" cy="160" r="52" stroke-opacity=".6" pathLength="1"/>
+<circle class="d" cx="200" cy="160" r="52" stroke-opacity=".6" pathLength="1"/>
+<circle class="d" cx="322" cy="160" r="52" stroke-opacity=".6" pathLength="1"/>
+<circle class="f" cx="78" cy="160" r="6" fill="#E9E4D8" stroke="none" fill-opacity=".8"/>
+<circle class="f" cx="322" cy="160" r="6" fill="#E9E4D8" stroke="none" fill-opacity=".8"/>
+<circle class="a" cx="200" cy="160" r="6" fill="#E8B66A" stroke="none"/></svg></div></div>
+</div></section>
+
+<section id="p10" class="clip page point" data-start="96.72" data-duration="16.629" data-track-index="1" data-ch="1" data-speech="15.28"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">场景二 · 家里的电话</div>
+    <h1 class="ttl"><div class="ln">同一句话，</div><div class="ln">三种<em>听法</em></div></h1>
+    <div class="rows"><div class="row" data-at="5.49">听成了关心</div><div class="row" data-at="6.8">听成了否定</div><div class="row" data-at="8.11">听成了：我又让她失望了</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect class="d" x="150" y="58" width="100" height="200" rx="18" pathLength="1"/>
+<path class="d" d="M186 72 H214" stroke-opacity=".5" pathLength="1"/>
+<circle class="d" cx="200" cy="124" r="24" stroke-opacity=".7" pathLength="1"/>
+<path class="f" d="M178 170 H222 M186 186 H214" stroke-opacity=".45"/>
+<circle class="f" cx="172" cy="226" r="12" stroke-opacity=".6"/>
+<path class="d pulse" d="M262.3 46.2 A36 36 0 0 1 285.9 76.9" stroke-opacity=".8" pathLength="1"/>
+<path class="d pulse" d="M270.5 23.6 A60 60 0 0 1 309.8 74.8" stroke-opacity=".55" pathLength="1"/>
+<path class="d pulse" d="M293 5.5 A86 86 0 0 1 335.7 72.5" stroke-opacity=".35" pathLength="1"/>
+<path class="d" d="M60 296 H340" stroke-opacity=".35" pathLength="1"/>
+<circle class="a" cx="200" cy="124" r="5" fill="#E8B66A" stroke="none"/>
+<circle class="a" cx="228" cy="226" r="12" stroke="#E8B66A"/></svg></div></div>
+</div></section>
+
+<section id="p11" class="clip page ledger" data-start="113.35" data-duration="15.229" data-track-index="1" data-ch="1" data-speech="13.88"><div class="body led">
+  <div class="lbl">场景三 · 账单</div>
+  <h1 class="lttl">同一个数字，两种<em>日子</em></h1>
+  <div class="cols"><div class="col " data-at="1">
+  <div class="chead">发生了什么</div>
+  <div class="cl" data-at="1.41">月底，账户里剩下的数字</div>
+</div><div class="col colR" data-at="1.25">
+  <div class="chead">我对它说了什么</div>
+  <div class="cl" data-at="3.89">还撑得住，比上个月好一点</div><div class="cl strong" data-at="7.85">又见底了，我是不是一辈子都这样</div>
+</div><div class="mid"></div></div>
+</div></section>
+
+<section id="p12" class="clip page point" data-start="128.58" data-duration="18.609" data-track-index="1" data-ch="1" data-speech="17.26"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">场景四 · 一个人的周末夜</div>
+    <h1 class="ttl"><div class="ln">同一种安静，</div><div class="ln">两种<em>滋味</em></div></h1>
+    <div class="rows"><div class="row" data-at="5.46">终于没有人需要我了，真好</div><div class="row" data-at="8.23">我是不是被世界忘了</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path class="d" d="M40 292 H360" stroke-opacity=".45" pathLength="1"/>
+<rect class="d" x="64" y="52" width="124" height="148" rx="4" stroke-opacity=".7" pathLength="1"/>
+<path class="d" d="M126 52 V200 M64 126 H188" stroke-opacity=".4" pathLength="1"/>
+<path class="d" d="M156 82 A20 20 0 1 0 170 118 A15 15 0 0 1 156 82 Z" stroke-opacity=".8" pathLength="1"/>
+<path class="d" d="M70 292 V246 H218 V292 M70 246 V222 H98 V246" stroke-opacity=".6" pathLength="1"/>
+<path class="d" d="M286 292 H334 M310 292 V186" stroke-opacity=".7" pathLength="1"/>
+<path class="d" d="M280 186 L292 140 H328 L340 186 Z" pathLength="1"/>
+<path class="a" d="M280 186 L292 140 H328 L340 186 Z" fill="#E8B66A" fill-opacity=".14" stroke="none"/>
+<circle class="halo" cx="310" cy="190" r="52" fill="#E8B66A" fill-opacity=".05" stroke="none"/>
+<circle class="a" cx="310" cy="166" r="5" fill="#E8B66A" stroke="none"/></svg></div></div>
+</div></section>
+
+<section id="p13" class="clip page point" data-start="147.19" data-duration="11.469" data-track-index="1" data-ch="1" data-speech="10.12"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">共同点</div>
+    <h1 class="ttl"><div class="ln">把事情变成世界的，</div><div class="ln">是紧接着的那一<em>念</em></div></h1>
+    <div class="rows"><div class="row" data-at="4.2">事件：发生了，还没有定</div><div class="row" data-at="8.14">念头：紧接着冒出来</div><div class="row" data-at="6.77">世界：你所经验到的一切</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle class="d" cx="62" cy="160" r="14" stroke-opacity=".7" pathLength="1"/>
+<path class="d" d="M86 160 H138 M130 152 L138 160 L130 168" stroke-opacity=".5" pathLength="1"/>
+<circle class="d" cx="178" cy="160" r="26" stroke="#E8B66A" pathLength="1"/>
+<path class="d" d="M214 160 H252 M244 152 L252 160 L244 168" stroke-opacity=".5" pathLength="1"/>
+<circle class="d" cx="326" cy="160" r="60" stroke-opacity=".6" pathLength="1"/>
+<circle class="f" cx="326" cy="160" r="40" stroke-opacity=".25"/>
+<circle class="f" cx="326" cy="160" r="20" stroke-opacity=".15"/>
+<circle class="a" cx="178" cy="160" r="7" fill="#E8B66A" stroke="none"/></svg></div></div>
+</div></section>
+
+<section id="p14" class="clip page ledger" data-start="158.66" data-duration="15.589" data-track-index="1" data-ch="1" data-speech="14.24"><div class="body led">
+  <div class="lbl">麻烦在于</div>
+  <h1 class="lttl">我们把念头，当成了<em>事实</em></h1>
+  <div class="cols"><div class="col " data-at="1">
+  <div class="chead">我们说</div>
+  <div class="cl" data-at="5.63">他就是看不起我</div>
+</div><div class="col colR" data-at="1.25">
+  <div class="chead">其实是</div>
+  <div class="cl" data-at="7.84">我此刻有一个念头，</div><div class="cl strong" data-at="9.9">认为他看不起我</div>
+</div><div class="mid"></div></div>
+</div></section>
+
+<section id="p15" class="clip page point" data-start="174.25" data-duration="17.949" data-track-index="1" data-ch="1" data-speech="16.6"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">更麻烦的是</div>
+    <h1 class="ttl"><div class="ln">念头，会<em>自己</em>长大</div></h1>
+    <div class="rows"><div class="row" data-at="5.95">他不满意</div><div class="row" data-at="7.57">我是不是不行</div><div class="row" data-at="9.69">我是不是这辈子就这样了</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle class="halo" cx="300" cy="170" r="84" stroke-opacity=".14"/>
+<circle class="halo" cx="300" cy="170" r="104" stroke-opacity=".08"/>
+<path class="d" d="M82 170 H138 M196 170 H236" stroke-dasharray="" stroke-opacity=".45" pathLength="1"/>
+<circle class="d" cx="70" cy="170" r="12" fill="none" pathLength="1"/>
+<circle class="d" cx="170" cy="170" r="30" stroke-opacity=".8" pathLength="1"/>
+<circle class="d" cx="300" cy="170" r="64" stroke-opacity=".65" pathLength="1"/>
+<circle class="f" cx="300" cy="170" r="42" stroke-opacity=".25"/>
+<circle class="a" cx="70" cy="170" r="6" fill="#E8B66A" stroke="none"/></svg></div></div>
+</div></section>
+
+<section id="p16" class="clip page quote" data-start="192.2" data-duration="13.899" data-track-index="1" data-ch="1" data-speech="12.55"><div class="qbg"><svg viewBox="0 0 400 320" width="1280" height="1024" fill="none" stroke="#E9E4D8" stroke-width="1.2" style="opacity:.16">
+<g class="spin" data-deg="-24"><circle class="d" pathLength="1" cx="200" cy="160" r="46" stroke-opacity=".9"/></g>
+<g class="spin" data-deg="18"><circle class="d" pathLength="1" cx="200" cy="160" r="78" stroke-opacity=".6"/></g>
+<g class="spin" data-deg="-12"><circle class="d" pathLength="1" cx="200" cy="160" r="112" stroke-opacity=".35"/></g>
+
+</svg></div>
+<div class="body q">
+  <div class="lbl">于是问题来了</div>
+  <h1 class="qt q2"><div class="qln">这一个<em>念头</em>，</div><div class="qln">究竟是什么？</div></h1>
+  <div class="subs"><div class="sub" data-at="3.35">凭什么，把一个晚上、一通电话、一个数字，变成一整个世界</div><div class="sub" data-at="10.52">先回到一千四百多年前</div></div>
+</div></section>
+
+<section id="p17" class="clip page point" data-start="206.1" data-duration="18.109" data-track-index="1" data-ch="2" data-speech="16.76"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">一念三千 · 它从哪里来</div>
+    <h1 class="ttl"><div class="ln">智顗《摩诃止观》</div></h1>
+    <div class="rows"><div class="row" data-at="1.4">天台宗 · 六世纪</div><div class="row" data-at="8.96">智顗，人称智者大师</div><div class="row" data-at="13.56">“介尔有心，即具三千”</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path class="d" d="M18 286 L110 160 L158 218 L246 82 L330 214 L382 286" stroke-opacity=".8" pathLength="1"/>
+<path class="d" d="M18 286 H382" stroke-opacity=".3" pathLength="1"/>
+<path class="d" d="M60 240 L110 206 L176 262" stroke-opacity=".3" pathLength="1"/>
+<path class="d" d="M104 160 V146 M92 146 H128 M98 146 L110 130 L122 146" stroke-opacity=".7" pathLength="1"/>
+<path class="d" d="M286 128 C296 120, 310 120, 322 126" stroke-opacity=".3" pathLength="1"/>
+<circle class="a" cx="318" cy="64" r="16" fill="#E8B66A" stroke="none"/>
+<circle class="halo" cx="318" cy="64" r="32" stroke="#E8B66A" stroke-opacity=".4"/></svg></div></div>
+</div></section>
+
+<section id="p18" class="clip page quote" data-start="224.21" data-duration="12.149" data-track-index="1" data-ch="2" data-speech="10.8"><div class="qbg"><svg viewBox="0 0 400 320" width="1280" height="1024" fill="none" stroke="#E9E4D8" stroke-width="1.2" style="opacity:.16">
+<g class="spin" data-deg="-24"><circle class="d" pathLength="1" cx="200" cy="160" r="46" stroke-opacity=".9"/></g>
+<g class="spin" data-deg="18"><circle class="d" pathLength="1" cx="200" cy="160" r="78" stroke-opacity=".6"/></g>
+<g class="spin" data-deg="-12"><circle class="d" pathLength="1" cx="200" cy="160" r="112" stroke-opacity=".35"/></g>
+
+</svg></div>
+<div class="body q">
+  <div class="lbl">介尔有心，即具三千</div>
+  <h1 class="qt q2"><div class="qln">刚冒出来的一个念头，</div><div class="qln">里面已有<em>整个世界</em></div></h1>
+  <div class="subs"><div class="sub" data-at="1">介尔：极其细微</div><div class="sub" data-at="4.22">不用想得很深、很多</div></div>
+</div></section>
+
+<section id="p19" class="clip page point" data-start="236.36" data-duration="7.709" data-track-index="1" data-ch="2" data-speech="6.36"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">“三千”怎么来</div>
+    <h1 class="ttl"><div class="ln">“三千”，</div><div class="ln">是<em>算出来</em>的</div></h1>
+    <div class="rows"><div class="row" data-at="3.6">不是玄数，是一道算式</div><div class="row" data-at="5.44">四步，就能算完</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<g class="spin" data-deg="-24"><circle class="d" cx="200" cy="160" r="46" stroke-opacity=".9" pathLength="1"/></g>
+<g class="spin" data-deg="18"><circle class="d" cx="200" cy="160" r="78" stroke-opacity=".6" pathLength="1"/></g>
+<g class="spin" data-deg="-12"><circle class="d" cx="200" cy="160" r="112" stroke-opacity=".35" pathLength="1"/></g>
+<circle class="a" cx="200" cy="160" r="10" fill="#E8B66A" stroke="none"/>
+<circle class="halo" cx="200" cy="160" r="22" stroke="#E8B66A" stroke-opacity=".5"/></svg></div></div>
+</div></section>
+
+<section id="p20" class="clip page point" data-start="244.07" data-duration="15.939" data-track-index="1" data-ch="2" data-speech="14.59"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">第一步</div>
+    <h1 class="ttl"><div class="ln">十法界：</div><div class="ln">十种<em>生命状态</em></div></h1>
+    <div class="rows"><div class="row" data-at="3.63">地狱 · 饿鬼 · 畜生</div><div class="row" data-at="5.47">阿修罗 · 人 · 天</div><div class="row" data-at="7.16">声闻 · 缘觉 · 菩萨 · 佛</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle class="d" cx="200" cy="160" r="100" stroke-opacity=".2" pathLength="1"/>
+<circle class="f" cx="200.0" cy="60.0" r="12" fill="#E8B66A" stroke="none"/><circle class="f" cx="258.8" cy="79.1" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/><circle class="f" cx="295.1" cy="129.1" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/><circle class="f" cx="295.1" cy="190.9" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/><circle class="f" cx="258.8" cy="240.9" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/><circle class="f" cx="200.0" cy="260.0" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/><circle class="f" cx="141.2" cy="240.9" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/><circle class="f" cx="104.9" cy="190.9" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/><circle class="f" cx="104.9" cy="129.1" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/><circle class="f" cx="141.2" cy="79.1" r="12" fill="#E9E4D8" fill-opacity=".7" stroke="none"/>
+<circle class="f" cx="200" cy="160" r="5" fill="#E9E4D8" stroke="none" fill-opacity=".8"/></svg></div></div>
+</div></section>
+
+<section id="p21" class="clip page point" data-start="260.01" data-duration="12.079" data-track-index="1" data-ch="2" data-speech="10.73"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">第二步</div>
+    <h1 class="ttl"><div class="ln">互具：</div><div class="ln">一界之中，含<em>十界</em></div></h1>
+    <div class="rows"><div class="row" data-at="5.77">地狱里，藏着觉醒的可能</div><div class="row" data-at="7.51">觉醒者，也有地狱的痕迹</div></div><div class="formula" data-at="8.68">10 × 10 = 100</div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="d" cx="200" cy="160" r="100" stroke-opacity=".18" pathLength="1"/><circle class="f" cx="200.0" cy="60.0" r="18" stroke-width="3" stroke-dasharray="0 11.31" stroke="#E8B66A"/><circle class="f" cx="258.8" cy="79.1" r="18" stroke-width="3" stroke-dasharray="0 11.31" stroke-opacity=".65"/><circle class="f" cx="295.1" cy="129.1" r="18" stroke-width="3" stroke-dasharray="0 11.31" stroke-opacity=".65"/><circle class="f" cx="295.1" cy="190.9" r="18" stroke-width="3" stroke-dasharray="0 11.31" stroke-opacity=".65"/><circle class="f" cx="258.8" cy="240.9" r="18" stroke-width="3" stroke-dasharray="0 11.31" stroke-opacity=".65"/><circle class="f" cx="200.0" cy="260.0" r="18" stroke-width="3" stroke-dasharray="0 11.31" stroke-opacity=".65"/><circle class="f" cx="141.2" cy="240.9" r="18" stroke-width="3" stroke-dasharray="0 11.31" stroke-opacity=".65"/><circle class="f" cx="104.9" cy="190.9" r="18" stroke-width="3" stroke-dasharray="0 11.31" stroke-opacity=".65"/><circle class="f" cx="104.9" cy="129.1" r="18" stroke-width="3" stroke-dasharray="0 11.31" stroke-opacity=".65"/><circle class="f" cx="141.2" cy="79.1" r="18" stroke-width="3" stroke-dasharray="0 11.31" stroke-opacity=".65"/><circle class="f" cx="200.0" cy="60.0" r="6" fill="#E8B66A" stroke="#E8B66A"/><circle class="f" cx="258.8" cy="79.1" r="6" fill="#151A21"/><circle class="f" cx="295.1" cy="129.1" r="6" fill="#151A21"/><circle class="f" cx="295.1" cy="190.9" r="6" fill="#151A21"/><circle class="f" cx="258.8" cy="240.9" r="6" fill="#151A21"/><circle class="f" cx="200.0" cy="260.0" r="6" fill="#151A21"/><circle class="f" cx="141.2" cy="240.9" r="6" fill="#151A21"/><circle class="f" cx="104.9" cy="190.9" r="6" fill="#151A21"/><circle class="f" cx="104.9" cy="129.1" r="6" fill="#151A21"/><circle class="f" cx="141.2" cy="79.1" r="6" fill="#151A21"/>
+<circle class="f" cx="200" cy="160" r="16" stroke-opacity=".5"/><circle class="f" cx="200" cy="160" r="5" fill="#E9E4D8" stroke="none"/></svg></div></div>
+</div></section>
+
+<section id="p22" class="clip page point" data-start="272.09" data-duration="11.939" data-track-index="1" data-ch="2" data-speech="10.59"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">第三步</div>
+    <h1 class="ttl"><div class="ln">十如是：</div><div class="ln">十个<em>侧面</em></div></h1>
+    <div class="rows"><div class="row" data-at="3.93">相貌 · 本性 · 本体</div><div class="row" data-at="5.25">力量 · 作为</div><div class="row" data-at="6.13">原因 · 条件 · 结果 · 果报</div></div><div class="formula" data-at="8.54">100 × 10 = 1000</div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="d" cx="200" cy="160" r="30" pathLength="1"/><path class="d" d="M200.0 116.0 L200.0 68.0" stroke-opacity=".6" pathLength="1"/><path class="d" d="M225.9 124.4 L254.1 85.6" stroke-opacity=".6" pathLength="1"/><path class="d" d="M241.8 146.4 L287.5 131.6" stroke-opacity=".6" pathLength="1"/><path class="d" d="M241.8 173.6 L287.5 188.4" stroke-opacity=".6" pathLength="1"/><path class="d" d="M225.9 195.6 L254.1 234.4" stroke-opacity=".6" pathLength="1"/><path class="d" d="M200.0 204.0 L200.0 252.0" stroke-opacity=".6" pathLength="1"/><path class="d" d="M174.1 195.6 L145.9 234.4" stroke-opacity=".6" pathLength="1"/><path class="d" d="M158.2 173.6 L112.5 188.4" stroke-opacity=".6" pathLength="1"/><path class="d" d="M158.2 146.4 L112.5 131.6" stroke-opacity=".6" pathLength="1"/><path class="d" d="M174.1 124.4 L145.9 85.6" stroke-opacity=".6" pathLength="1"/><circle class="f" cx="200.0" cy="54.0" r="7" stroke="#E8B66A"/><circle class="f" cx="262.3" cy="74.2" r="7" stroke-opacity=".7"/><circle class="f" cx="300.8" cy="127.2" r="7" stroke-opacity=".7"/><circle class="f" cx="300.8" cy="192.8" r="7" stroke-opacity=".7"/><circle class="f" cx="262.3" cy="245.8" r="7" stroke-opacity=".7"/><circle class="f" cx="200.0" cy="266.0" r="7" stroke-opacity=".7"/><circle class="f" cx="137.7" cy="245.8" r="7" stroke-opacity=".7"/><circle class="f" cx="99.2" cy="192.8" r="7" stroke-opacity=".7"/><circle class="f" cx="99.2" cy="127.2" r="7" stroke-opacity=".7"/><circle class="f" cx="137.7" cy="74.2" r="7" stroke-opacity=".7"/><circle class="a" cx="200" cy="160" r="8" fill="#E8B66A" stroke="none"/></svg></div></div>
+</div></section>
+
+<section id="p23" class="clip page point" data-start="284.03" data-duration="10.229" data-track-index="1" data-ch="2" data-speech="8.88"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">第四步</div>
+    <h1 class="ttl"><div class="ln">三世间：</div><div class="ln">三个<em>层面</em></div></h1>
+    <div class="rows"><div class="row" data-at="3.87">构成你的身心</div><div class="row" data-at="5.02">你周围的众生</div><div class="row" data-at="6.17">你所处的环境</div></div><div class="formula" data-at="6.83">1000 × 3 = 3000</div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="d" cx="200" cy="160" r="36" stroke-opacity=".8" pathLength="1"/><circle class="d" cx="200" cy="160" r="78" stroke-opacity=".45" pathLength="1"/>
+<circle class="f" cx="200.0" cy="82.0" r="5" fill="#E9E4D8" fill-opacity=".6" stroke="none"/><circle class="f" cx="255.2" cy="104.8" r="5" fill="#E9E4D8" fill-opacity=".6" stroke="none"/><circle class="f" cx="278.0" cy="160.0" r="5" fill="#E9E4D8" fill-opacity=".6" stroke="none"/><circle class="f" cx="255.2" cy="215.2" r="5" fill="#E9E4D8" fill-opacity=".6" stroke="none"/><circle class="f" cx="200.0" cy="238.0" r="5" fill="#E9E4D8" fill-opacity=".6" stroke="none"/><circle class="f" cx="144.8" cy="215.2" r="5" fill="#E9E4D8" fill-opacity=".6" stroke="none"/><circle class="f" cx="122.0" cy="160.0" r="5" fill="#E9E4D8" fill-opacity=".6" stroke="none"/><circle class="f" cx="144.8" cy="104.8" r="5" fill="#E9E4D8" fill-opacity=".6" stroke="none"/><circle class="d" cx="200" cy="160" r="118" stroke-opacity=".25" pathLength="1"/><path class="f" d="M318.0 160.0 L328.0 160.0 M314.0 190.5 L323.6 193.1 M302.2 219.0 L310.9 224.0 M283.4 243.4 L290.5 250.5 M259.0 262.2 L264.0 270.9 M230.5 274.0 L233.1 283.6 M200.0 278.0 L200.0 288.0 M169.5 274.0 L166.9 283.6 M141.0 262.2 L136.0 270.9 M116.6 243.4 L109.5 250.5 M97.8 219.0 L89.1 224.0 M86.0 190.5 L76.4 193.1 M82.0 160.0 L72.0 160.0 M86.0 129.5 L76.4 126.9 M97.8 101.0 L89.1 96.0 M116.6 76.6 L109.5 69.5 M141.0 57.8 L136.0 49.1 M169.5 46.0 L166.9 36.4 M200.0 42.0 L200.0 32.0 M230.5 46.0 L233.1 36.4 M259.0 57.8 L264.0 49.1 M283.4 76.6 L290.5 69.5 M302.2 101.0 L310.9 96.0 M314.0 129.5 L323.6 126.9" stroke-opacity=".3"/>
+<circle class="a" cx="200" cy="160" r="9" fill="#E8B66A" stroke="none"/></svg></div></div>
+</div></section>
+
+<section id="p24" class="clip page quote" data-start="294.26" data-duration="17.289" data-track-index="1" data-ch="2" data-speech="15.94"><div class="qbg"><svg viewBox="0 0 400 320" width="1280" height="1024" fill="none" stroke="#E9E4D8" stroke-width="1.2" style="opacity:.16">
+<g class="spin" data-deg="-24"><circle class="d" pathLength="1" cx="200" cy="160" r="46" stroke-opacity=".9"/></g>
+<g class="spin" data-deg="18"><circle class="d" pathLength="1" cx="200" cy="160" r="78" stroke-opacity=".6"/></g>
+<g class="spin" data-deg="-12"><circle class="d" pathLength="1" cx="200" cy="160" r="112" stroke-opacity=".35"/></g>
+
+</svg></div>
+<div class="body q">
+  <div class="lbl">三千，不是让你去数的</div>
+  <h1 class="qt q2"><div class="qln">10 × 10 × 10 × 3</div><div class="qln">= <em>3000</em></div></h1>
+  <div class="subs"><div class="sub" data-at="7.04">没有哪一处是空着的</div><div class="sub" data-at="11.46">一念里，有你，有别人，有环境</div><div class="sub" data-at="13.98">从最煎熬，到最清明</div></div>
+</div></section>
+
+<section id="p25" class="clip page point" data-start="311.55" data-duration="26.149" data-track-index="1" data-ch="2" data-speech="24.8"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">停一下 · 状态，不是身份</div>
+    <h1 class="ttl"><div class="ln">是<em>状态</em>，</div><div class="ln">不是身份</div></h1>
+    <div class="rows"><div class="row" data-at="12.32">早上 · 被一件小事点燃</div><div class="row" data-at="15.63">中午 · 一顿好饭，回到人间</div><div class="row" data-at="18.11">傍晚 · 晚霞里，有一点轻盈</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path class="f" d="M24 250 H376 M24 170 H376 M24 90 H376" stroke-dasharray="2 9" stroke-opacity=".28"/>
+<path id="daypath" class="d" d="M30 250 C84 250, 96 90, 160 90 S226 220, 276 188 S330 90, 372 84" stroke-opacity=".85" pathLength="1"/>
+<circle class="f" cx="30" cy="250" r="5" fill="#E9E4D8" stroke="none" fill-opacity=".6"/>
+<circle class="f" cx="160" cy="90" r="5" fill="#E9E4D8" stroke="none" fill-opacity=".6"/>
+<circle class="f" cx="372" cy="84" r="5" fill="#E9E4D8" stroke="none" fill-opacity=".6"/>
+<circle class="travel a" data-path="daypath" r="9" cx="30" cy="250" fill="#E8B66A" stroke="none"/></svg></div></div>
+</div></section>
+
+<section id="p26" class="clip page point" data-start="337.7" data-duration="17.069" data-track-index="1" data-ch="2" data-speech="15.72"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">不是先后，是同时</div>
+    <h1 class="ttl"><div class="ln">不是先后，</div><div class="ln">是<em>同时</em></div></h1>
+    <div class="rows"><div class="row" data-at="3.09">先有一念，再生三千　✕</div><div class="row" data-at="11.12">先有三千，再有一念　✕</div><div class="row" data-at="14.63">这一念，同时具足三千　✓</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<g class="spin" data-deg="-24"><circle class="d" cx="200" cy="160" r="46" stroke-opacity=".9" pathLength="1"/></g>
+<g class="spin" data-deg="18"><circle class="d" cx="200" cy="160" r="78" stroke-opacity=".6" pathLength="1"/></g>
+<g class="spin" data-deg="-12"><circle class="d" cx="200" cy="160" r="112" stroke-opacity=".35" pathLength="1"/></g>
+<circle class="a" cx="200" cy="160" r="10" fill="#E8B66A" stroke="none"/>
+<circle class="halo" cx="200" cy="160" r="22" stroke="#E8B66A" stroke-opacity=".5"/></svg></div></div>
+</div></section>
+
+<section id="p27" class="clip page quote" data-start="354.77" data-duration="20.549" data-track-index="1" data-ch="2" data-speech="19.2"><div class="qbg"><svg viewBox="0 0 400 320" width="1280" height="1024" fill="none" stroke="#E9E4D8" stroke-width="1.2" style="opacity:.16">
+<g class="spin" data-deg="-24"><circle class="d" pathLength="1" cx="200" cy="160" r="46" stroke-opacity=".9"/></g>
+<g class="spin" data-deg="18"><circle class="d" pathLength="1" cx="200" cy="160" r="78" stroke-opacity=".6"/></g>
+<g class="spin" data-deg="-12"><circle class="d" pathLength="1" cx="200" cy="160" r="112" stroke-opacity=".35"/></g>
+
+</svg></div>
+<div class="body q">
+  <div class="lbl">一个很实在的推论</div>
+  <h1 class="qt q2"><div class="qln">念头不是起点，</div><div class="qln">念头就是<em>整个现场</em></div></h1>
+  <div class="subs"><div class="sub" data-at="8.41">此刻占上风的，不是唯一的一种</div><div class="sub" data-at="11.63">愤怒里，也藏着理解的可能</div><div class="sub" data-at="14.52">绝望里，也还有别的出口</div><div class="sub" data-at="17.24">这，就是人为什么能够改变</div></div>
+</div></section>
+
+<section id="p28" class="clip page quote" data-start="375.32" data-duration="6.589" data-track-index="1" data-ch="2" data-speech="5.24"><div class="qbg"><svg viewBox="0 0 400 320" width="1280" height="1024" fill="none" stroke="#E9E4D8" stroke-width="1.2" style="opacity:.16">
+<g class="spin" data-deg="-24"><circle class="d" pathLength="1" cx="200" cy="160" r="46" stroke-opacity=".9"/></g>
+<g class="spin" data-deg="18"><circle class="d" pathLength="1" cx="200" cy="160" r="78" stroke-opacity=".6"/></g>
+<g class="spin" data-deg="-12"><circle class="d" pathLength="1" cx="200" cy="160" r="112" stroke-opacity=".35"/></g>
+
+</svg></div>
+<div class="body q">
+  <div class="lbl">比一比</div>
+  <h1 class="qt q2"><div class="qln">这不就是</div><div class="qln">“<em>心态</em>决定一切”吗？</div></h1>
+  <div class="subs"><div class="sub" data-at="3.53">不太一样，我们来比一比</div></div>
+</div></section>
+
+<section id="p29" class="clip page point" data-start="381.91" data-duration="13.709" data-track-index="1" data-ch="2" data-speech="12.36"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">比一比 · 六祖慧能</div>
+    <h1 class="ttl"><div class="ln">不是风动，不是幡动，</div><div class="ln">仁者<em>心动</em></div></h1>
+    <div class="rows"><div class="row" data-at="2.36">风吹幡动，两个僧人争论</div><div class="row" data-at="4.32">一个说风动，一个说幡动</div><div class="row" data-at="6.92">慧能：看见的“动”，是心在动</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path class="d" d="M130 58 V292" pathLength="1"/>
+<path class="d" d="M98 292 H164" stroke-opacity=".6" pathLength="1"/>
+<circle class="f" cx="130" cy="54" r="4" fill="#E9E4D8" stroke="none"/>
+<g class="sway" data-dx="6">
+<path class="f" d="M134 70 C170 56, 200 92, 238 74 S292 60, 312 76 V138 C290 124, 262 152, 232 138 S170 124, 134 140 Z" fill="#1D242D"/>
+<circle class="a" cx="222" cy="106" r="6" fill="#E8B66A" stroke="none"/>
+<circle class="halo" cx="222" cy="106" r="14" stroke="#E8B66A" stroke-opacity=".55"/>
+</g>
+<g class="sway" data-dx="-8">
+<path class="d" d="M28 108 C52 98, 76 118, 100 108" stroke-opacity=".5" pathLength="1"/>
+<path class="d" d="M18 150 C48 138, 80 162, 112 150" stroke-opacity=".4" pathLength="1"/>
+<path class="d" d="M34 192 C58 184, 80 200, 104 192" stroke-opacity=".3" pathLength="1"/>
+<path class="d" d="M326 100 C342 94, 358 106, 374 100" stroke-opacity=".35" pathLength="1"/>
+</g></svg></div></div>
+</div></section>
+
+<section id="p30" class="clip page point" data-start="395.62" data-duration="21.589" data-track-index="1" data-ch="2" data-speech="20.24"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">比一比 · 王阳明</div>
+    <h1 class="ttl"><div class="ln">此花颜色，</div><div class="ln"><em>一时明白</em>起来</div></h1>
+    <div class="rows"><div class="row" data-at="9.94">未看此花时，同归于寂</div><div class="row" data-at="12.84">来看此花时，颜色明白起来</div><div class="row" data-at="18.11">花的颜色，因心与它相遇</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path class="d" d="M112 292 C118 262, 150 250, 186 252 C226 246, 276 258, 288 292 Z" fill="none" stroke-opacity=".8" pathLength="1"/>
+<path class="d" d="M200 252 C194 220, 212 192, 200 160" pathLength="1"/>
+<path class="d" d="M203 196 C180 184, 160 164, 142 136" stroke-opacity=".8" pathLength="1"/>
+<path class="d" d="M198 172 C182 160, 172 146, 166 124" stroke-opacity=".8" pathLength="1"/>
+<path class="d" d="M205 200 C232 188, 254 168, 270 140" stroke-opacity=".8" pathLength="1"/>
+<path class="d" d="M200 168 C222 156, 238 142, 244 118" stroke-opacity=".8" pathLength="1"/>
+<path class="d" d="M200 160 C198 138, 204 112, 214 90" stroke-opacity=".8" pathLength="1"/>
+<g class="f" stroke-opacity=".4"><circle cx="140" cy="132" r="6"/><circle cx="164" cy="118" r="6"/><circle cx="176" cy="144" r="6"/><circle cx="152" cy="152" r="6"/></g>
+<g class="a"><circle cx="272" cy="136" r="6" fill="#E8B66A" stroke="#E8B66A"/><circle cx="246" cy="114" r="6" fill="#E8B66A" stroke="#E8B66A"/><circle cx="236" cy="142" r="6" fill="#E8B66A" stroke="#E8B66A"/><circle cx="262" cy="160" r="6" fill="#E8B66A" stroke="#E8B66A"/><circle cx="216" cy="88" r="6" fill="#E8B66A" stroke="#E8B66A"/><circle cx="206" cy="110" r="6" fill="#E8B66A" stroke="#E8B66A"/></g></svg></div></div>
+</div></section>
+
+<section id="p31" class="clip page quote" data-start="417.21" data-duration="9.529" data-track-index="1" data-ch="2" data-speech="8.18"><div class="qbg"><svg viewBox="0 0 400 320" width="1280" height="1024" fill="none" stroke="#E9E4D8" stroke-width="1.2" style="opacity:.16">
+<g class="spin" data-deg="-24"><circle class="d" pathLength="1" cx="200" cy="160" r="46" stroke-opacity=".9"/></g>
+<g class="spin" data-deg="18"><circle class="d" pathLength="1" cx="200" cy="160" r="78" stroke-opacity=".6"/></g>
+<g class="spin" data-deg="-12"><circle class="d" pathLength="1" cx="200" cy="160" r="112" stroke-opacity=".35"/></g>
+
+</svg></div>
+<div class="body q">
+  <div class="lbl">比一比 · 爱比克泰德</div>
+  <h1 class="qt q3"><div class="qln">困扰人们的，</div><div class="qln">不是事情本身，</div><div class="qln">而是人们对事情的<em>看法</em></div></h1>
+  <div class="subs"><div class="sub" data-at="1.12">古罗马 · 斯多葛学派</div></div>
+</div></section>
+
+<section id="p32" class="clip page ledger" data-start="426.74" data-duration="23.559" data-track-index="1" data-ch="2" data-speech="22.21"><div class="body led">
+  <div class="lbl">多走了一步</div>
+  <h1 class="lttl">事实和感受之间，隔着一个“<em>看法</em>”</h1>
+  <div class="cols"><div class="col " data-at="1">
+  <div class="chead">三种说法</div>
+  <div class="cl" data-at="1.46">慧能：是心在动</div><div class="cl" data-at="3.24">阳明：心与花相遇</div><div class="cl" data-at="5.01">爱比克泰德：是看法</div>
+</div><div class="col colR" data-at="1.25">
+  <div class="chead">一念三千，多走一步</div>
+  <div class="cl" data-at="11.43">这一念里，有完整的结构</div><div class="cl strong" data-at="12.54">有地狱，也有觉醒</div><div class="cl" data-at="18.99">你本来就有别的角度</div>
+</div><div class="mid"></div></div>
+</div></section>
+
+<section id="p33" class="clip page point" data-start="450.3" data-duration="13.609" data-track-index="1" data-ch="2" data-speech="12.26"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">误解一</div>
+    <h1 class="ttl"><div class="ln">想什么，</div><div class="ln">不会来什么</div></h1>
+    <div class="rows"><div class="row" data-at="3.52">✕　不是许愿机制</div><div class="row" data-at="7.61">✓　被塑造的，是你经验到的世界</div><div class="row" data-at="10.55">✓　外部的事实，并没有被改写</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect class="d" x="96" y="60" width="208" height="200" rx="14" stroke-opacity=".7" pathLength="1"/>
+<path class="d" d="M128 112 H236 M128 148 H272 M128 184 H210" stroke-opacity=".35" pathLength="1"/>
+<path class="a" d="M118 224 L282 96" stroke="#E8B66A" stroke-width="5"/></svg></div></div>
+</div></section>
+
+<section id="p34" class="clip page point" data-start="463.91" data-duration="16.469" data-track-index="1" data-ch="2" data-speech="15.12"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">误解二</div>
+    <h1 class="ttl"><div class="ln">不是“一切都是</div><div class="ln">我<em>想多了</em>”</div></h1>
+    <div class="rows"><div class="row" data-at="3.82">有些困难，是真实的</div><div class="row" data-at="5.35">有些不公，是真实的</div><div class="row" data-at="13.16">可回应的方式，不止一种</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect class="d" x="96" y="60" width="208" height="200" rx="14" stroke-opacity=".7" pathLength="1"/>
+<path class="d" d="M128 112 H236 M128 148 H272 M128 184 H210" stroke-opacity=".35" pathLength="1"/>
+<path class="a" d="M118 224 L282 96" stroke="#E8B66A" stroke-width="5"/></svg></div></div>
+</div></section>
+
+<section id="p35" class="clip page point" data-start="480.38" data-duration="13.669" data-track-index="1" data-ch="2" data-speech="12.32"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">误解三</div>
+    <h1 class="ttl"><div class="ln">负面的念头，</div><div class="ln">不用<em>压下去</em></div></h1>
+    <div class="rows"><div class="row" data-at="5.24">地狱，也在这一念里</div><div class="row" data-at="6.74">不必假装它不存在</div><div class="row" data-at="11.57">看见它，才是开始</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect class="d" x="96" y="60" width="208" height="200" rx="14" stroke-opacity=".7" pathLength="1"/>
+<path class="d" d="M128 112 H236 M128 148 H272 M128 184 H210" stroke-opacity=".35" pathLength="1"/>
+<path class="a" d="M118 224 L282 96" stroke="#E8B66A" stroke-width="5"/></svg></div></div>
+</div></section>
+
+<section id="p36" class="clip page point" data-start="494.05" data-duration="7.189" data-track-index="1" data-ch="3" data-speech="5.84"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">落到生活</div>
+    <h1 class="ttl"><div class="ln">三个练习，</div><div class="ln"><em>今晚</em>就能用</div></h1>
+    <div class="rows"><div class="row" data-at="3.01">练习一 · 把两件事分开</div><div class="row" data-at="3.49">练习二 · 给这一念找邻居</div><div class="row" data-at="5.12">练习三 · 念起即觉</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path class="d" d="M40 262 H360" stroke-opacity=".3" pathLength="1"/>
+<circle class="d" cx="78" cy="160" r="52" stroke-opacity=".6" pathLength="1"/>
+<circle class="d" cx="200" cy="160" r="52" stroke-opacity=".6" pathLength="1"/>
+<circle class="d" cx="322" cy="160" r="52" stroke-opacity=".6" pathLength="1"/>
+<circle class="f" cx="78" cy="160" r="6" fill="#E9E4D8" stroke="none" fill-opacity=".8"/>
+<circle class="f" cx="322" cy="160" r="6" fill="#E9E4D8" stroke="none" fill-opacity=".8"/>
+<circle class="a" cx="200" cy="160" r="6" fill="#E8B66A" stroke="none"/></svg></div></div>
+</div></section>
+
+<section id="p37" class="clip page ledger" data-start="501.24" data-duration="15.709" data-track-index="1" data-ch="3" data-speech="14.36"><div class="body led">
+  <div class="lbl">练习一 · 分开两栏</div>
+  <h1 class="lttl">把“发生了什么”和“我对它说了什么”<em>分开</em></h1>
+  <div class="cols"><div class="col " data-at="1">
+  <div class="chead">发生了什么 · 摄像机能拍到的</div>
+  <div class="cl" data-at="7.43">同事说了“我再想想”</div>
+</div><div class="col colR" data-at="1.25">
+  <div class="chead">我对它说了什么 · 心里的那句话</div>
+  <div class="cl" data-at="11.58">他对我不满意</div>
+</div><div class="mid"></div></div>
+</div></section>
+
+<section id="p38" class="clip page ledger" data-start="516.95" data-duration="23.229" data-track-index="1" data-ch="3" data-speech="21.88"><div class="body led">
+  <div class="lbl">练习一 · 分开两栏</div>
+  <h1 class="lttl">左边一句话，右边一部<em>长篇</em></h1>
+  <div class="cols"><div class="col " data-at="1">
+  <div class="chead">发生了什么</div>
+  <div class="cl" data-at="1.08">同事说了“我再想想”</div>
+</div><div class="col colR" data-at="1.25">
+  <div class="chead">我对它说了什么</div>
+  <div class="cl" data-at="2.74">他是不是不满意？</div><div class="cl" data-at="6.55">是不是要换人做？</div><div class="cl" data-at="9.2">我是不是不行？</div><div class="cl strong" data-at="21.14">写下来，它就搬到了纸上</div>
+</div><div class="mid"></div></div>
+</div></section>
+
+<section id="p39" class="clip page point" data-start="540.18" data-duration="14.989" data-track-index="1" data-ch="3" data-speech="13.64"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">练习二 · 给这一念找“邻居”</div>
+    <h1 class="ttl"><div class="ln">再写两种，</div><div class="ln">同样站得住脚的<em>念头</em></div></h1>
+    <div class="rows"><div class="row" data-at="8.4">他可能正在认真考虑</div><div class="row" data-at="10.06">他可能今天太累了</div><div class="row" data-at="11.56">他可能只是想听听别人的意见</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="d" d="M200 160 L116.9 112.0" stroke-dasharray="" stroke-opacity=".28" pathLength="1"/><path class="d" d="M200 160 L190.2 48.4" stroke-dasharray="" stroke-opacity=".28" pathLength="1"/><path class="d" d="M200 160 L281.9 102.6" stroke-dasharray="" stroke-opacity=".28" pathLength="1"/><path class="d" d="M200 160 L299.7 206.5" stroke-dasharray="" stroke-opacity=".28" pathLength="1"/><path class="d" d="M200 160 L208.5 257.6" stroke-dasharray="" stroke-opacity=".28" pathLength="1"/><path class="d" d="M200 160 L106.5 214.0" stroke-dasharray="" stroke-opacity=".28" pathLength="1"/><circle class="d" cx="200" cy="160" r="28" stroke="#E8B66A" pathLength="1"/><circle class="f" cx="116.9" cy="112.0" r="9" stroke-opacity=".8"/><circle class="f" cx="190.2" cy="48.4" r="9" stroke-opacity=".8"/><circle class="f" cx="281.9" cy="102.6" r="9" stroke-opacity=".8"/><circle class="f" cx="299.7" cy="206.5" r="9" stroke-opacity=".8"/><circle class="f" cx="208.5" cy="257.6" r="9" stroke-opacity=".8"/><circle class="f" cx="106.5" cy="214.0" r="9" stroke-opacity=".8"/><circle class="a" cx="200" cy="160" r="10" fill="#E8B66A" stroke="none"/></svg></div></div>
+</div></section>
+
+<section id="p40" class="clip page quote" data-start="555.17" data-duration="15.589" data-track-index="1" data-ch="3" data-speech="14.24"><div class="qbg"><svg viewBox="0 0 400 320" width="1280" height="1024" fill="none" stroke="#E9E4D8" stroke-width="1.2" style="opacity:.16">
+<g class="spin" data-deg="-24"><circle class="d" pathLength="1" cx="200" cy="160" r="46" stroke-opacity=".9"/></g>
+<g class="spin" data-deg="18"><circle class="d" pathLength="1" cx="200" cy="160" r="78" stroke-opacity=".6"/></g>
+<g class="spin" data-deg="-12"><circle class="d" pathLength="1" cx="200" cy="160" r="112" stroke-opacity=".35"/></g>
+
+</svg></div>
+<div class="body q">
+  <div class="lbl">练习二 · 给这一念找“邻居”</div>
+  <h1 class="qt q2"><div class="qln">这一念，</div><div class="qln">不是<em>唯一</em>的一念</div></h1>
+  <div class="subs"><div class="sub" data-at="6.21">它只是“三千”里，眼下声音最大的那一个</div><div class="sub" data-at="9.52">不用马上相信别的念头</div><div class="sub" data-at="13">承认它们也在，局面就松动了</div></div>
+</div></section>
+
+<section id="p41" class="clip page ledger" data-start="570.76" data-duration="24.299" data-track-index="1" data-ch="3" data-speech="22.95"><div class="body led">
+  <div class="lbl">练习二 · 用加班走一遍</div>
+  <h1 class="lttl">三句话并排，不再被第一句<em>单独指挥</em></h1>
+  <div class="cols"><div class="col " data-at="1">
+  <div class="chead">发生了什么</div>
+  <div class="cl" data-at="2.38">老板说，今晚要改一版材料</div>
+</div><div class="col colR" data-at="1.25">
+  <div class="chead">我对它说了什么</div>
+  <div class="cl" data-at="5">我的时间不是自己的　（留下）</div><div class="cl" data-at="11.23">这个项目也许是个机会</div><div class="cl strong" data-at="13.53">我现在可以决定，今晚做到几点为止</div>
+</div><div class="mid"></div></div>
+</div></section>
+
+<section id="p42" class="clip page point" data-start="595.06" data-duration="11.339" data-track-index="1" data-ch="3" data-speech="9.99"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">练习三 · 念起即觉</div>
+    <h1 class="ttl"><div class="ln">念起，<em>即觉</em></div></h1>
+    <div class="rows"><div class="row" data-at="5.48">念头来了，不是问题</div><div class="row" data-at="7.63">你知道它来了</div><div class="row" data-at="8.7">事情就已经不一样了</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<ellipse class="d" cx="200" cy="250" rx="130" ry="24" stroke-opacity=".45" pathLength="1"/>
+<ellipse class="d" cx="200" cy="250" rx="84" ry="15" stroke-opacity=".3" pathLength="1"/>
+<path class="f" d="M200 184 V238" stroke-dasharray="2 9" stroke-opacity=".6"/>
+<g class="bob a"><path d="M200 84 C200 84, 176 124, 176 144 A24 24 0 0 0 224 144 C224 124, 200 84, 200 84 Z" fill="#E8B66A" stroke="#E8B66A"/>
+<path d="M190 146 A12 12 0 0 0 198 158" stroke="#151A21" stroke-opacity=".55"/></g></svg></div></div>
+</div></section>
+
+<section id="p43" class="clip page quote" data-start="606.4" data-duration="16.629" data-track-index="1" data-ch="3" data-speech="15.28"><div class="qbg"><svg viewBox="0 0 400 320" width="1280" height="1024" fill="none" stroke="#E9E4D8" stroke-width="1.2" style="opacity:.16">
+<g class="spin" data-deg="-24"><circle class="d" pathLength="1" cx="200" cy="160" r="46" stroke-opacity=".9"/></g>
+<g class="spin" data-deg="18"><circle class="d" pathLength="1" cx="200" cy="160" r="78" stroke-opacity=".6"/></g>
+<g class="spin" data-deg="-12"><circle class="d" pathLength="1" cx="200" cy="160" r="112" stroke-opacity=".35"/></g>
+
+</svg></div>
+<div class="body q">
+  <div class="lbl">练习三 · 慢一口气</div>
+  <h1 class="qt q2"><div class="qln">“我现在有一个念头，</div><div class="qln">它认为<em>……</em>”</div></h1>
+  <div class="subs"><div class="sub" data-at="3.5">想回消息、想顶嘴、想摔门之前，先停一口气</div><div class="sub" data-at="8.7">把这句话说完，再决定下一步</div><div class="sub" data-at="13.74">从一个世界，走到另一个世界的门口</div></div>
+</div></section>
+
+<section id="p44" class="clip page point" data-start="623.03" data-duration="13.349" data-track-index="1" data-ch="3" data-speech="12"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">练习三 · 慢一口气</div>
+    <h1 class="ttl"><div class="ln">它只是一个</div><div class="ln"><em>暂停键</em></div></h1>
+    <div class="rows"><div class="row" data-at="1">不必变成什么了不起的修行</div><div class="row" data-at="5.47">后悔的话，多在那半秒钟里</div><div class="row" data-at="10.16">念头刚冒出来，还没被看见</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle class="halo" cx="200" cy="160" r="116" stroke-opacity=".12"/>
+<circle class="d" cx="200" cy="160" r="90" stroke-opacity=".75" pathLength="1"/>
+<rect class="a" x="166" y="116" width="24" height="88" rx="6" fill="#E8B66A" stroke="none"/>
+<rect class="a" x="210" y="116" width="24" height="88" rx="6" fill="#E8B66A" stroke="none"/></svg></div></div>
+</div></section>
+
+<section id="p45" class="clip page grid4" data-start="636.38" data-duration="23.079" data-track-index="1" data-ch="3" data-speech="21.73"><div class="body led">
+  <div class="lbl">回头看开头的四个场景</div>
+  <h1 class="lttl">是事实，还是<em>念头</em>？</h1>
+  <div class="grid"><div class="card" data-at="2.44"><div class="tag">加班的晚上</div><div class="cq">我现在听见的，是哪一念？</div></div><div class="card" data-at="6.35"><div class="tag">家里的电话</div><div class="cq">这句话里，我还能听出别的意思吗？</div></div><div class="card" data-at="10.57"><div class="tag">月底的账单</div><div class="cq">“我是不是一辈子都这样”，是事实，还是念头？</div></div><div class="card" data-at="17.13"><div class="tag">一个人的周末夜</div><div class="cq">安静，是事实；“没有人想起我”，是念头。</div></div></div>
+</div></section>
+
+<section id="p46" class="clip page point" data-start="659.46" data-duration="15.229" data-track-index="1" data-ch="3" data-speech="13.88"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">一个七天的小实验</div>
+    <h1 class="ttl"><div class="ln">七天，</div><div class="ln">找到你的“<em>老熟人</em>”</div></h1>
+    <div class="rows"><div class="row" data-at="3.28">每天睡前，写一组两栏</div><div class="row" data-at="5.2">三分钟就够</div><div class="row" data-at="10.78">看你最常住在哪几间屋子</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path class="d" d="M40 230 H360" stroke-opacity=".3" pathLength="1"/>
+<circle class="d" cx="58" cy="170" r="17" stroke-opacity=".7" pathLength="1"/><circle class="d" cx="105" cy="170" r="17" stroke-opacity=".7" pathLength="1"/><circle class="d" cx="152" cy="170" r="17" stroke-opacity=".7" pathLength="1"/><circle class="d" cx="199" cy="170" r="17" stroke-opacity=".7" pathLength="1"/><circle class="d" cx="246" cy="170" r="17" stroke-opacity=".7" pathLength="1"/><circle class="d" cx="293" cy="170" r="17" stroke-opacity=".7" pathLength="1"/><circle class="d" cx="340" cy="170" r="17" stroke-opacity=".7" pathLength="1"/>
+<circle class="f" cx="58" cy="170" r="6" fill="#E9E4D8" fill-opacity=".75" stroke="none"/><circle class="f" cx="105" cy="170" r="6" fill="#E9E4D8" fill-opacity=".75" stroke="none"/><circle class="f" cx="152" cy="170" r="6" fill="#E9E4D8" fill-opacity=".75" stroke="none"/><circle class="f" cx="199" cy="170" r="6" fill="#E9E4D8" fill-opacity=".75" stroke="none"/><circle class="f" cx="246" cy="170" r="6" fill="#E9E4D8" fill-opacity=".75" stroke="none"/><circle class="f" cx="293" cy="170" r="6" fill="#E9E4D8" fill-opacity=".75" stroke="none"/>
+<circle class="a" cx="340" cy="170" r="7" fill="#E8B66A" stroke="none"/>
+<path class="d" d="M58 230 V240 M105 230 V240 M152 230 V240 M199 230 V240 M246 230 V240 M293 230 V240 M340 230 V240" stroke-opacity=".4" pathLength="1"/></svg></div></div>
+</div></section>
+
+<section id="p47" class="clip page point" data-start="674.69" data-duration="19.859" data-track-index="1" data-ch="3" data-speech="18.51"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">最后，说一句负责任的话</div>
+    <h1 class="ttl"><div class="ln">不是让你</div><div class="ln">一个人<em>硬扛</em>的方法</div></h1>
+    <div class="rows"><div class="row" data-at="3.78">念头反复出现，挥之不去</div><div class="row" data-at="6.31">影响睡眠、食欲和日常生活</div><div class="row" data-at="12.87">请找专业的医生或心理咨询师</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path class="d" d="M200 36 V68" stroke-opacity=".6" pathLength="1"/>
+<path class="d" d="M164 68 H236 L226 92 H174 Z" stroke-opacity=".8" pathLength="1"/>
+<path class="d" d="M174 92 C148 132 148 192 174 232 H226 C252 192 252 132 226 92" pathLength="1"/>
+<path class="d" d="M168 232 H232 V250 H168 Z" stroke-opacity=".8" pathLength="1"/>
+<path class="d" d="M60 292 H340" stroke-opacity=".35" pathLength="1"/>
+<path class="a" d="M200 118 C190 138, 184 150, 184 166 A16 16 0 0 0 216 166 C216 150, 210 138, 200 118 Z" fill="#E8B66A" stroke="#E8B66A"/>
+<circle class="halo" cx="200" cy="164" r="62" fill="#E8B66A" fill-opacity=".06" stroke="none"/>
+<circle class="halo" cx="200" cy="164" r="40" fill="#E8B66A" fill-opacity=".08" stroke="none"/></svg></div></div>
+</div></section>
+
+<section id="p48" class="clip page quote" data-start="694.55" data-duration="18.639" data-track-index="1" data-ch="4" data-speech="17.29"><div class="qbg"><svg viewBox="0 0 400 320" width="1280" height="1024" fill="none" stroke="#E9E4D8" stroke-width="1.2" style="opacity:.16">
+<g class="spin" data-deg="-24"><circle class="d" pathLength="1" cx="200" cy="160" r="46" stroke-opacity=".9"/></g>
+<g class="spin" data-deg="18"><circle class="d" pathLength="1" cx="200" cy="160" r="78" stroke-opacity=".6"/></g>
+<g class="spin" data-deg="-12"><circle class="d" pathLength="1" cx="200" cy="160" r="112" stroke-opacity=".35"/></g>
+
+</svg></div>
+<div class="body q">
+  <div class="lbl">回到开头那句“我再想想”</div>
+  <h1 class="qt q2"><div class="qln">同一句话，</div><div class="qln"><em>三千</em>种听法</div></h1>
+  <div class="subs"><div class="sub" data-at="12.85">认出它</div><div class="sub" data-at="13.5">数一数它的邻居</div><div class="sub" data-at="14.79">再决定，走进哪一个世界</div></div>
+</div></section>
+
+<section id="p49" class="clip page point" data-start="713.19" data-duration="20.269" data-track-index="1" data-ch="4" data-speech="18.92"><div class="body withIllus">
+  <div class="textcol"><div class="bar"></div><div class="tx">
+    <div class="lbl">今天的内容，收一收</div>
+    <h1 class="ttl"><div class="ln">今天，</div><div class="ln">收<em>三句</em></div></h1>
+    <div class="rows"><div class="row" data-at="2.3">事与世界之间，隔着一个念头</div><div class="row" data-at="7.07">这一念里，本来就有各种可能</div><div class="row" data-at="13.2">不压抑，不被指挥，留一点空隙</div></div>
+  </div></div>
+  <div class="illus"><div class="fl"><svg viewBox="0 0 400 320" width="660" height="528" fill="none" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<g class="spin" data-deg="-24"><circle class="d" cx="200" cy="160" r="46" stroke-opacity=".9" pathLength="1"/></g>
+<g class="spin" data-deg="18"><circle class="d" cx="200" cy="160" r="78" stroke-opacity=".6" pathLength="1"/></g>
+<g class="spin" data-deg="-12"><circle class="d" cx="200" cy="160" r="112" stroke-opacity=".35" pathLength="1"/></g>
+<circle class="a" cx="200" cy="160" r="10" fill="#E8B66A" stroke="none"/>
+<circle class="halo" cx="200" cy="160" r="22" stroke="#E8B66A" stroke-opacity=".5"/></svg></div></div>
+</div></section>
+
+<section id="p50" class="clip page quote" data-start="733.46" data-duration="13.529" data-track-index="1" data-ch="4" data-speech="12.18"><div class="qbg"><svg viewBox="0 0 400 320" width="1280" height="1024" fill="none" stroke="#E9E4D8" stroke-width="1.2" style="opacity:.16">
+<g class="spin" data-deg="-24"><circle class="d" pathLength="1" cx="200" cy="160" r="46" stroke-opacity=".9"/></g>
+<g class="spin" data-deg="18"><circle class="d" pathLength="1" cx="200" cy="160" r="78" stroke-opacity=".6"/></g>
+<g class="spin" data-deg="-12"><circle class="d" pathLength="1" cx="200" cy="160" r="112" stroke-opacity=".35"/></g>
+
+</svg></div>
+<div class="body q">
+  <div class="lbl">如果只带走一句话</div>
+  <h1 class="qt q2"><div class="qln">念头不是你的敌人，</div><div class="qln">也不是你的<em>主人</em></div></h1>
+  <div class="subs"><div class="sub" data-at="6.82">它只是“三千”里的一个</div><div class="sub" data-at="8.74">不用急着改变什么，能够看见，已经是很大的一步</div></div>
+</div></section>
+
+<section id="p51" class="clip page ending" data-start="746.99" data-duration="22.989" data-track-index="1" data-ch="4" data-speech="17.64"><div class="body end">
+  <div class="lbl" data-at="0.2">留一个问题给你</div>
+  <div class="ask" data-at="1"><div class="aln">最近一次，是哪一个念头，</div><div class="aln">把你带进了一个你并不想待的世界？</div></div>
+  <div class="ask2" data-at="6.75">来评论区，写下来，哪怕只写一句</div>
+  <div class="next" data-at="9">下一期　[下期选题]</div>
+  <div class="sign" data-at="12.98">我是 [主播名]　·　一念三千　·　一个念头，想透一个世界</div>
+</div></section>
+<div id="yinian-outro-host" class="clip" data-composition-id="yinian-outro-v1" data-composition-src="compositions/yinian-outro-v1.html" data-start="769.98" data-duration="4.5" data-track-index="2" data-width="1920" data-height="1080"></div>
+</div>
+<script src="vendor/gsap.min.js"></script>
+<script>
+document.fonts.ready.then(() => {
+  const AMB = "#E8B66A", INK = "#E9E4D8", SEGC = "#3A4654", DIM = "#9AA3AE";
+  const stage = document.getElementById("stage");
+  const TOTAL = +stage.dataset.duration;
+  const tl = gsap.timeline({ paused: true });
+  const Q = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const reps = (period, span) => Math.max(1, Math.ceil(span / period) - 1);   // 有限次数的往返，不用无限循环
+
+  gsap.set(".page, .persist", { autoAlpha: 0 });
+
+  // 常驻背景：六条线上的光点，整期只有一条补间
+  const periods = [28, 24, 32, 22, 34, 26];
+  Q(".fx").forEach((el, i) => tl.fromTo(el, { strokeDashoffset: -170 * i }, { strokeDashoffset: -170 * i - 1000 * TOTAL / periods[i], duration: TOTAL, ease: "none" }, 0));
+
+  const rise = (els, at, o = {}) => tl.fromTo(els, { autoAlpha: 0, y: o.y ?? 26 }, { autoAlpha: 1, y: 0, duration: o.d ?? 0.8, ease: "power3.out", stagger: o.s ?? 0 }, at);
+
+  // 插画：描线 → 淡入细节 → 暖光点亮 → 缓慢浮动
+  function illus(root, t0, span) {
+    const ds = Q(".d", root), fs = Q(".f", root), as = Q(".a", root), hs = Q(".halo", root);
+    const each = Math.min(0.12, 1.0 / Math.max(ds.length, 1)), dur = 0.9;
+    const drawEnd = ds.length ? each * (ds.length - 1) + dur : 0.4;
+    tl.fromTo(root, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, ease: "power1.out" }, t0);
+    if (ds.length) tl.fromTo(ds, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: dur, ease: "power2.inOut", stagger: each }, t0);
+    if (fs.length) tl.fromTo(fs, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, ease: "power1.out", stagger: Math.min(0.07, 1.0 / fs.length) }, t0 + drawEnd * 0.55);
+    const ta = t0 + drawEnd + 0.1;
+    if (as.length) tl.fromTo(as, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6, ease: "power1.out" }, ta);
+    if (hs.length) {
+      tl.fromTo(hs, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8, ease: "power1.out" }, ta);
+      tl.fromTo(hs, { opacity: 1 }, { opacity: 0.45, duration: 2.4, ease: "sine.inOut", yoyo: true, repeat: reps(2.4, span) }, ta + 0.9);
+    }
+    const fl = root.querySelector(".fl");
+    if (fl) tl.fromTo(fl, { y: 0 }, { y: -6, duration: 3.6, ease: "sine.inOut", yoyo: true, repeat: reps(3.6, span) }, t0 + 1.2);
+    Q(".sway", root).forEach(g => tl.fromTo(g, { x: 0 }, { x: +g.dataset.dx, duration: 3.4, ease: "sine.inOut", yoyo: true, repeat: reps(3.4, span) }, ta));
+    Q(".pulse", root).forEach((el, i) => tl.fromTo(el, { opacity: 1 }, { opacity: 0.2, duration: 0.9, ease: "sine.inOut", yoyo: true, repeat: reps(0.9, span) }, ta + 0.3 + i * 0.3));
+    Q(".bob", root).forEach(g => tl.fromTo(g, { y: 0 }, { y: -9, duration: 2.4, ease: "sine.inOut", yoyo: true, repeat: reps(2.4, span) }, ta));
+    Q(".spin", root).forEach(g => tl.fromTo(g, { rotation: 0, svgOrigin: "200 160" }, { rotation: +g.dataset.deg, svgOrigin: "200 160", duration: span, ease: "none" }, t0));
+    Q(".travel", root).forEach(c => {
+      const path = root.querySelector("#" + c.dataset.path), L = path.getTotalLength(), pr = { p: 0 };
+      tl.fromTo(pr, { p: 0 }, { p: 1, duration: Math.max(4, span * 0.62), ease: "power1.inOut", onUpdate() {
+        const q = path.getPointAtLength(L * pr.p); c.setAttribute("cx", q.x); c.setAttribute("cy", q.y);
+      } }, t0 + 1.6);
+    });
+  }
+
+  const pages = Q(".page");
+  pages.forEach((p, idx) => {
+    const t0 = +p.dataset.start, d = +p.dataset.duration, span = +p.dataset.speech || d, last = idx === pages.length - 1;
+    const type = p.classList.contains("opening") ? "opening" : p.classList[2];
+    tl.set(p, { autoAlpha: 1, y: 0 }, t0);
+    if (!last) tl.fromTo(p, { autoAlpha: 1, y: 0 }, { autoAlpha: 0, y: -14, duration: 0.45, ease: "power2.in" }, t0 + d - 0.5);
+    else tl.fromTo(p, { autoAlpha: 1 }, { autoAlpha: 0, duration: 1.2, ease: "power1.in" }, t0 + d - 1.2);
+
+    if (type === "opening") {
+      tl.fromTo(Q(".bg", p), { autoAlpha: 1, scale: 1.03 }, { autoAlpha: 1, scale: 1, duration: d, ease: "power1.out" }, t0);
+      tl.set(Q(".op-title, .op-sub, .op-slogan"), { autoAlpha: 1, y: 0 }, t0);
+      tl.fromTo(Q(".op-rule", p), { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power2.inOut" }, t0 + 0.8);
+      return;
+    }
+    if (type === "point") {
+      tl.fromTo(Q(".bar", p), { scaleY: 0 }, { scaleY: 1, duration: 0.8, ease: "power2.inOut" }, t0 + 0.1);
+      rise(Q(".lbl", p), t0 + 0.2, { y: 14, d: 0.7 });
+      rise(Q(".ln", p), t0 + 0.4, { d: 0.9, s: 0.15 });
+      if (Q(".ttl em", p).length) tl.fromTo(Q(".ttl em", p), { color: INK }, { color: AMB, duration: 0.9, ease: "power1.inOut" }, t0 + 1.3);
+      Q(".row", p).forEach(r => rise(r, t0 + +r.dataset.at, { y: 22 }));
+      Q(".formula", p).forEach(r => rise(r, t0 + +r.dataset.at, { y: 14, d: 0.9 }));
+      Q(".illus", p).forEach(il => illus(il, t0 + 0.6, span));
+    } else if (type === "quote") {
+      const bg = Q(".qbg", p)[0];
+      illus(bg, t0 + 0.1, d);
+      rise(Q(".lbl", p), t0 + 0.2, { y: 14, d: 0.7 });
+      rise(Q(".qln", p), t0 + 0.5, { d: 1.1, s: 0.22, y: 30 });
+      if (Q(".qt em", p).length) tl.fromTo(Q(".qt em", p), { color: INK }, { color: AMB, duration: 1.0, ease: "power1.inOut" }, t0 + 1.6);
+      Q(".sub", p).forEach(r => rise(r, t0 + +r.dataset.at, { y: 16, d: 0.9 }));
+    } else if (type === "ledger" || type === "grid4") {
+      rise(Q(".lbl", p), t0 + 0.2, { y: 14, d: 0.7 });
+      rise(Q(".lttl", p), t0 + 0.4, { d: 0.9 });
+      if (Q(".lttl em", p).length) tl.fromTo(Q(".lttl em", p), { color: INK }, { color: AMB, duration: 0.9, ease: "power1.inOut" }, t0 + 1.3);
+      Q(".col", p).forEach(c => rise(c, t0 + +c.dataset.at, { y: 24, d: 0.9 }));
+      Q(".chead", p).forEach(c => rise(c, t0 + 1.2, { y: 8, d: 0.7 }));
+      Q(".mid", p).forEach(m => tl.fromTo(m, { scaleY: 0 }, { scaleY: 1, duration: 0.9, ease: "power2.inOut" }, t0 + 1.0));
+      Q(".cl, .card", p).forEach(r => rise(r, t0 + +r.dataset.at, { y: 20 }));
+    } else if (type === "ending") {
+      Q("[data-at]", p).forEach(el => rise(el, t0 + +el.dataset.at, { y: 20, d: 1.0 }));
+    }
+  });
+
+  // 页眉、进度条：片头和片尾不显示
+  const first = +pages[1].dataset.start, lastStart = +pages[pages.length - 1].dataset.start;
+  Q(".persist").forEach(el => {
+    tl.fromTo(el, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8, ease: "power1.out" }, first);
+    tl.fromTo(el, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.6, ease: "power1.in", immediateRender: false }, lastStart - 0.1);
+  });
+  const chs = JSON.parse(stage.dataset.chapters);
+  chs.forEach((c, i) => {
+    const seg = Q('.seg[data-i="' + i + '"]')[0], sl = Q('.sl[data-i="' + i + '"]')[0];
+    tl.fromTo(seg, { backgroundColor: SEGC }, { backgroundColor: AMB, duration: 0.6 }, c.start + (i ? 0 : 0.6));
+    tl.fromTo(seg, { backgroundColor: AMB }, { backgroundColor: SEGC, duration: 0.6, immediateRender: false }, c.end - 0.3);
+    tl.fromTo(sl, { color: DIM }, { color: INK, duration: 0.6 }, c.start + (i ? 0 : 0.6));
+    tl.fromTo(sl, { color: INK }, { color: DIM, duration: 0.6, immediateRender: false }, c.end - 0.3);
+  });
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines["yinian-ep01"] = tl;
+  window.dispatchEvent(new Event("yinian-ready"));
+}).catch(e => { console.error("BUILD_ERR " + e.message + " " + String(e.stack).slice(0, 300).replace(/s+/g, " ")); });
+</script>
+<audio id="voice-welcome" src="assets/audio/welcome.wav" data-start="0" data-duration="1.9" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-bridge" src="assets/audio/bridge.wav" data-start="2.05" data-duration="3.8" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p02" src="assets/audio/p02.wav" data-start="6.2" data-duration="6.96" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p03" src="assets/audio/p03.wav" data-start="14.51" data-duration="13.88" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p04" src="assets/audio/p04.wav" data-start="29.74" data-duration="7.98" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p05" src="assets/audio/p05.wav" data-start="39.07" data-duration="6.4" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p06" src="assets/audio/p06.wav" data-start="46.82" data-duration="16.36" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p07" src="assets/audio/p07.wav" data-start="64.53" data-duration="5.16" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p08" src="assets/audio/p08.wav" data-start="71.04" data-duration="14.57" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p09" src="assets/audio/p09.wav" data-start="86.96" data-duration="8.76" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p10" src="assets/audio/p10.wav" data-start="97.07" data-duration="15.28" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p11" src="assets/audio/p11.wav" data-start="113.7" data-duration="13.88" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p12" src="assets/audio/p12.wav" data-start="128.93" data-duration="17.26" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p13" src="assets/audio/p13.wav" data-start="147.54" data-duration="10.12" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p14" src="assets/audio/p14.wav" data-start="159.01" data-duration="14.24" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p15" src="assets/audio/p15.wav" data-start="174.6" data-duration="16.6" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p16" src="assets/audio/p16.wav" data-start="192.55" data-duration="12.55" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p17" src="assets/audio/p17.wav" data-start="206.45" data-duration="16.76" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p18" src="assets/audio/p18.wav" data-start="224.56" data-duration="10.8" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p19" src="assets/audio/p19.wav" data-start="236.71" data-duration="6.36" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p20" src="assets/audio/p20.wav" data-start="244.42" data-duration="14.59" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p21" src="assets/audio/p21.wav" data-start="260.36" data-duration="10.73" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p22" src="assets/audio/p22.wav" data-start="272.44" data-duration="10.59" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p23" src="assets/audio/p23.wav" data-start="284.38" data-duration="8.88" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p24" src="assets/audio/p24.wav" data-start="294.61" data-duration="15.94" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p25" src="assets/audio/p25.wav" data-start="311.9" data-duration="24.8" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p26" src="assets/audio/p26.wav" data-start="338.05" data-duration="15.72" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p27" src="assets/audio/p27.wav" data-start="355.12" data-duration="19.2" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p28" src="assets/audio/p28.wav" data-start="375.67" data-duration="5.24" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p29" src="assets/audio/p29.wav" data-start="382.26" data-duration="12.36" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p30" src="assets/audio/p30.wav" data-start="395.97" data-duration="20.24" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p31" src="assets/audio/p31.wav" data-start="417.56" data-duration="8.18" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p32" src="assets/audio/p32.wav" data-start="427.09" data-duration="22.21" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p33" src="assets/audio/p33.wav" data-start="450.65" data-duration="12.26" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p34" src="assets/audio/p34.wav" data-start="464.26" data-duration="15.12" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p35" src="assets/audio/p35.wav" data-start="480.73" data-duration="12.32" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p36" src="assets/audio/p36.wav" data-start="494.4" data-duration="5.84" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p37" src="assets/audio/p37.wav" data-start="501.59" data-duration="14.36" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p38" src="assets/audio/p38.wav" data-start="517.3" data-duration="21.88" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p39" src="assets/audio/p39.wav" data-start="540.53" data-duration="13.64" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p40" src="assets/audio/p40.wav" data-start="555.52" data-duration="14.24" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p41" src="assets/audio/p41.wav" data-start="571.11" data-duration="22.95" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p42" src="assets/audio/p42.wav" data-start="595.41" data-duration="9.99" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p43" src="assets/audio/p43.wav" data-start="606.75" data-duration="15.28" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p44" src="assets/audio/p44.wav" data-start="623.38" data-duration="12" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p45" src="assets/audio/p45.wav" data-start="636.73" data-duration="21.73" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p46" src="assets/audio/p46.wav" data-start="659.81" data-duration="13.88" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p47" src="assets/audio/p47.wav" data-start="675.04" data-duration="18.51" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p48" src="assets/audio/p48.wav" data-start="694.9" data-duration="17.29" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p49" src="assets/audio/p49.wav" data-start="713.54" data-duration="18.92" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p50" src="assets/audio/p50.wav" data-start="733.81" data-duration="12.18" data-track-index="10" data-volume="1"></audio>
+<audio id="voice-p51" src="assets/audio/p51.wav" data-start="747.34" data-duration="21.64" data-track-index="10" data-volume="1"></audio>
+</body></html>

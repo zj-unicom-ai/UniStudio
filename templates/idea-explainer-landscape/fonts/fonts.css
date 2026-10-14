@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "Noto Sans SC";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: block;
+  src: url("NotoSansSC-VF.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Noto Serif SC";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: block;
+  src: url("NotoSerifSC-VF.woff2") format("woff2");
+}

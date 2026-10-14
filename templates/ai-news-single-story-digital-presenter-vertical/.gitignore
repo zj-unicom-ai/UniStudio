@@ -1,0 +1,9 @@
+.DS_Store
+.transcode-cache/
+node_modules/
+out/
+renders/
+snapshots/
+.hyperframes/
+playwright-report/
+__pycache__/

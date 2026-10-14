@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1920,height=1080"/>
+<script src="assets/vendor/gsap.min.js"></script>
+<style>
+
+@font-face {
+  font-family:'ZCOOL QingKe HuangYou';
+  src:url('assets/fonts/ZCOOLQingKeHuangYou-Regular.ttf') format('truetype');
+  font-weight:400; font-display:block;
+}
+@font-face {
+  font-family:'Noto Sans SC';
+  src:url('assets/fonts/NotoSansSC-VF.ttf') format('truetype');
+  font-weight:100 900; font-display:block;
+}
+@font-face {
+  font-family:'JetBrains Mono';
+  src:url('assets/fonts/JetBrainsMono-VF.ttf') format('truetype');
+  font-weight:100 800; font-display:block;
+}
+
+
+* { box-sizing:border-box; }
+html,body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; }
+#root { position:absolute; inset:0; overflow:hidden; font-family:'Noto Sans SC',sans-serif; }
+
+/* 背景 */
+.bg-ink { background:#0F1E2E; color:#F3F6F8; }
+.bg-paper { background:#EDF0EE; color:#0F1E2E; }
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255,255,255,.045) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 2px, transparent 2px);
+  background-size:77px 77px;
+}
+
+/* 顶栏 */
+.bar {
+  position:absolute; left:115px; right:115px; top:73px;
+  display:flex; justify-content:space-between; align-items:center; gap:24px;
+}
+.logo { font-family:'Noto Sans SC',sans-serif; font-weight:900; font-size:40px; letter-spacing:.02em; white-space:nowrap; }
+.logo .logo-main { color:inherit; }
+.logo b { background:#FFD23F; color:#0F1E2E; padding:0 9px; margin-left:3px; }
+.bg-paper .logo b { background:#0F1E2E; color:#FFD23F; }
+.bar .src {
+  font-family:'JetBrains Mono',monospace; font-size:27px; letter-spacing:.05em;
+  opacity:.62; white-space:nowrap; overflow:hidden;
+}
+.bar .cnt { font-family:'JetBrains Mono',monospace; font-weight:700; font-size:36px; letter-spacing:.04em; white-space:nowrap; }
+.bar .cnt i { font-style:normal; opacity:.45; }
+
+/* 标签 chip */
+.chip {
+  display:inline-block; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:29px;
+  letter-spacing:.08em; padding:7px 21px; background:#FFD23F; color:#0F1E2E;
+}
+.chip.dk { background:#0F1E2E; color:#F3F6F8; }
+.chip.ol { background:transparent; color:#FFD23F; box-shadow:inset 0 0 0 3px #FFD23F; }
+.chip.dk.ol { background:transparent; color:#0F1E2E; box-shadow:inset 0 0 0 3px #0F1E2E; }
+
+/* 荧光笔（关键词） */
+.hl-word { position:relative; display:inline-block; white-space:nowrap; }
+.hl-bg {
+  position:absolute; inset:0; z-index:0;
+  background:linear-gradient(transparent 52%, #FFD23F 52% 94%, transparent 94%);
+  transform-origin:left center;
+}
+.hl-text { position:relative; z-index:1; }
+
+/* 硬边卡片 */
+.hard {
+  border:4.8px solid #0F1E2E; background:#fff;
+  box-shadow:17px 17px 0 #0F1E2E;
+}
+
+/* 底部进度条 */
+.prog {
+  position:absolute; left:0; right:0; bottom:0; height:19px;
+  display:grid; grid-template-columns:repeat(5,1fr); gap:6px;
+}
+.prog i { background:rgba(15,30,46,.16); }
+.prog i.on { background:#0F1E2E; }
+.prog i.cur { background:#FFD23F; box-shadow:inset 0 -4px 0 #0F1E2E; }
+.bg-ink .prog i { background:rgba(255,255,255,.14); }
+.bg-ink .prog i.on { background:#182C41; }
+.bg-ink .prog i.cur { background:#FFD23F; box-shadow:inset 0 -4px 0 #0F1E2E; }
+
+
+#root { background:#EDF0EE; color:#0F1E2E; }
+
+/* 左侧 */
+.b-main { position:absolute; left:115px; top:240px; width:979px; }
+.b-head { margin-top:35px; font-size:79px; font-weight:900; line-height:1.28; color:#0F1E2E; width:979px; }
+.b-head .h-line { display:block; }
+.b-summary { margin-top:42px; font-size:38px; line-height:1.7; color:#33475A; width:979px; }
+.b-summary .s-line { display:block; }
+
+/* 配图框 */
+.b-shot {
+  position:absolute; right:115px; top:240px; width:643px; height:362px;
+  background:#fff; border:4.8px solid #0F1E2E; box-shadow:17px 17px 0 #0F1E2E;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.b-shot img { width:100%; height:100%; object-fit:cover; display:block; }
+.b-shot .ph-tag { font-family:'JetBrains Mono',monospace; font-weight:700; font-size:28px; color:#5C6773; }
+.b-shot .ph-ratio { font-family:'JetBrains Mono',monospace; font-size:23px; color:#5C6773; margin-top:10px; }
+
+/* 侧栏解读 */
+.b-say {
+  position:absolute; right:115px; top:639px; width:643px;
+  background:#0F1E2E; color:#fff; padding:42px 46px;
+  box-shadow:17px 17px 0 #FFD23F;
+}
+.b-say .say-body { font-size:36px; line-height:1.6; font-weight:500; }
+.b-say .say-tag {
+  position:absolute; top:-20px; left:32px;
+  background:#FFD23F; color:#0F1E2E; font-family:'JetBrains Mono',monospace; font-weight:700;
+  font-size:32px; padding:2px 14px;
+}
+
+</style>
+</head>
+<body>
+<div id="root" class="bg" data-composition-id="b-news-02" data-width="1920"
+     data-height="1080" data-duration="20.3">
+
+<div class="bar"><span class="logo"><span class="logo-main">AI</span><b>周见</b></span><span class="src">来源 示例媒体 · 10.10</span><span class="cnt">第 2 条 <i>/</i> 05</span></div>
+<div class="b-main">
+  <span class="chip dk">产品</span>
+  <div class="b-head"><span class="h-line">办公软件上线 AI </span><span class="h-line"><span class="hl-word"><span class="hl-bg"></span><span class="hl-text">会议纪要</span></span>，开完会自动生成</span><span class="h-line">待办</span></div>
+  <div class="b-summary"><span class="s-line">新功能可以在会议结束后自动整理要点，并把需要跟进的</span><span class="s-line">事项拆成待办清单，目前先向部分企业用户开放。</span></div>
+</div>
+<div class="b-shot"><span class="ph-tag">配图 / 截图区</span><span class="ph-ratio">16:9</span></div>
+<div class="b-say">
+  <span class="say-tag">周见点评</span>
+  <div class="say-body">会议纪要正在变成办公软件的标配，差别只剩整理得准不准。</div>
+</div>
+<div class="prog" style="grid-template-columns:repeat(5,1fr)"><i class="on"></i><i class="cur"></i><i class=""></i><i class=""></i><i class=""></i></div>
+
+</div>
+<script>
+
+const root = document.querySelector('[data-composition-id="b-news-02"]');
+const q = (s) => root.querySelectorAll(s);
+const tl = gsap.timeline({paused:true});
+
+// 初始状态（时间 0，CSS 不带 transform，避免冲突）
+tl.set(q('.bar'), {autoAlpha:0, y:-20}, 0);
+tl.set(q('.prog'), {autoAlpha:0}, 0);
+tl.set(q('.b-main .chip'), {autoAlpha:0, y:24}, 0);
+tl.set(q('.b-head .h-line'), {autoAlpha:0, y:24}, 0);
+tl.set(q('.b-summary .s-line'), {autoAlpha:0, y:24}, 0);
+tl.set(q('.b-shot'), {autoAlpha:0, y:16}, 0);
+tl.set(q('.b-say'), {autoAlpha:0, x:80}, 0);
+tl.set(q('.hl-bg'), {scaleX:0}, 0);
+
+// 进场
+tl.to(q('.bar'), {autoAlpha:1, y:0, duration:0.5, ease:'power3.out'}, 0.3);
+tl.to(q('.prog'), {autoAlpha:1, duration:0.4, ease:'power2.out'}, 0.4);
+tl.to(q('.b-main .chip'), {autoAlpha:1, y:0, duration:0.45, ease:'power3.out'}, 0.4);
+tl.to(q('.b-head .h-line:nth-child(1)'), {autoAlpha:1, y:0, duration:0.45, ease:'power3.out'}, 0.5);
+tl.to(q('.b-head .h-line:nth-child(2)'), {autoAlpha:1, y:0, duration:0.45, ease:'power3.out'}, 0.58);
+tl.to(q('.b-head .h-line:nth-child(3)'), {autoAlpha:1, y:0, duration:0.45, ease:'power3.out'}, 0.66);
+tl.to(q('.hl-bg'), {scaleX:1, duration:0.5, ease:'power3.out'}, 1.5);
+tl.to(q('.b-summary .s-line:nth-child(1)'), {autoAlpha:1, y:0, duration:0.45, ease:'power3.out'}, 2.3);
+tl.to(q('.b-summary .s-line:nth-child(2)'), {autoAlpha:1, y:0, duration:0.45, ease:'power3.out'}, 2.38);
+tl.to(q('.b-shot'), {autoAlpha:1, y:0, duration:0.5, ease:'power3.out'}, 2.9);
+tl.to(q('.b-say'), {autoAlpha:1, x:0, duration:0.5, ease:'power3.out'}, 10.3);
+
+window.__timelines['b-news-02'] = tl;
+
+</script>
+</body>
+</html>

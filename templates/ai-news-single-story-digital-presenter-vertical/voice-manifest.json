@@ -1,0 +1,51 @@
+[
+  {
+    "id": "00-intro",
+    "path": "assets/voice/00-intro.wav",
+    "duration_s": 12.13,
+    "sample_rate": 24000,
+    "channels": 1
+  },
+  {
+    "id": "01-launch",
+    "path": "assets/voice/01-launch.wav",
+    "duration_s": 15.73,
+    "sample_rate": 24000,
+    "channels": 1
+  },
+  {
+    "id": "02-price",
+    "path": "assets/voice/02-price.wav",
+    "duration_s": 17.46,
+    "sample_rate": 24000,
+    "channels": 1
+  },
+  {
+    "id": "03-bench",
+    "path": "assets/voice/03-bench.wav",
+    "duration_s": 17.2,
+    "sample_rate": 24000,
+    "channels": 1
+  },
+  {
+    "id": "04-eco",
+    "path": "assets/voice/04-eco.wav",
+    "duration_s": 13.95,
+    "sample_rate": 24000,
+    "channels": 1
+  },
+  {
+    "id": "05-insight",
+    "path": "assets/voice/05-insight.wav",
+    "duration_s": 15.45,
+    "sample_rate": 24000,
+    "channels": 1
+  },
+  {
+    "id": "99-outro",
+    "path": "assets/voice/99-outro.wav",
+    "duration_s": 4.36,
+    "sample_rate": 24000,
+    "channels": 1
+  }
+]

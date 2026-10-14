@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN" data-resolution="portrait">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { box-sizing:border-box; }
+    html,body { margin:0; width:1080px; height:1920px; overflow:hidden; background:#031326; }
+    #root { position:relative; width:1080px; height:1920px; overflow:hidden; isolation:isolate; }
+    .template-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:fill; z-index:0; }
+    .photo-window {
+      position:absolute; z-index:1; left:72px; top:640px; width:936px; height:675px;
+      overflow:hidden; background:#03152b;
+      clip-path:polygon(0 29px,29px 0,calc(100% - 29px) 0,100% 29px,100% calc(100% - 29px),calc(100% - 29px) 100%,29px 100%,0 calc(100% - 29px));
+    }
+    .image-layer { position:absolute; inset:0; }
+    .image-layer img { display:block; width:100%; height:100%; object-fit:cover; opacity:0; visibility:hidden; will-change:transform,opacity; }
+    #shot-0 img { opacity:1; visibility:visible; }
+    .copy-overlay { position:absolute; inset:0; z-index:2; pointer-events:none; }
+    .title-plate {
+      position:absolute; left:58px; top:263px; width:964px; height:132px;
+      display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(180deg,#020d1d,#031225);
+    }
+    .headline {
+      margin:0; color:#f3fbff; font-family:"Noto Sans Japanese";
+      font-size:82px; font-weight:900; line-height:1; letter-spacing:2px; white-space:nowrap;
+      text-shadow:0 0 5px rgba(255,255,255,.68),0 0 22px rgba(0,201,255,.7),0 4px 20px rgba(0,91,255,.65);
+    }
+    .subtitle {
+      position:absolute; left:223px; top:430px; width:634px; height:83px;
+      display:flex; align-items:center; justify-content:center;
+      color:#05214b; font-family:"Noto Sans Japanese";
+      font-size:37px; font-weight:900; letter-spacing:1px; white-space:nowrap;
+      background:linear-gradient(180deg,#08baf5,#0099e8);
+      clip-path:polygon(14px 0,calc(100% - 14px) 0,100% 50%,calc(100% - 14px) 100%,14px 100%,0 50%);
+      text-shadow:0 1px 0 rgba(255,255,255,.16);
+    }
+    .footer-copy {
+      position:absolute; left:74px; top:1435px; width:932px; height:263px;
+      padding:14px 35px 12px; background:#011429;
+      color:#eff9ff; font-family:"Noto Sans Japanese";
+    }
+    .footer-kicker {
+      margin:0 0 14px; color:#00dfff; font-size:25px; line-height:1.1; font-weight:800;
+      letter-spacing:3px; text-shadow:0 0 12px rgba(0,217,255,.48);
+    }
+    .footer-body {
+      margin:0; font-size:37px; line-height:1.48; font-weight:700; letter-spacing:.3px;
+      text-shadow:0 1px 10px rgba(0,77,145,.28);
+    }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="main" data-start="0" data-duration="@@DURATION@@" data-width="1080" data-height="1920">
+    <img id="holo-template-background" class="template-bg clip" src="@@BACKGROUND@@" alt="" data-start="0" data-duration="@@DURATION@@" data-track-index="1" />
+
+    <div id="photo-window" class="photo-window clip" aria-label="全息画框中的图片切换" data-start="0" data-duration="@@DURATION@@" data-track-index="4">
+@@IMAGE_LAYERS@@
+    </div>
+
+    <div id="static-copy-overlay" class="copy-overlay clip" data-start="0" data-duration="@@DURATION@@" data-track-index="11">
+      <div class="title-plate"><h1 class="headline">@@TITLE@@</h1></div>
+      <div class="subtitle">@@SUBTITLE@@</div>
+      <section class="footer-copy" aria-label="本期内容摘要">
+        <p class="footer-kicker">@@FOOTER_KICKER@@</p>
+        <p class="footer-body">@@FOOTER_LINES@@</p>
+      </section>
+    </div>
+
+@@BGM_CLIPS@@
+  </div>
+  <script type="application/json" id="episode-json">@@EPISODE_JSON@@</script>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const episode = JSON.parse(document.getElementById("episode-json").textContent);
+    const tl = gsap.timeline({ paused:true });
+    const imageIndex = Object.fromEntries(episode.images.map((image,index)=>[image.id,index]));
+    const sequence = episode.beats.map(beat=>imageIndex[beat.image]);
+    const at = episode.beats.map(beat=>beat.start);
+    const imgs = Array.from({length:episode.images.length},(_,i)=>document.querySelector("#shot-"+i+" img"));
+    gsap.set(imgs,{transformOrigin:"50% 50%"});
+    const transitionDeck = [...episode.transitionDeck];
+    let seed = episode.transitionSeed >>> 0;
+    for(let i=transitionDeck.length-1;i>0;i--){
+      seed = (seed * 1664525 + 1013904223) >>> 0;
+      const j = seed % (i + 1);
+      [transitionDeck[i],transitionDeck[j]] = [transitionDeck[j],transitionDeck[i]];
+    }
+    at.forEach((time,i)=>{
+      if(i===0){
+        tl.fromTo(imgs[sequence[i]],{scale:1.08},{scale:1,duration:.28,ease:"power3.out"},time);
+      }else{
+        const previous = imgs[sequence[i-1]];
+        const incoming = imgs[sequence[i]];
+        const direction = i % 2 ? 1 : -1;
+        const effect = transitionDeck[(i-1)%transitionDeck.length];
+        if(effect==="push"){
+          tl.to(previous,{autoAlpha:0,x:-direction*936,y:0,rotation:0,scale:1,duration:.28,ease:"power3.in"},time);
+          tl.fromTo(incoming,{autoAlpha:0,x:direction*936,y:0,rotation:0,scale:1.02},{autoAlpha:1,x:0,y:0,rotation:0,scale:1,duration:.28,ease:"power3.out",immediateRender:false},time);
+        }else if(effect==="tilt"){
+          tl.to(previous,{autoAlpha:0,x:0,y:-24,rotation:-direction*7,scale:1.12,duration:.28,ease:"power2.in"},time);
+          tl.fromTo(incoming,{autoAlpha:0,x:0,y:42,rotation:direction*9,scale:.76},{autoAlpha:1,x:0,y:0,rotation:0,scale:1.02,duration:.32,ease:"back.out(1.5)",immediateRender:false},time);
+        }else{
+          tl.to(previous,{autoAlpha:0,x:0,y:0,rotation:0,scale:1.18,duration:.1,ease:"power2.in"},time);
+          tl.fromTo(incoming,{autoAlpha:0,x:0,y:0,rotation:0,scale:.42},{autoAlpha:1,x:0,y:0,rotation:0,scale:1,duration:.32,ease:"power3.out",immediateRender:false},time);
+        }
+      }
+    });
+    tl.to({}, {duration:episode.duration},0);
+    window.__timelines.main=tl;
+  </script>
+</body>
+</html>

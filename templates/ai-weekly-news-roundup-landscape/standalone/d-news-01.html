@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1920,height=1080"/>
+<script src="assets/vendor/gsap.min.js"></script>
+<style>
+
+@font-face {
+  font-family:'ZCOOL QingKe HuangYou';
+  src:url('assets/fonts/ZCOOLQingKeHuangYou-Regular.ttf') format('truetype');
+  font-weight:400; font-display:block;
+}
+@font-face {
+  font-family:'Noto Sans SC';
+  src:url('assets/fonts/NotoSansSC-VF.ttf') format('truetype');
+  font-weight:100 900; font-display:block;
+}
+@font-face {
+  font-family:'JetBrains Mono';
+  src:url('assets/fonts/JetBrainsMono-VF.ttf') format('truetype');
+  font-weight:100 800; font-display:block;
+}
+
+
+* { box-sizing:border-box; }
+html,body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; }
+#root { position:absolute; inset:0; overflow:hidden; font-family:'Noto Sans SC',sans-serif; }
+
+/* 背景 */
+.bg-ink { background:#0F1E2E; color:#F3F6F8; }
+.bg-paper { background:#EDF0EE; color:#0F1E2E; }
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255,255,255,.045) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 2px, transparent 2px);
+  background-size:77px 77px;
+}
+
+/* 顶栏 */
+.bar {
+  position:absolute; left:115px; right:115px; top:73px;
+  display:flex; justify-content:space-between; align-items:center; gap:24px;
+}
+.logo { font-family:'Noto Sans SC',sans-serif; font-weight:900; font-size:40px; letter-spacing:.02em; white-space:nowrap; }
+.logo .logo-main { color:inherit; }
+.logo b { background:#FFD23F; color:#0F1E2E; padding:0 9px; margin-left:3px; }
+.bg-paper .logo b { background:#0F1E2E; color:#FFD23F; }
+.bar .src {
+  font-family:'JetBrains Mono',monospace; font-size:27px; letter-spacing:.05em;
+  opacity:.62; white-space:nowrap; overflow:hidden;
+}
+.bar .cnt { font-family:'JetBrains Mono',monospace; font-weight:700; font-size:36px; letter-spacing:.04em; white-space:nowrap; }
+.bar .cnt i { font-style:normal; opacity:.45; }
+
+/* 标签 chip */
+.chip {
+  display:inline-block; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:29px;
+  letter-spacing:.08em; padding:7px 21px; background:#FFD23F; color:#0F1E2E;
+}
+.chip.dk { background:#0F1E2E; color:#F3F6F8; }
+.chip.ol { background:transparent; color:#FFD23F; box-shadow:inset 0 0 0 3px #FFD23F; }
+.chip.dk.ol { background:transparent; color:#0F1E2E; box-shadow:inset 0 0 0 3px #0F1E2E; }
+
+/* 荧光笔（关键词） */
+.hl-word { position:relative; display:inline-block; white-space:nowrap; }
+.hl-bg {
+  position:absolute; inset:0; z-index:0;
+  background:linear-gradient(transparent 52%, #FFD23F 52% 94%, transparent 94%);
+  transform-origin:left center;
+}
+.hl-text { position:relative; z-index:1; }
+
+/* 硬边卡片 */
+.hard {
+  border:4.8px solid #0F1E2E; background:#fff;
+  box-shadow:17px 17px 0 #0F1E2E;
+}
+
+/* 底部进度条 */
+.prog {
+  position:absolute; left:0; right:0; bottom:0; height:19px;
+  display:grid; grid-template-columns:repeat(5,1fr); gap:6px;
+}
+.prog i { background:rgba(15,30,46,.16); }
+.prog i.on { background:#0F1E2E; }
+.prog i.cur { background:#FFD23F; box-shadow:inset 0 -4px 0 #0F1E2E; }
+.bg-ink .prog i { background:rgba(255,255,255,.14); }
+.bg-ink .prog i.on { background:#182C41; }
+.bg-ink .prog i.cur { background:#FFD23F; box-shadow:inset 0 -4px 0 #0F1E2E; }
+
+
+#root { background:#EDF0EE; color:#0F1E2E; }
+
+/* 左侧大数字 */
+.d-big { position:absolute; left:115px; top:230px; }
+.d-big .num {
+  margin:70px 0 0; font-family:'JetBrains Mono',monospace; font-weight:700;
+  font-size:320px; line-height:1; letter-spacing:-.04em;
+  white-space:nowrap; max-width:800px;
+}
+.d-big .num mark {
+  background:linear-gradient(transparent 60%,#FFD23F 60% 96%,transparent 96%);
+  color:inherit;
+}
+.d-big h4 { margin:55px 0 0; font-size:54px; font-weight:900; line-height:1.3; max-width:653px; }
+.d-big p { margin-top:23px; font-size:35px; color:#33475A; max-width:653px; }
+
+/* 右侧图表 */
+.d-chart {
+  position:absolute; right:115px; top:259px; width:845px;
+  background:#fff; padding:46px 50px; box-shadow:6px 6px 0 #0F1E2E;
+}
+.d-chart .t { font-family:'JetBrains Mono',monospace; font-size:27px; letter-spacing:.08em; color:#5C6B78; }
+.bar-r { margin-top:42px; }
+.bar-r .l { display:flex; justify-content:space-between; font-weight:700; font-size:36px; }
+.bar-r .l .v { font-family:'JetBrains Mono',monospace; }
+.bar-r .tr { margin-top:15px; height:69px; background:#E3E8E6; }
+.bar-r .fl { display:block; height:100%; width:100%; background:#0F1E2E; transform-origin:left center; }
+.bar-r.new .fl { background:#FFD23F; box-shadow:inset 0 0 0 3px #0F1E2E; }
+.d-chart .ex { margin-top:46px; font-family:'JetBrains Mono',monospace; font-size:25px; color:#5C6B78; line-height:1.5; }
+
+</style>
+</head>
+<body>
+<div id="root" class="bg" data-composition-id="d-news-01" data-width="1920"
+     data-height="1080" data-duration="10.3">
+
+<div class="bar"><span class="logo"><span class="logo-main">AI</span><b>周见</b></span><span class="src">来源 示例媒体 · 10.10</span><span class="cnt">第 1 条 <i>/</i> 05</span></div>
+<div class="d-big">
+  <span class="chip dk">数据</span>
+  <div class="num"><mark id="big-num">0.0</mark></div>
+  <h4>演示用相对变化</h4>
+  <p>仅用于版式预览，不代表真实统计数据</p>
+</div>
+<div class="d-chart hard">
+  <div class="t">相对值 / %</div>
+  <div class="bar-r"><div class="l"><span>示例 A</span><span class="v" id="v-0">0</span></div><div class="tr"><div class="fl" id="fl-0"></div></div></div><div class="bar-r new"><div class="l"><span>示例 B</span><span class="v" id="v-1">0</span></div><div class="tr"><div class="fl" id="fl-1"></div></div></div>
+  <div class="ex">数据来源见顶栏来源标注</div>
+</div>
+<div class="prog" style="grid-template-columns:repeat(5,1fr)"><i class="cur"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div>
+
+</div>
+<script>
+
+const root = document.querySelector('[data-composition-id="d-news-01"]');
+const q = (s) => root.querySelectorAll(s);
+const tl = gsap.timeline({paused:true});
+
+tl.set(q('.bar'), {autoAlpha:0, y:-20}, 0);
+tl.set(q('.prog'), {autoAlpha:0}, 0);
+tl.set(q('.d-big .chip'), {autoAlpha:0, y:24}, 0);
+tl.set(q('.d-big .num'), {autoAlpha:0}, 0);
+tl.set(q('.d-big h4'), {autoAlpha:0, y:24}, 0);
+tl.set(q('.d-big p'), {autoAlpha:0, y:24}, 0);
+tl.set(q('.d-chart'), {autoAlpha:0, y:24}, 0);
+tl.set(q('.fl'), {scaleX:0}, 0);
+
+tl.to(q('.bar'), {autoAlpha:1, y:0, duration:0.5, ease:'power3.out'}, 0.3);
+tl.to(q('.prog'), {autoAlpha:1, duration:0.4, ease:'power2.out'}, 0.4);
+tl.to(q('.d-big .chip'), {autoAlpha:1, y:0, duration:0.45, ease:'power3.out'}, 0.3);
+tl.to(q('.d-big .num'), {autoAlpha:1, duration:0.4, ease:'power2.out'}, 0.6);
+tl.to(q('.d-big h4'), {autoAlpha:1, y:0, duration:0.45, ease:'power3.out'}, 0.6);
+tl.to(q('.d-big p'), {autoAlpha:1, y:0, duration:0.45, ease:'power3.out'}, 0.7);
+tl.to(q('.d-chart'), {autoAlpha:1, y:0, duration:0.5, ease:'power3.out'}, 0.8);
+
+const big = {v:0};
+const bigEl = root.querySelector('#big-num');
+tl.to(big, {v:0.0, duration:0.8, ease:'power2.out',
+  onUpdate:()=>{ bigEl.textContent = big.v.toFixed(0) + ''; } }, 1.1);
+
+const p0 = {v:0};
+const vEl0 = root.querySelector('#v-0');
+const flEl0 = root.querySelector('#fl-0');
+tl.to(p0, {v:35, duration:0.8, ease:'power2.out',
+  onUpdate:()=>{
+    vEl0.textContent = Math.round(p0.v);
+    gsap.set(flEl0, {scaleX: p0.v/100});
+  } }, 1.1);
+
+const p1 = {v:0};
+const vEl1 = root.querySelector('#v-1');
+const flEl1 = root.querySelector('#fl-1');
+tl.to(p1, {v:78, duration:0.8, ease:'power2.out',
+  onUpdate:()=>{
+    vEl1.textContent = Math.round(p1.v);
+    gsap.set(flEl1, {scaleX: p1.v/100});
+  } }, 1.1);
+
+window.__timelines['d-news-01'] = tl;
+
+</script>
+</body>
+</html>

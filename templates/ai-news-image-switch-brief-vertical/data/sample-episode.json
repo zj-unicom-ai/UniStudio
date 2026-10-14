@@ -1,0 +1,34 @@
+{
+  "duration": 18.3,
+  "title": "AI 让手机听懂视频",
+  "subtitle": "一句语音，直达视频瞬间",
+  "footerKicker": "EMBEDDINGGEMMA 2 / 7.4 亿参数",
+  "footerLines": [
+    "把文字、代码、图片、视频与音频",
+    "映射进同一个搜索空间。",
+    "一句话，直达视频里的对应瞬间。"
+  ],
+  "background": "assets/background/holographic-template.png",
+  "bgm": "assets/audio/dynamic-bgm.mp3",
+  "bgmDuration": 15.124,
+  "transitionSeed": 2,
+  "transitionDeck": ["zoom", "zoom", "zoom", "zoom", "zoom", "push", "tilt"],
+  "images": [
+    {"id": "meeting", "path": "assets/images/01-meeting.jpg", "alt": "会议演讲场景"},
+    {"id": "model", "path": "assets/images/02-embeddinggemma.jpg", "alt": "EmbeddingGemma 2 模型主题图片"},
+    {"id": "code", "path": "assets/images/03-code.jpg", "alt": "笔记本电脑上的代码"},
+    {"id": "gallery", "path": "assets/images/04-gallery.jpg", "alt": "手机照片库"},
+    {"id": "voice-memo", "path": "assets/images/05-voice-memo.jpg", "alt": "手机语音备忘录"},
+    {"id": "video-search", "path": "assets/images/06-video-search.jpg", "alt": "手机上播放的视频"}
+  ],
+  "beats": [
+    {"start": 0.0, "image": "meeting"},
+    {"start": 3.62, "image": "model"},
+    {"start": 6.22, "image": "code"},
+    {"start": 7.92, "image": "gallery"},
+    {"start": 10.78, "image": "voice-memo"},
+    {"start": 11.92, "image": "video-search"},
+    {"start": 14.84, "image": "gallery"},
+    {"start": 16.30, "image": "video-search"}
+  ]
+}

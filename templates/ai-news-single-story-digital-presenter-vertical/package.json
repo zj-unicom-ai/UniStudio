@@ -1,0 +1,12 @@
+{
+  "name": "ai-news-single-story-digital-presenter-vertical",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "voice": "python3 scripts/generate_voiceover.py",
+    "build": "python3 scripts/build_timing.py && python3 scripts/build_index.py",
+    "dev": "npx --yes hyperframes@0.8.140 preview",
+    "check": "npx --yes hyperframes@0.8.140 check",
+    "render": "python3 scripts/render_delivery.py"
+  }
+}

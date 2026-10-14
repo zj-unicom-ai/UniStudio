@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>自媒体数字员工平台 · Uni AI Video Templates</title>
+<meta name="description" content="自媒体数字员工平台：管理可复用的 AI 视频模板、查看生成任务看板、跟进自动发布流程。">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" fill="%230B1220" stroke="%23FFC857" stroke-width="1.8"/><path d="M9.8 9.1v5.8l5-2.9z" fill="%235CDBE8"/></svg>'>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<style>
+/* ===== 设计令牌：深蓝底 + 青蓝科技线 + 琥珀高亮（延续模板封面视觉语言） ===== */
+:root{
+  --ink:#0B1220;--panel:#111A2E;--panel-2:#172340;--line:#233252;
+  --cyan:#5CDBE8;--amber:#FFC857;--ok:#6FE3A1;--orange:#FF9E5E;--bad:#FF5C5C;--hold:#C9A6FF;
+  --text:#EAF0FA;--muted:#93A3BF;--faint:#5E6E8C;--radius:10px;
+  --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --sans:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+a{color:var(--cyan);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+::selection{background:rgba(92,219,232,.28)}
+.page{display:none}
+.page.active{display:block;animation:fadein .25s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.page.active{animation:none}html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* ===== 顶部导航 ===== */
+.topnav{position:sticky;top:0;z-index:40;background:rgba(11,18,32,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topnav .wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px 16px;padding-top:12px;padding-bottom:12px}
+.brand{display:flex;align-items:center;gap:9px;color:var(--text);font-family:var(--serif);font-weight:900;font-size:16px;letter-spacing:.02em}
+.brand:hover{text-decoration:none}
+.brand svg{flex:none}
+.brand small{font-family:var(--sans);font-weight:400;color:var(--faint);font-size:11px;letter-spacing:.08em}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-link{padding:7px 13px;border-radius:7px;color:var(--muted);font-size:13.5px;font-weight:500;transition:color .15s,background .15s}
+.nav-link:hover{color:var(--text);background:var(--panel-2);text-decoration:none}
+.nav-link.active{color:var(--amber);background:rgba(255,200,87,.08)}
+
+/* ===== 通用页面头 ===== */
+.page-head{padding:38px 0 4px}
+.page-head h1{font-family:var(--serif);font-weight:900;font-size:clamp(1.6rem,4.5vw,2.3rem);line-height:1.2}
+.page-head .sub{color:var(--muted);font-size:14px;margin-top:6px;max-width:52em}
+.page-head .accent{color:var(--amber)}
+
+/* ===== 主页 hero ===== */
+.home-hero{position:relative;background:radial-gradient(900px 340px at 50% -160px,rgba(23,35,64,.95) 0%,rgba(11,18,32,0) 62%);padding:56px 0 34px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--faint);margin-bottom:14px}
+.eyebrow b{color:var(--amber);font-weight:500}
+.home-hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(2rem,6.5vw,3.2rem);line-height:1.15;letter-spacing:.02em}
+.home-hero h1 .accent{color:var(--amber)}
+.home-hero .lede{color:var(--muted);font-size:15.5px;max-width:46em;margin-top:14px}
+.home-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:14px;font-weight:500;border:1px solid transparent;transition:background .15s,border-color .15s,color .15s}
+.btn:hover{text-decoration:none}
+.btn-primary{background:var(--amber);color:#1A1406;font-weight:700}
+.btn-primary:hover{background:#FFD989}
+.btn-ghost{border-color:var(--line);color:var(--text)}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* ===== 能力入口卡 ===== */
+.cap-section{padding:40px 0 8px}
+.cap-section h2,.pipeline-section h2{font-family:var(--serif);font-weight:700;font-size:1.3rem;margin-bottom:4px}
+.cap-section .sub{color:var(--faint);font-size:13px;margin-bottom:20px}
+.cap-cards{display:grid;grid-template-columns:1fr;gap:16px}
+.cap-card{display:flex;flex-direction:column;gap:12px;padding:22px 22px 20px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);transition:border-color .18s,transform .18s}
+.cap-card:hover{border-color:var(--cyan);transform:translateY(-2px);text-decoration:none}
+.cap-card .cap-icon{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:var(--panel-2);color:var(--amber)}
+.cap-card:nth-child(2) .cap-icon{color:var(--cyan)}
+.cap-card h3{font-family:var(--serif);font-weight:700;font-size:1.08rem}
+.cap-card p{font-size:13.5px;color:var(--muted);line-height:1.65}
+.cap-card .cap-meta{font-size:12px;color:var(--faint);border-top:1px dashed var(--line);padding-top:10px}
+.cap-card .go{color:var(--cyan);font-size:13px;font-weight:500}
+
+/* ===== 主页统计与工作流 ===== */
+.home-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:26px}
+.stat{background:var(--panel);padding:18px 20px}
+.stat b{display:block;font-family:var(--serif);font-weight:900;font-size:1.8rem;line-height:1.2;color:var(--amber);font-variant-numeric:tabular-nums}
+.stat.cyan b{color:var(--cyan)}
+.stat.ok b{color:var(--ok)}
+.stat span{font-size:12px;color:var(--muted);letter-spacing:.04em}
+.home-note{font-size:11.5px;color:var(--faint);margin-top:8px}
+.flow-section{padding:36px 0 8px}
+.flow{display:flex;flex-direction:column;gap:0;margin-top:18px}
+.flow-step{position:relative;display:flex;gap:14px;padding:0 0 22px 0}
+.flow-step .dot{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--panel-2);color:var(--faint)}
+.flow-step .body{padding-top:3px}
+.flow-step .body b{display:block;font-size:14px;font-weight:600}
+.flow-step .body span{font-size:12.5px;color:var(--faint)}
+.flow-step:not(:last-child) .dot::after{content:"";position:absolute;left:14px;top:30px;width:1px;height:22px;background:var(--line)}
+
+/* ===== 筛选与搜索（模板页） ===== */
+.controls{display:flex;flex-direction:column;gap:12px;margin:26px 0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--muted);font-size:13px;transition:border-color .15s,color .15s,background .15s}
+.chip:hover{border-color:var(--cyan);color:var(--text)}
+.chip[aria-pressed="true"]{border-color:var(--amber);color:var(--amber);background:rgba(255,200,87,.08);font-weight:500}
+.search input{width:100%;max-width:380px;padding:9px 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:16px;font-family:inherit}
+.search input::placeholder{color:var(--faint)}
+.search input:focus{outline:none;border-color:var(--cyan)}
+
+/* ===== 模板卡片栅格 ===== */
+.gallery-section{margin-top:30px}
+.gallery-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:12px}
+.gallery-head h2{font-family:var(--serif);font-weight:700;font-size:1.3rem}
+.gallery-head p{font-size:13px;color:var(--faint)}
+.grid{display:grid;grid-template-columns:1fr;gap:22px}
+.card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:border-color .18s,transform .18s,box-shadow .18s}
+.card:hover{border-color:var(--cyan);transform:translateY(-2px);box-shadow:0 10px 30px rgba(4,8,18,.45)}
+.card-cover{position:relative;background:var(--panel-2)}
+.card-cover img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.card:hover .card-cover img{transform:scale(1.025)}
+.card-cover[data-aspect="vertical"]{aspect-ratio:9/16}
+.card-cover[data-aspect="landscape"]{aspect-ratio:16/9}
+.play-badge{position:absolute;right:12px;bottom:12px;display:flex;align-items:center;gap:6px;padding:7px 12px 7px 9px;border-radius:999px;background:rgba(9,14,26,.78);border:1px solid rgba(255,200,87,.5);color:var(--amber);font-size:12px;font-weight:500;backdrop-filter:blur(4px)}
+.play-badge svg{flex:none}
+.card-body{display:flex;flex-direction:column;gap:8px;padding:16px 18px 18px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:11px;padding:2px 9px;border-radius:4px;border:1px solid var(--line);color:var(--muted);letter-spacing:.03em}
+.tag.v{color:var(--amber);border-color:rgba(255,200,87,.4)}
+.tag.h{color:var(--cyan);border-color:rgba(92,219,232,.4)}
+.card-body h3{font-family:var(--serif);font-weight:700;font-size:1.14rem;line-height:1.35}
+.card-body .en{font-size:12px;color:var(--faint);letter-spacing:.02em}
+.card-body .desc{font-size:13.5px;color:var(--muted);line-height:1.65}
+.spec{font-size:12.5px;color:var(--faint);font-variant-numeric:tabular-nums;border-top:1px dashed var(--line);padding-top:10px;margin-top:2px}
+.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:2px}
+.actions a{font-size:13px;font-weight:500}
+.actions .sample-link{color:var(--amber)}
+.actions .sample-link:hover{color:#FFD989}
+.empty{text-align:center;padding:60px 20px;border:1px dashed var(--line);border-radius:var(--radius);color:var(--muted)}
+.empty p{margin-bottom:16px}
+
+/* ===== 规格对比表 ===== */
+.compare-section{margin-top:48px}
+.compare-section h2{font-family:var(--serif);font-weight:700;font-size:1.3rem;margin-bottom:6px}
+.compare-note{font-size:12.5px;color:var(--faint);margin-bottom:16px}
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius)}
+table{width:100%;min-width:820px;border-collapse:collapse;table-layout:fixed}
+colgroup col:first-child{width:23%}
+colgroup col:nth-child(2){width:9%}
+colgroup col:nth-child(3){width:15%}
+colgroup col:nth-child(4){width:13%}
+colgroup col:nth-child(5){width:20%}
+colgroup col:nth-child(6){width:20%}
+thead th{font-size:12px;font-weight:500;color:var(--faint);text-align:left;padding:11px 14px;background:var(--panel-2);border-bottom:1px solid var(--line);letter-spacing:.04em}
+tbody td{padding:12px 14px;border-bottom:1px solid var(--line);font-size:13px;color:var(--muted);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:rgba(23,35,64,.55)}
+td.tpl-name{color:var(--text);font-weight:500}
+td.tpl-name small{display:block;color:var(--faint);font-weight:400;font-size:11.5px;margin-top:2px}
+td .spec-mini{color:var(--faint)}
+td.v-flag{color:var(--amber)}
+td.h-flag{color:var(--cyan)}
+
+/* ===== 生产规范（两条铁律） ===== */
+.rules{display:grid;grid-template-columns:1fr;gap:14px;margin-top:22px}
+.rule{display:flex;gap:12px;padding:16px 18px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
+.rule .ri{flex:none;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:9px;border:1px solid var(--line);background:var(--panel-2);color:var(--amber)}
+.rule b{display:block;font-size:13.5px}
+.rule p{font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.65}
+.rule code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;color:var(--cyan);background:rgba(92,219,232,.08);padding:1px 6px;border-radius:4px;word-break:break-all}
+
+/* ===== 发布 Skill 展示 ===== */
+.publish-value{margin-top:22px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:20px;display:flex;flex-direction:column;gap:16px}
+.publish-value h2{font-family:var(--serif);font-size:16px}
+.pv-lead{font-size:13px;color:var(--muted);line-height:1.7;margin-top:6px}
+.pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pv-card{border:1px solid var(--line);border-radius:10px;background:var(--panel-2);padding:13px 14px}
+.pv-card.num b{display:block;font-family:var(--serif);font-size:26px;font-variant-numeric:tabular-nums;color:var(--amber)}
+.pv-card.num span{font-size:11.5px;color:var(--muted)}
+.pv-card h4{font-size:13px;font-weight:600;margin-bottom:5px}
+.pv-card p{font-size:11.5px;color:var(--muted);line-height:1.6;margin:0}
+.skill-show{margin-top:34px}
+.skill-show>h2{font-family:var(--serif);font-size:1.15rem}
+.skill-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);overflow:hidden;margin-top:12px}
+.sk-head{display:flex;align-items:center;gap:14px;padding:16px 18px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+.sk-plat{flex:none;display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:1px solid rgba(111,227,161,.45);color:var(--ok);font-size:12px;font-weight:600}
+.sk-plat::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ok)}
+.sk-head b{display:block;font-size:15px;font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:.2px}
+.sk-head p{font-size:12px;color:var(--muted);margin:3px 0 0;line-height:1.6}
+.sk-badge{margin-left:auto;flex:none;font-size:11px;color:var(--cyan);border:1px solid rgba(92,219,232,.5);border-radius:999px;padding:4px 11px;font-weight:600;white-space:nowrap}
+.sk-cols{display:grid;grid-template-columns:1fr;gap:18px;padding:16px 18px}
+.sk-col h4{font-size:12px;color:var(--faint);font-weight:600;letter-spacing:.08em;margin:0 0 9px}
+.sk-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.sk-col li{font-size:12.5px;color:var(--muted);line-height:1.55;padding-left:14px;position:relative;margin:0}
+.sk-col li::before{content:"";position:absolute;left:0;top:.55em;width:5px;height:5px;border-radius:50%;background:var(--cyan);opacity:.7}
+.sk-col code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--cyan)}
+.sk-foot{padding:11px 18px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--faint)}
+.sk-foot code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--cyan)}
+.coming{margin-top:34px;padding:22px 20px;border:1px dashed var(--line);border-radius:var(--radius);text-align:center}
+.coming h2{font-family:var(--serif);font-size:15px;margin:0 0 5px}
+.coming p{font-size:12px;color:var(--muted);margin:0 0 14px}
+.coming-chips{display:flex;flex-wrap:wrap;gap:9px;justify-content:center}
+.coming-chips .chip.on{border-color:rgba(111,227,161,.5);color:var(--ok)}
+.coming-chips .chip.off{color:var(--faint);cursor:default}
+.coming-chips .chip.off:hover{border-color:var(--line);color:var(--faint)}
+
+/* ===== 任务看板（数据来自任务服务 /api） ===== */
+.b-toolbar{display:flex;flex-direction:column;gap:14px;margin:22px 0 6px}
+.b-pills{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.b-pill{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;border:1px solid var(--line);background:var(--panel);font-size:12.5px;color:var(--muted)}
+.b-pill b{font-variant-numeric:tabular-nums;color:var(--text);font-weight:700}
+.b-pill .d{width:7px;height:7px;border-radius:50%;flex:none}
+.b-upd{margin-left:auto;font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums}
+.b-groups{margin-top:26px}
+.b-day{margin-bottom:30px}
+.b-dayhead{display:flex;align-items:baseline;gap:10px;margin-bottom:13px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.b-dayhead .d{font-family:var(--serif);font-weight:700;font-size:14.5px;font-variant-numeric:tabular-nums}
+.b-dayhead .rel{font-size:11px;color:var(--amber);background:rgba(255,200,87,.08);border:1px solid rgba(255,200,87,.35);border-radius:999px;padding:2px 9px;font-weight:600}
+.b-dayhead .n{font-size:11.5px;color:var(--faint)}
+.b-cards{display:grid;grid-template-columns:1fr;gap:14px}
+.bcard{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:border-color .15s,transform .15s}
+.bcard:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.bthumb{position:relative;aspect-ratio:16/9;background:var(--panel-2)}
+.bthumb img{display:block;width:100%;height:100%;object-fit:cover}
+.bthumb .st{position:absolute;left:10px;top:10px;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:3px 9px;border-radius:999px;background:rgba(9,14,26,.82);border:1px solid var(--line);backdrop-filter:blur(3px)}
+.bthumb .st .d{width:6px;height:6px;border-radius:50%}
+.bthumb .play{position:absolute;right:10px;bottom:10px;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--amber);padding:6px 12px;border-radius:999px;background:rgba(9,14,26,.78);border:1px solid rgba(255,200,87,.5)}
+.bbody{padding:13px 15px 15px;display:flex;flex-direction:column;gap:7px}
+.bbody h4{font-size:14px;font-weight:600;line-height:1.4}
+.bbody .bmeta{font-size:12px;color:var(--faint)}
+.bbody .btopics{display:flex;flex-wrap:wrap;gap:5px}
+.bbody .btopics span{font-size:10.5px;padding:1px 7px;border-radius:4px;border:1px solid var(--line);color:var(--muted)}
+.bbody .binfo{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums;border-top:1px dashed var(--line);padding-top:8px}
+.bbody .bpath{font-size:10.5px;color:var(--faint);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.state-box{padding:60px 20px;border:1px dashed var(--line);border-radius:var(--radius);text-align:center;color:var(--muted)}
+.state-box p{margin-bottom:14px}
+/* 状态色（信号灯语义） */
+.d-ready{background:var(--amber)}
+.d-publishing{background:var(--cyan)}
+.d-published{background:var(--ok)}
+.d-platform_pending{background:var(--orange)}
+.d-needs_human{background:var(--bad)}
+.d-failed{background:var(--bad)}
+.d-held{background:var(--hold)}
+.st-ready{color:var(--amber);border-color:rgba(255,200,87,.5)}
+.st-publishing{color:var(--cyan);border-color:rgba(92,219,232,.5)}
+.st-published{color:var(--ok);border-color:rgba(111,227,161,.5)}
+.st-platform_pending{color:var(--orange);border-color:rgba(255,158,94,.5)}
+.st-needs_human{color:var(--bad);border-color:rgba(255,92,92,.5)}
+.st-failed{color:var(--bad);border-color:rgba(255,92,92,.5)}
+.st-held{color:var(--hold);border-color:rgba(201,166,255,.5)}
+
+/* ===== 自动发布 ===== */
+.pipeline{margin-top:20px}
+.p-step{position:relative;display:flex;gap:14px;padding-bottom:22px}
+.p-step .dot{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--panel-2);color:var(--faint);font-size:12px;font-variant-numeric:tabular-nums}
+.p-step .body{padding-top:2px}
+.p-step .body b{display:block;font-size:14px;font-weight:600}
+.p-step .body span{font-size:12.5px;color:var(--faint)}
+.p-step:not(:last-child) .dot::after{content:"";position:absolute;left:14px;top:30px;width:1px;height:22px;background:var(--line)}
+.p-step.done .dot{color:var(--ok);border-color:rgba(111,227,161,.5)}
+.p-step.done .body b{color:var(--ok)}
+.p-step.current .dot{color:var(--amber);border-color:var(--amber);background:rgba(255,200,87,.1)}
+.p-step.current .body b{color:var(--amber)}
+.platform-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.plat-chip{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;border:1px solid var(--line);background:var(--panel);font-size:12.5px;color:var(--muted)}
+.plat-chip .d{width:7px;height:7px;border-radius:50%}
+.plat-chip.on .d{background:var(--ok)}
+.plat-chip.off .d{background:var(--faint)}
+.plat-chip.on{color:var(--text)}
+.records-table{min-width:720px}
+td.rec-task{color:var(--text);font-weight:500}
+td .st-tag{font-size:11.5px;padding:2px 9px;border-radius:4px;border:1px solid var(--line)}
+.st-tag.ok{color:var(--ok);border-color:rgba(111,227,161,.5)}
+.st-tag.warn{color:var(--amber);border-color:rgba(255,200,87,.5)}
+.st-tag.muted{color:var(--faint)}
+
+/* ===== 页脚 / 灯箱 ===== */
+.footer{border-top:1px solid var(--line);margin-top:56px;padding:24px 0 36px}
+.footer p{font-size:12.5px;color:var(--muted)}
+.lightbox{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:rgba(6,10,20,.88);padding:24px}
+.lightbox[hidden]{display:none}
+.lb-body{position:relative;max-width:min(92vw,960px);width:100%}
+.lb-body video{width:100%;max-height:80vh;background:#000;border-radius:10px}
+.lb-close{position:absolute;top:-44px;right:0;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--text)}
+.lb-close:hover{border-color:var(--amber);color:var(--amber)}
+.lb-fallback{margin-top:14px;color:var(--muted);font-size:13.5px;line-height:1.7}
+.lb-fallback a{color:var(--amber)}
+
+/* ===== 响应式：窄屏优先 ===== */
+@media (min-width:640px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .grid .card:last-child:nth-child(odd){grid-column:1 / -1}
+  .controls{flex-direction:row;align-items:center;flex-wrap:wrap;justify-content:space-between}
+  .search input{margin-left:auto}
+  .cap-cards{grid-template-columns:repeat(3,1fr)}
+  .rules{grid-template-columns:repeat(2,1fr)}
+  .b-cards{grid-template-columns:repeat(2,1fr)}
+  .flow-step{display:block;flex:1;padding:0 18px 0 0}
+  .flow{flex-direction:row}
+  .flow-step .dot::before{content:"";position:absolute;left:30px;top:15px;width:calc(100% - 18px);height:1px;background:var(--line)}
+  .flow-step:last-child .dot::before{display:none}
+  .flow-step .dot{margin-bottom:10px}
+}
+@media (min-width:1024px){
+  .grid{grid-template-columns:repeat(3,1fr)}
+  .home-stats{grid-template-columns:repeat(4,1fr)}
+  .b-cards{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a class="brand" href="#/home" aria-label="返回主页">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="#FFC857" stroke-width="1.8"/><path d="M9.8 9.1v5.8l5-2.9z" fill="#5CDBE8"/></svg>
+      自媒体数字员工平台<small>UNI AI VIDEO TEMPLATES</small>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" data-route="home" href="#/home">主页</a>
+      <a class="nav-link" data-route="templates" href="#/templates">模板总览</a>
+      <a class="nav-link" data-route="tasks" href="#/tasks">任务看板</a>
+      <a class="nav-link" data-route="publish" href="#/publish">发布 Skill</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ===== 视图：主页（项目介绍） ===== -->
+  <section class="page active" id="page-home">
+    <div class="home-hero">
+      <div class="wrap">
+        <p class="eyebrow"><b>UNI AI VIDEO TEMPLATES</b> · 自媒体视频生产数字化</p>
+        <h1>自媒体<span class="accent">数字员工</span>平台</h1>
+        <p class="lede">面向自媒体视频生产的一体化平台：沉淀可复用的 AI 视频模板，自动化生成任务、质检成片并分发到各内容平台。模板管理、任务看板与自动发布流程都在这里完成。</p>
+        <div class="home-actions">
+          <a class="btn btn-primary" href="#/templates">查看模板总览</a>
+          <a class="btn btn-ghost" href="#/tasks">打开任务看板</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <section class="cap-section" aria-label="平台能力">
+        <h2>平台能力</h2>
+        <p class="sub">从一个模板到一条已发布的视频，全流程可见、可管、可复用。</p>
+        <div class="cap-cards">
+          <a class="cap-card" href="#/templates">
+            <span class="cap-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 9h18M8 4v5M16 4v5" stroke="currentColor" stroke-width="1.7"/></svg></span>
+            <h3>模板管理</h3>
+            <p>统一归档 HyperFrames 视频模板：画幅、规格、语音方式与技术栈一目了然，附样片、使用手册与自动化 Skill 入口。</p>
+            <span class="cap-meta">当前收录 5 套模板 · 竖屏 3 · 横屏 2</span>
+            <span class="go">进入模板总览</span>
+          </a>
+          <a class="cap-card" href="#/tasks">
+            <span class="cap-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M8 12.5l2.6 2.6L16 9.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h3>任务看板</h3>
+            <p>以看板跟踪每条生成任务：待生成、生成中、待审核到已发布，进度与耗时实时可见。</p>
+            <span class="cap-meta">平台审核中 · 已发布 · 每日发布趋势</span>
+            <span class="go">进入任务看板</span>
+          </a>
+          <a class="cap-card" href="#/publish">
+            <span class="cap-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v11m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h3>自动发布</h3>
+            <p>从模板复用、任务生成、自动质检到定时排期与平台分发，整条发布流水线与历史记录在此呈现。</p>
+            <span class="cap-meta">生成 → 质检 → 分发 → 数据回流</span>
+            <span class="go">进入自动发布</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="flow-section" aria-label="工作流">
+        <h2>从模板到发布</h2>
+        <p class="sub">数字员工接管重复环节，你只需要确认方向与内容。</p>
+        <div class="flow" id="homeFlow"><!-- JS 渲染 --></div>
+      </section>
+
+      <section aria-label="平台概况">
+        <div class="home-stats" id="homeStats"><!-- JS 渲染 --></div>
+        <p class="home-note" id="homeStatsNote"></p>
+      </section>
+    </div>
+  </section>
+
+  <!-- ===== 视图：模板总览 ===== -->
+  <section class="page" id="page-templates">
+    <div class="wrap">
+      <div class="page-head">
+        <h1>模板<span class="accent">总览</span></h1>
+        <p class="sub">仓库内全部 HyperFrames 模板：画幅、规格、用途与入口。点击「样片」可直接播放示例视频。</p>
+      </div>
+      <div class="controls" aria-label="筛选与搜索">
+        <div class="chips" id="aspectChips"><!-- JS 渲染 --></div>
+        <div class="chips" id="typeChips"><!-- JS 渲染 --></div>
+        <div class="search"><input id="searchInput" type="search" placeholder="搜索模板名、用途、标签…" aria-label="搜索模板"></div>
+      </div>
+      <div class="gallery-section">
+        <div class="gallery-head"><h2>模板目录</h2><p id="resultCount"><!-- JS 渲染 --></p></div>
+        <div class="grid" id="grid"><!-- JS 渲染 --></div>
+        <div class="empty" id="empty" hidden><p>没有匹配的模板，换个关键词或清除筛选试试。</p><button id="resetBtn" class="btn btn-ghost" type="button">清除筛选</button></div>
+      </div>
+      <div class="compare-section">
+        <h2>规格对比</h2>
+        <p class="compare-note">各模板关键规格一览；详细环境与素材授权见各模板的 TOOLS.md。</p>
+        <div class="table-scroll">
+          <table>
+            <colgroup><col><col><col><col><col><col></colgroup>
+            <thead><tr>
+              <th scope="col">模板</th><th scope="col">画幅</th><th scope="col">分辨率 / 帧率</th><th scope="col">样片时长</th><th scope="col">语音方式</th><th scope="col">技术栈</th>
+            </tr></thead>
+            <tbody id="compareBody"><!-- JS 渲染 --></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 视图：任务看板（发布看板，数据来自任务服务） ===== -->
+  <section class="page" id="page-tasks">
+    <div class="wrap">
+      <div class="page-head">
+        <h1>任务<span class="accent">看板</span></h1>
+        <p class="sub">生成后的视频发布看板：待发布、发布中、平台审核中到已发布，数据实时读取任务服务（platform.db）。点击卡片可播放成片。</p>
+      </div>
+      <div class="b-toolbar">
+        <div class="b-pills" id="bPills"><!-- JS 渲染 --></div>
+        <div class="search"><input id="boardQ" type="search" placeholder="搜标题 / 工程 / 话题 / 记录ID…" aria-label="搜索任务"></div>
+      </div>
+      <div class="b-groups" id="bGroups"><!-- JS 渲染 --></div>
+      <div class="state-box" id="boardState" hidden><p id="boardStateMsg"></p><button id="boardRetry" class="btn btn-ghost" type="button">重新加载</button></div>
+      <p class="home-note" id="tasksNote"></p>
+    </div>
+  </section>
+
+  <!-- ===== 视图：发布 Skill（按平台的自动化发布能力展示） ===== -->
+  <section class="page" id="page-publish">
+    <div class="wrap">
+      <div class="page-head">
+        <h1>自动化发布 <span class="accent">Skill</span></h1>
+        <p class="sub">按平台沉淀的自动化发布能力：上传、定时、原创声明与状态回读全自动完成。当前已上线视频号，更多平台正在开发。</p>
+      </div>
+
+      <div class="publish-value">
+        <div>
+          <h2>把这个 Skill 交给数字员工，能带来什么</h2>
+          <p class="pv-lead">发布不再是「打开网页 → 手填字段 → 守到成功」的重复劳动。一次接入，之后每条成片自动完成上传、字段落定、定时发表与状态核验，你只需要确认选题与排期。</p>
+        </div>
+        <div class="pv-grid">
+          <div class="pv-card num"><b id="pvPublished">—</b><span>已自动发布成片</span></div>
+          <div class="pv-card"><h4>定时自动发表</h4><p>按排期自动上传发表，无需守在电脑前；支持改期与预演（dry-run）。</p></div>
+          <div class="pv-card"><h4>字段一次落定</h4><p>短标题 16 字限制、合集归属、原创声明、完整封面帧自动处理，不发半套字段。</p></div>
+          <div class="pv-card"><h4>状态自动核验</h4><p>发布后回读列表核验，审核中不误判为已发布；失败与异常自动标出并回流看板。</p></div>
+        </div>
+      </div>
+
+      <section class="skill-show" aria-label="视频号自动化发布 Skill">
+        <h2>视频号自动化发布 Skill</h2>
+        <div class="skill-card">
+          <div class="sk-head">
+            <span class="sk-plat">视频号</span>
+            <div><b>publish-wechat-channels</b><p>把本地已渲染成片自动发布到微信视频号助手：发表 / 草稿 / 定时 / 状态回读。</p></div>
+            <span class="sk-badge">已上线</span>
+          </div>
+          <div class="sk-cols">
+            <div class="sk-col">
+              <h4>能力清单</h4>
+              <ul>
+                <li>成片自动上传（真实 Chrome + CDP 接管，微信快捷登录秒回）</li>
+                <li>完整封面帧自动生成，避免默认首帧暗场</li>
+                <li>短标题 / 描述 / 话题 / 合集 / 原创声明 / 位置一次落定</li>
+                <li>定时发表：<code>schedule_publish.py</code> 支持排期、改期、预演</li>
+                <li>发布状态回读核验（published / platform_pending / needs_human）</li>
+              </ul>
+            </div>
+            <div class="sk-col">
+              <h4>关键规则</h4>
+              <ul>
+                <li>单线操作锁：同一时刻只跑一个发布会话，不与定时任务抢页面</li>
+                <li>所有成片一律声明原创；搬运 / 混剪场景先停下问用户</li>
+                <li>合集按栏目判定：《刚哥聊 AI》→ 刚哥聊AI；快播资讯 → 科技前沿</li>
+                <li>状态写回 platform.db，任务看板实时可见</li>
+              </ul>
+            </div>
+          </div>
+          <div class="sk-foot">Skill 源码（随本项目）：<a href="skills/publish-wechat-channels/" style="color:var(--cyan);text-decoration:underline;text-underline-offset:2px">skills/publish-wechat-channels/</a></div>
+        </div>
+      </section>
+
+      <div class="rules">
+        <div class="rule">
+          <span class="ri"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 7v10M16 7v10" stroke="currentColor" stroke-width="1.8" opacity=".55"/></svg></span>
+          <div><b>产出目录固定</b><p>制作完成的视频统一写入 <code>uni-ai-video-productions/projects/&lt;工程&gt;/deliver/</code>，不散落在其他位置。</p></div>
+        </div>
+        <div class="rule">
+          <span class="ri"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M9 7.5h6M9 12h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".55"/></svg></span>
+          <div><b>模板源码只读</b><p>制作过程中不得修改模板源码；确有特殊需求时，先复制工程到产出目录再调整。</p></div>
+        </div>
+      </div>
+
+      <section style="margin-top:34px">
+        <h2 style="font-family:var(--serif);font-size:1.15rem;color:var(--text);margin-bottom:8px">平台接入</h2>
+        <div class="platform-row" id="platformRow"><!-- JS 渲染 --></div>
+      </section>
+      <section class="compare-section">
+        <h2>发布记录</h2>
+        <p class="compare-note" id="publishNote"></p>
+        <div class="table-scroll">
+          <table class="records-table">
+            <colgroup><col style="width:24%"><col style="width:14%"><col style="width:14%"><col style="width:12%"><col style="width:10%"><col style="width:26%"></colgroup>
+            <thead><tr>
+              <th scope="col">任务</th><th scope="col">平台</th><th scope="col">更新时间</th><th scope="col">状态</th><th scope="col">时长</th><th scope="col">备注</th>
+            </tr></thead>
+            <tbody id="recordsBody"><!-- JS 渲染 --></tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="coming">
+        <h2>更多 Skill 正在开发中</h2>
+        <p>每个平台一套独立 Skill，能力与视频号对齐：上传、定时、原创声明与状态核验。</p>
+        <div class="coming-chips">
+          <span class="chip on">视频号 · 已上线</span>
+          <span class="chip off">小红书 · 开发中</span>
+          <span class="chip off">抖音 · 开发中</span>
+          <span class="chip off">更多平台 · 规划中</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap"><p>自媒体数字员工平台 · 基于 Uni AI Video Templates（HyperFrames 开放模板库）</p></div>
+</footer>
+
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="样片播放">
+  <button class="lb-close" id="lbClose" type="button" aria-label="关闭">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </button>
+  <div class="lb-body">
+    <video id="lbVideo" controls playsinline preload="metadata"></video>
+    <p class="lb-fallback" id="lbFallback" hidden></p>
+  </div>
+</div>
+
+<script>
+const TEMPLATES = [
+  {
+    id: "ai-news-image-switch-brief-vertical",
+    nameZh: "无旁白图片快报",
+    nameEn: "AI News Image-Switch Brief",
+    tagline: "单条 AI 资讯快报 · 中央图片按节拍快切",
+    desc: "全息背景、标题与摘要面板固定，中央画框在 4–8 张资讯图之间按节拍切换；只铺 BGM，不含旁白和音效，适合抖音、视频号、Shorts 等竖屏平台快报。",
+    aspect: "vertical", ratio: "9:16", res: "1080 × 1920", fps: "30 fps",
+    duration: "约 18.3 秒", voice: "无旁白 · BGM-only", type: "资讯快报",
+    stack: "HyperFrames 0.6.46 · GSAP 3.14.2 · Python 3",
+    cover: "../ai-news-image-switch-brief-vertical/preview/cover.png",
+    sample: "../ai-news-image-switch-brief-vertical/preview/full-sample.mp4",
+    readme: "../ai-news-image-switch-brief-vertical/README.md",
+    usage: "../ai-news-image-switch-brief-vertical/USAGE.md",
+    skill: "../ai-news-image-switch-brief-vertical/SKILL.md"
+  },
+  {
+    id: "ai-news-single-story-digital-presenter-vertical",
+    nameZh: "单条资讯数字人深度解读",
+    nameEn: "AI News Single-Story Digital Presenter",
+    tagline: "一条 AI 热点深度拆解 · 数字人封面开场",
+    desc: "封面数字人口型开场白，正文分段旁白与信息卡片，六秒固定片尾；每页时长按旁白实测长度自动对齐。适合围绕单条热点逐页展开的日更栏目。",
+    aspect: "vertical", ratio: "9:16", res: "1080 × 1920", fps: "30 fps",
+    duration: "约 1 分 44 秒", voice: "数字人口播 + 旁白", type: "深度解读",
+    stack: "HyperFrames 0.8.140 · GSAP · Python 3",
+    cover: "../ai-news-single-story-digital-presenter-vertical/preview/cover.png",
+    sample: "../ai-news-single-story-digital-presenter-vertical/preview/full-sample.mp4",
+    readme: "../ai-news-single-story-digital-presenter-vertical/README.md",
+    usage: "../ai-news-single-story-digital-presenter-vertical/USAGE.md",
+    skill: "../ai-news-single-story-digital-presenter-vertical/SKILL.md"
+  },
+  {
+    id: "gangge-ai-international-vision",
+    nameZh: "刚哥聊 AI｜国际视野",
+    nameEn: "Gangge AI International Vision",
+    tagline: "文本切换式单资讯口播 · 动态地球与品牌片尾",
+    desc: "深蓝动态地球、自然标题进场、同步字幕与完整六秒品牌片尾随工程提供；替换标题、正文、来源和旁白即可持续产出系列视频，无需数字人或生成图片。",
+    aspect: "vertical", ratio: "9:16", res: "1080 × 1920", fps: "30 fps",
+    duration: "约 18.9 秒", voice: "口播旁白 · 示例静音轨+音效", type: "口播解读",
+    stack: "HyperFrames 0.8.133 · GSAP 3.14.2 · Python 3",
+    cover: "../gangge-ai-international-vision/preview/cover.png",
+    sample: "../gangge-ai-international-vision/preview/full-sample.mp4",
+    readme: "../gangge-ai-international-vision/README.md",
+    usage: "../gangge-ai-international-vision/USAGE.md",
+    skill: "../gangge-ai-international-vision/SKILL.md"
+  },
+  {
+    id: "ai-weekly-news-roundup-landscape",
+    nameZh: "AI 周见｜科技周报",
+    nameEn: "AI Weekly News Roundup",
+    tagline: "多条 AI 资讯一周盘点 · 横版编辑风",
+    desc: "目录、资讯页、可选数据对比与三点拆解卡、结尾回顾；深蓝网格开场配亮黄高亮。一期通常 3–10 条资讯，另含一张竖版封面组合供封面实验。",
+    aspect: "landscape", ratio: "16:9", res: "1920 × 1080", fps: "30 fps",
+    duration: "约 2 分 24 秒", voice: "演示无声 · 正式需配音", type: "科技周报",
+    stack: "HyperFrames 0.8.133 · GSAP 3.14.2 · Python 3",
+    cover: "../ai-weekly-news-roundup-landscape/preview/cover-h.png",
+    sample: "../ai-weekly-news-roundup-landscape/preview/full-sample.mp4",
+    readme: "../ai-weekly-news-roundup-landscape/README.md",
+    usage: "../ai-weekly-news-roundup-landscape/USAGE.md",
+    skill: "../ai-weekly-news-roundup-landscape/SKILL.md"
+  },
+  {
+    id: "idea-explainer-landscape",
+    nameZh: "一念三千｜日常观念讲解",
+    nameEn: "Concept Explainer",
+    tagline: "抽象观念长讲解 · 51 页示例与旁白",
+    desc: "从具体开场示例到生活场景、概念拆解、练习与回顾，51 页结构把抽象观念讲成可实践的方法；随包示例主题为「一念三千」，示例旁白与压缩样片均随包提供。",
+    aspect: "landscape", ratio: "16:9", res: "1920 × 1080", fps: "30 fps",
+    duration: "约 12 分 55 秒", voice: "旁白配音 · 重配需自备服务与音色", type: "观念讲解",
+    stack: "HyperFrames 0.8.145 · GSAP 3.15.0 · Python 3",
+    cover: "../idea-explainer-landscape/preview/cover.png",
+    sample: "../idea-explainer-landscape/preview/full-sample.mp4",
+    readme: "../idea-explainer-landscape/README.md",
+    usage: "../idea-explainer-landscape/USAGE.md",
+    skill: "../idea-explainer-landscape/SKILL.md"
+  }
+];
+
+/* ===== 任务状态与流程定义 ===== */
+const STATUS = {
+  ready:            { cn: "待发布",     dot: "d-ready" },
+  publishing:       { cn: "发布中",     dot: "d-publishing" },
+  published:        { cn: "已发布",     dot: "d-published" },
+  platform_pending: { cn: "平台审核中", dot: "d-platform_pending" },
+  needs_human:      { cn: "需人工处理", dot: "d-needs_human" },
+  failed:           { cn: "发布失败",   dot: "d-failed" },
+  held:             { cn: "人工扣住",   dot: "d-held" }
+};
+const STATUS_ORDER = ["platform_pending", "publishing", "published", "ready", "needs_human", "failed", "held"];
+const HOME_FLOW = [
+  { name: "选定模板", desc: "只读引用，不动模板源码" },
+  { name: "复制到产出目录", desc: "工程复制到 uni-ai-video-productions/projects/&lt;工程&gt;/" },
+  { name: "AI 生成", desc: "渲染视频成片" },
+  { name: "质检预览", desc: "画面 / 字幕 / 合规检查" },
+  { name: "自动发布", desc: "发布 Skill 排期分发与数据回流" }
+];
+
+/* ===== 工具 ===== */
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const norm = (s) => String(s || "").toLowerCase();
+const WEEK = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+const svgPlay = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3.5 2.4v7.2l6-3.6z" fill="currentColor"/></svg>';
+function fmtTime(iso) {
+  if (!iso) return "—";
+  const d = new Date(iso);
+  return `${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+}
+function fmtDay(iso) {
+  if (!/^\d{4}-\d{2}-\d{2}/.test(String(iso))) return String(iso || "未排期");
+  const d = new Date(iso + "T00:00:00");
+  return `${iso.slice(5)} ${WEEK[d.getDay()]}`;
+}
+function relBadge(day) {
+  if (!/^\d{4}-\d{2}-\d{2}/.test(String(day))) return "";
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+  const diff = Math.round((new Date(today + "T00:00:00") - new Date(day + "T00:00:00")) / 86400000);
+  if (diff === 0) return '<span class="rel">今天</span>';
+  if (diff === 1) return '<span class="rel">昨天</span>';
+  return "";
+}
+async function api(path) {
+  const r = await fetch(path);
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  return r.json();
+}
+
+/* ===== 路由 ===== */
+const ROUTES = ["home", "templates", "tasks", "publish"];
+function routeFromHash() {
+  const h = location.hash.replace(/^#\//, "");
+  return ROUTES.includes(h) ? h : "home";
+}
+function applyRoute() {
+  const r = routeFromHash();
+  document.querySelectorAll(".page").forEach((p) => p.classList.toggle("active", p.id === "page-" + r));
+  document.querySelectorAll(".nav-link").forEach((a) => a.classList.toggle("active", a.dataset.route === r));
+  window.scrollTo({ top: 0, behavior: "auto" });
+  if (r === "home") loadHome();
+  if (r === "tasks") loadBoard();
+  if (r === "publish") loadPublish();
+}
+window.addEventListener("hashchange", applyRoute);
+
+/* ===== 主页 ===== */
+function renderHomeFlow() {
+  $("homeFlow").innerHTML = HOME_FLOW.map((s, i) =>
+    `<div class="flow-step"><span class="dot">${i + 1}</span><div class="body"><b>${s.name}</b><span>${s.desc}</span></div></div>`
+  ).join("");
+}
+async function loadHome() {
+  try {
+    const stats = await api("/api/stats");
+    const by = stats.by_status || {};
+    const cells = [
+      { n: TEMPLATES.length, label: "收录模板", cls: "" },
+      { n: by.published ?? 0, label: "已发布成片", cls: "ok" },
+      { n: by.platform_pending ?? 0, label: "平台审核中", cls: "" },
+      { n: Object.keys(stats.by_platform || {}).length, label: "接入平台", cls: "cyan" }
+    ];
+    $("homeStats").innerHTML = cells.map((c) => `<div class="stat ${c.cls}"><b>${c.n}</b><span>${c.label}</span></div>`).join("");
+    $("homeStatsNote").textContent = `任务与发布数据实时读取任务服务（platform.db），更新于 ${fmtTime(stats.updated_at)}。`;
+  } catch (e) {
+    const cells = [
+      { n: TEMPLATES.length, label: "收录模板", cls: "" },
+      { n: "—", label: "已发布成片", cls: "" },
+      { n: "—", label: "平台审核中", cls: "" },
+      { n: "—", label: "接入平台", cls: "" }
+    ];
+    $("homeStats").innerHTML = cells.map((c) => `<div class="stat ${c.cls}"><b>${c.n}</b><span>${c.label}</span></div>`).join("");
+    $("homeStatsNote").textContent = "任务服务未连接（127.0.0.1:8899），任务与发布数据暂不可用；模板统计为本地数据。";
+  }
+}
+
+/* ===== 模板总览 ===== */
+const tState = { aspect: "all", type: "all", q: "" };
+function tMatch(t) {
+  if (!tState.q) return true;
+  const q = norm(tState.q);
+  return [t.nameZh, t.nameEn, t.tagline, t.desc, t.type, t.voice, t.ratio].some((v) => norm(v).includes(q));
+}
+const tFiltered = () => TEMPLATES.filter((t) =>
+  (tState.aspect === "all" || t.aspect === tState.aspect) &&
+  (tState.type === "all" || t.type === tState.type) && tMatch(t)
+);
+const ASPECT_OPTS = [
+  { v: "all", label: "全部画幅" },
+  { v: "vertical", label: "竖屏 9:16" },
+  { v: "landscape", label: "横屏 16:9" }
+];
+function renderAspectChips() {
+  $("aspectChips").innerHTML = ASPECT_OPTS.map((o) =>
+    `<button type="button" class="chip" data-v="${o.v}" aria-pressed="${tState.aspect === o.v}">${o.label}</button>`
+  ).join("");
+}
+function renderTypeChips() {
+  const types = [...new Set(TEMPLATES.map((t) => t.type))];
+  const all = `<button type="button" class="chip" data-v="all" aria-pressed="${tState.type === "all"}">全部类型</button>`;
+  $("typeChips").innerHTML = all + types.map((ty) =>
+    `<button type="button" class="chip" data-v="${ty}" aria-pressed="${tState.type === ty}">${ty}</button>`
+  ).join("");
+}
+function cardHTML(t) {
+  const flag = t.aspect === "vertical" ? "v" : "h";
+  return `
+  <article class="card" data-id="${t.id}">
+    <div class="card-cover" data-aspect="${t.aspect}">
+      <img src="${t.cover}" alt="${esc(t.nameZh)} 封面" loading="lazy">
+      <button type="button" class="play-badge" data-sample="${t.id}" aria-label="播放 ${esc(t.nameZh)} 样片">${svgPlay}样片</button>
+    </div>
+    <div class="card-body">
+      <div class="tags">
+        <span class="tag ${flag}">${t.aspect === "vertical" ? "竖屏" : "横屏"} ${t.ratio}</span>
+        <span class="tag">${t.type}</span>
+        <span class="tag">${t.voice}</span>
+      </div>
+      <h3>${t.nameZh}</h3>
+      <p class="en">${t.nameEn}</p>
+      <p class="desc">${t.desc}</p>
+      <p class="spec">${t.res} · ${t.fps} · ${t.duration === "—" ? t.duration : "样片" + t.duration}</p>
+      <div class="actions">
+        <a href="${t.sample}" class="sample-link" data-sample-link="${t.id}">播放样片</a>
+        <a href="${t.readme}">说明</a>
+        <a href="${t.usage}">使用</a>
+        <a href="${t.skill}">Skill</a>
+      </div>
+    </div>
+  </article>`;
+}
+function renderGrid() {
+  const list = tFiltered();
+  $("grid").innerHTML = list.map(cardHTML).join("");
+  const hasFilter = tState.aspect !== "all" || tState.type !== "all" || tState.q;
+  $("resultCount").textContent = hasFilter ? `筛选出 ${list.length} / ${TEMPLATES.length} 套模板` : `共 ${list.length} 套模板`;
+  $("empty").hidden = list.length > 0;
+}
+function renderCompare() {
+  $("compareBody").innerHTML = TEMPLATES.map((t) => {
+    const flag = t.aspect === "vertical" ? "v-flag" : "h-flag";
+    return `<tr>
+      <td class="tpl-name"><a href="${t.readme}">${t.nameZh}</a><small>${t.nameEn}</small></td>
+      <td class="${flag}">${t.ratio} ${t.aspect === "vertical" ? "竖" : "横"}</td>
+      <td>${t.res}<br><span class="spec-mini">${t.fps}</span></td>
+      <td>${t.duration}</td>
+      <td>${t.voice}</td>
+      <td class="spec-mini">${t.stack}</td>
+    </tr>`;
+  }).join("");
+}
+
+/* ===== 样片 / 成片灯箱 ===== */
+function openVideo(src, fallbackMsg) {
+  const v = $("lbVideo"), fb = $("lbFallback");
+  fb.hidden = true; fb.innerHTML = "";
+  v.hidden = false; v.src = src;
+  v.onerror = () => {
+    v.hidden = true;
+    fb.hidden = false;
+    fb.textContent = fallbackMsg || "视频加载失败（成片未生成或服务未连接）。";
+  };
+  v.onplay = () => { v.onerror = null; };
+  $("lightbox").hidden = false;
+  $("lightbox").setAttribute("aria-hidden", "false");
+  v.play().catch(() => {});
+}
+function closeLightbox() {
+  const v = $("lbVideo");
+  v.pause(); v.removeAttribute("src"); v.load();
+  $("lightbox").hidden = true;
+  $("lightbox").setAttribute("aria-hidden", "true");
+}
+
+/* ===== 任务看板（真实数据） ===== */
+let boardRecords = [];
+async function loadBoard() {
+  const box = $("boardState");
+  try {
+    const [stats, recs] = await Promise.all([api("/api/stats"), api("/api/records")]);
+    boardRecords = recs.records || [];
+    renderPills(stats);
+    renderGroups(boardRecords);
+    $("tasksNote").textContent = `数据来自任务服务 platform.db，更新于 ${fmtTime(recs.updated_at || stats.updated_at)}。`;
+    box.hidden = true;
+  } catch (e) {
+    $("bPills").innerHTML = ""; $("bGroups").innerHTML = "";
+    $("boardStateMsg").textContent = "任务服务未连接（127.0.0.1:8898），无法加载看板数据。请先启动任务服务。";
+    box.hidden = false;
+  }
+}
+function renderPills(stats) {
+  const by = stats.by_status || {};
+  const total = Object.values(by).reduce((a, b) => a + (b || 0), 0);
+  const pills = STATUS_ORDER.filter((k) => by[k]).map((k) =>
+    `<span class="b-pill"><i class="d ${STATUS[k].dot}"></i>${STATUS[k].cn}<b>${by[k]}</b></span>`
+  ).join("");
+  const plats = Object.entries(stats.by_platform || {}).map(([p, n]) =>
+    `<span class="b-pill">${esc(p)}<b>${n}</b></span>`
+  ).join("");
+  $("bPills").innerHTML = `<span class="b-pill">全部<b>${total}</b></span>${pills}${plats}` +
+    `<span class="b-upd">更新 ${fmtTime(stats.updated_at)}</span>`;
+}
+function taskCardHTML(r) {
+  const st = STATUS[r.status] || { cn: r.status || "未知", dot: "d-held" };
+  const topics = (r.topics || []).slice(0, 4).map((t) => `<span>${esc(t)}</span>`).join("");
+  const media = r.media ? `${esc(r.media.duration || "")} · ${esc(r.media.resolution || "")}` : "";
+  return `<article class="bcard" data-video="${esc(r.video_url || "")}">
+    <div class="bthumb"><img src="${esc(r.cover_url || "")}" alt="" loading="lazy" onerror="this.style.display='none'">
+      <span class="st ${esc(r.status || "")}"><i class="d ${st.dot}"></i>${st.cn}</span>
+      ${r.video_url ? `<span class="play">${svgPlay}播放成片</span>` : ""}
+    </div>
+    <div class="bbody">
+      <h4>${esc(r.short_title || r.id)}</h4>
+      <p class="bmeta">${esc(r.collection || "")}${r.collection && r.template ? " · " : ""}${esc(r.template || "")}</p>
+      ${topics ? `<div class="btopics">${topics}</div>` : ""}
+      <div class="binfo"><span>${media || "—"}</span><span>${fmtTime(r.updated_at)}</span></div>
+      <p class="bpath" title="${esc(r.video || "")}">${esc(r.video || "")}</p>
+    </div>
+  </article>`;
+}
+function renderGroups(records) {
+  const groups = {};
+  (records || []).forEach((r) => {
+    const day = (r.story_date || (r.created_at || "").slice(0, 10)) || "未排期";
+    (groups[day] = groups[day] || []).push(r);
+  });
+  const days = Object.keys(groups).sort().reverse();
+  $("bGroups").innerHTML = days.map((day) =>
+    `<div class="b-day"><div class="b-dayhead"><span class="d">${fmtDay(day)}</span>${relBadge(day)}<span class="n">${groups[day].length} 条</span></div><div class="b-cards">${groups[day].map(taskCardHTML).join("")}</div></div>`
+  ).join("") || '<div class="state-box"><p>暂无记录</p></div>';
+}
+let qTimer = null;
+function onBoardSearch() {
+  clearTimeout(qTimer);
+  qTimer = setTimeout(() => {
+    const q = norm($("boardQ").value.trim());
+    const list = q
+      ? boardRecords.filter((r) =>
+          [r.short_title, r.id, r.template, r.collection, r.description, (r.topics || []).join(" ")]
+            .some((v) => norm(v).includes(q)))
+      : boardRecords;
+    renderGroups(list);
+  }, 250);
+}
+
+/* ===== 自动发布 ===== */
+let publishPlatformDefault = "视频号";
+async function loadPublish() {
+  try {
+    const [stats, recs] = await Promise.all([api("/api/stats"), api("/api/records")]);
+    publishPlatformDefault = recs.platform_default || "视频号";
+    renderPlatforms(stats);
+    renderRecords(recs.records || []);
+    const published = (stats.by_status || {}).published;
+    $("pvPublished").textContent = published != null ? published : "—";
+    $("publishNote").textContent = `数据来自任务服务 platform.db，更新于 ${fmtTime(recs.updated_at || stats.updated_at)}。`;
+  } catch (e) {
+    $("platformRow").innerHTML = `<span class="plat-chip off"><i class="d"></i>任务服务未连接</span>`;
+    $("recordsBody").innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--faint);padding:26px">任务服务未连接（127.0.0.1:8899），发布记录暂不可用。</td></tr>`;
+    $("publishNote").textContent = "任务服务未连接，发布记录暂不可用。";
+  }
+}
+function renderPlatforms(stats) {
+  const by = stats.by_platform || {};
+  const keys = Object.keys(by);
+  $("platformRow").innerHTML = keys.length
+    ? keys.map((p) => `<span class="plat-chip on"><i class="d"></i>${esc(p)} · ${by[p]} 条</span>`).join("")
+    : `<span class="plat-chip off"><i class="d"></i>暂无平台数据</span>`;
+}
+function renderRecords(records) {
+  const list = (records || []).slice()
+    .sort((a, b) => String(b.updated_at || "").localeCompare(String(a.updated_at || "")))
+    .slice(0, 14);
+  $("recordsBody").innerHTML = list.map((r) => {
+    const st = STATUS[r.status] || { cn: r.status || "未知" };
+    const cls = r.status === "published" ? "ok" : ((r.status === "failed" || r.status === "needs_human") ? "warn" : "muted");
+    const note = (r.last_note || "").replace(/\s+/g, " ").slice(0, 46);
+    return `<tr>
+      <td class="rec-task">${esc(r.short_title || r.id)}</td>
+      <td>${esc(publishPlatformDefault)}</td>
+      <td>${fmtTime(r.updated_at)}</td>
+      <td><span class="st-tag ${cls}">${st.cn}</span></td>
+      <td>${r.media ? esc(r.media.duration || "—") : "—"}</td>
+      <td class="spec-mini">${note ? esc(note) + "…" : "—"}</td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="6" style="text-align:center;color:var(--faint);padding:26px">暂无记录</td></tr>`;
+}
+
+/* ===== 事件绑定 ===== */
+function bindEvents() {
+  $("aspectChips").addEventListener("click", (e) => {
+    const c = e.target.closest(".chip"); if (!c) return;
+    tState.aspect = c.dataset.v; renderAspectChips(); renderGrid();
+  });
+  $("typeChips").addEventListener("click", (e) => {
+    const c = e.target.closest(".chip"); if (!c) return;
+    tState.type = c.dataset.v; renderTypeChips(); renderGrid();
+  });
+  $("searchInput").addEventListener("input", (e) => { tState.q = e.target.value.trim(); renderGrid(); });
+  $("resetBtn").addEventListener("click", () => {
+    tState.aspect = "all"; tState.type = "all"; tState.q = "";
+    $("searchInput").value = ""; renderAspectChips(); renderTypeChips(); renderGrid();
+  });
+  $("grid").addEventListener("click", (e) => {
+    const badge = e.target.closest("[data-sample]");
+    const link = e.target.closest("[data-sample-link]");
+    if (badge || link) {
+      e.preventDefault();
+      const id = (badge || link).dataset.sample || (badge || link).dataset.sampleLink;
+      const t = TEMPLATES.find((x) => x.id === id);
+      if (t) openVideo(t.sample, "样片加载失败（Git LFS 未检出或文件缺失）。");
+    }
+  });
+  $("boardQ").addEventListener("input", onBoardSearch);
+  $("boardRetry").addEventListener("click", loadBoard);
+  $("bGroups").addEventListener("click", (e) => {
+    const card = e.target.closest(".bcard");
+    if (card && card.dataset.video) openVideo(card.dataset.video, "成片加载失败（未生成或服务未连接）。");
+  });
+  $("lbClose").addEventListener("click", closeLightbox);
+  $("lightbox").addEventListener("click", (e) => { if (e.target === $("lightbox")) closeLightbox(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("lightbox").hidden) closeLightbox(); });
+}
+
+/* ===== 初始化 ===== */
+renderHomeFlow();
+renderAspectChips(); renderTypeChips(); renderGrid(); renderCompare();
+bindEvents();
+applyRoute();
+</script>
+</body>
+</html>

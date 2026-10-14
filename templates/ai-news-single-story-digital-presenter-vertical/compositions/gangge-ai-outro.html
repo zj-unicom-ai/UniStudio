@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>刚哥聊AI · 固定片尾子组合</title>
+  </head>
+  <body>
+    <template id="gangge-ai-outro-template">
+      <style>
+        #gangge-ai-outro,
+        #gangge-ai-outro * { box-sizing: border-box; }
+        #gangge-ai-outro {
+          --bg: #0B1120;
+          --text: #F4F6FA;
+          --muted: #94A3B8;
+          --signal: #37D7E8;
+          --blue: #197AD6;
+          --line: #32445B;
+          --mono: "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+          --sans: "Noto Sans SC", system-ui, sans-serif;
+          position: relative;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          background:
+            radial-gradient(ellipse 64% 38% at 100% 88%, rgba(25, 122, 214, .105), transparent 76%),
+            linear-gradient(155deg, #0A1121 2%, #0B1120 48%, #101D30 100%);
+          color: var(--text);
+          font-family: var(--sans);
+        }
+        #gangge-ai-outro .canvas-guides {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          opacity: .28;
+          background:
+            linear-gradient(90deg, transparent 79px, rgba(50, 68, 91, .65) 80px, transparent 81px),
+            linear-gradient(180deg, transparent 160px, rgba(50, 68, 91, .65) 161px, transparent 162px),
+            linear-gradient(180deg, transparent 1580px, rgba(50, 68, 91, .65) 1581px, transparent 1582px);
+        }
+        #gangge-ai-outro .outro-content { position: absolute; inset: 0; }
+        #gangge-ai-outro .outro-top {
+          position: absolute;
+          top: 150px;
+          left: 80px;
+          width: 820px;
+          display: flex;
+          justify-content: space-between;
+          color: #8DA8BA;
+          font: 18px var(--mono);
+          letter-spacing: 3px;
+        }
+        #gangge-ai-outro .outro-main {
+          position: absolute;
+          top: 384px;
+          left: 0;
+          width: 1080px;
+          text-align: center;
+        }
+        #gangge-ai-outro .outro-mark {
+          display: block;
+          width: 325px;
+          height: 325px;
+          object-fit: contain;
+          margin: 0 auto;
+        }
+        #gangge-ai-outro .outro-title {
+          margin: 44px 0 6px;
+          color: var(--text);
+          font-size: 105px;
+          font-weight: 900;
+          line-height: 1.15;
+          letter-spacing: -6px;
+        }
+        #gangge-ai-outro .outro-title span { color: var(--signal); }
+        #gangge-ai-outro .outro-en {
+          margin: 0;
+          color: #A9C2D3;
+          font: 28px var(--mono);
+          letter-spacing: 9px;
+        }
+        #gangge-ai-outro .outro-line {
+          width: 82px;
+          height: 6px;
+          margin: 70px auto 63px;
+          background: var(--signal);
+          transform-origin: center;
+        }
+        #gangge-ai-outro .outro-slogan {
+          color: var(--text);
+          font-size: 59px;
+          font-weight: 500;
+          line-height: 1.52;
+        }
+        #gangge-ai-outro .outro-slogan strong { font-weight: 900; }
+        #gangge-ai-outro .outro-sub {
+          margin: 35px 0 0;
+          color: #9EAFC1;
+          letter-spacing: 8px;
+          font-size: 30px;
+        }
+        #gangge-ai-outro .outro-bottom {
+          position: absolute;
+          top: 1500px;
+          left: 80px;
+          width: 820px;
+          border-top: 1px solid var(--line);
+          padding-top: 40px;
+          text-align: center;
+        }
+        #gangge-ai-outro .outro-cta {
+          margin: 0 0 30px;
+          color: #D6E3EE;
+          font-size: 29px;
+        }
+        #gangge-ai-outro .outro-footer {
+          color: #788FA9;
+          font: 19px var(--mono);
+          letter-spacing: 2px;
+        }
+        #gangge-ai-outro audio { display: none; }
+      </style>
+
+      <div id="gangge-ai-outro" data-composition-id="gangge-ai-outro" data-width="1080" data-height="1920" data-duration="6">
+        <div class="canvas-guides" aria-hidden="true"></div>
+        <div class="outro-content">
+          <header class="outro-top">
+            <span>GANGGE · AI INSIGHT</span>
+            <span>BEYOND AI HEADLINES.</span>
+          </header>
+          <section class="outro-main" aria-label="刚哥聊AI品牌片尾">
+            <img id="outro-mark" class="outro-mark clip" data-start="0" data-duration="6" data-track-index="0" src="compositions/gangge-ai-outro/assets/logo/logo-mark-clean.png" alt="刚哥聊AI G 对话气泡标志" />
+            <h1 id="outro-title" class="outro-title">刚哥聊<span>AI</span></h1>
+            <p id="outro-en" class="outro-en">GANGGE · AI INSIGHT</p>
+            <div id="outro-line" class="outro-line" aria-hidden="true"></div>
+            <div id="outro-slogan" class="outro-slogan">不止聊 AI 热点，<br /><strong>更看懂背后的逻辑。</strong></div>
+            <p id="outro-sub" class="outro-sub">透过事件，看见趋势。</p>
+          </section>
+          <footer id="outro-bottom" class="outro-bottom">
+            <p class="outro-cta">关注刚哥聊AI，一起看懂变化。</p>
+            <span class="outro-footer">KNOW THE NEWS. UNDERSTAND THE CHANGE.</span>
+          </footer>
+        </div>
+        <audio id="sfx-outro-whoosh" src="compositions/gangge-ai-outro/assets/sfx/whoosh-short.mp3" data-start="0" data-duration="0.57" data-track-index="1" data-volume="0.11" data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0},{"t":0.06,"v":1},{"t":0.40,"v":0.65},{"t":0.57,"v":0}]}]}' preload="auto"></audio>
+        <audio id="sfx-outro-impact" data-hf-media-start-basis="local" src="compositions/gangge-ai-outro/assets/sfx/impact-bass-1.mp3" data-start="0.62" data-duration="2.12" data-track-index="2" data-volume="0.11" data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0},{"t":0.08,"v":1},{"t":1.2,"v":0.45},{"t":2.12,"v":0}]}]}' preload="auto"></audio>
+        <audio id="sfx-outro-ping" data-hf-media-start-basis="local" src="compositions/gangge-ai-outro/assets/sfx/ping.mp3" data-start="0.85" data-duration="1.32" data-track-index="3" data-volume="0.07" data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0},{"t":0.04,"v":1},{"t":0.35,"v":0.48},{"t":1.32,"v":0}]}]}' preload="auto"></audio>
+      </div>
+      <script>
+        window.__timelines = window.__timelines || {};
+        const root = document.querySelector('[data-composition-id="gangge-ai-outro"]');
+        const q = (selector) => root.querySelector(selector);
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo(q('.outro-top'), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.42, ease: 'power1.out' }, 0.06);
+        tl.fromTo(q('#outro-mark'), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.60, ease: 'power2.out' }, 0.12);
+        tl.fromTo(q('#outro-title'), { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.42, ease: 'power2.out' }, 0.48);
+        tl.fromTo(q('#outro-en'), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.32, ease: 'power1.out' }, 0.68);
+        tl.fromTo(q('#outro-line'), { scaleX: 0, autoAlpha: 0 }, { scaleX: 1, autoAlpha: 1, duration: 0.32, ease: 'power2.out' }, 0.92);
+        tl.fromTo(q('#outro-slogan'), { autoAlpha: 0, y: 7 }, { autoAlpha: 1, y: 0, duration: 0.42, ease: 'power2.out' }, 1.10);
+        tl.fromTo(q('#outro-sub'), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.34, ease: 'power1.out' }, 1.48);
+        tl.fromTo(q('#outro-bottom'), { autoAlpha: 0, y: 6 }, { autoAlpha: 1, y: 0, duration: 0.42, ease: 'power1.out' }, 1.76);
+        window.__timelines['gangge-ai-outro'] = tl;
+        tl.seek(0);
+      </script>
+    </template>
+  </body>
+</html>
