@@ -16,7 +16,7 @@
 
 ## 两条生产约束（在产品内体现）
 
-- **产出目录固定**：制作完成的视频统一写入 `uni-ai-video-productions/projects/<工程>/deliver/`，不散落在其他位置。
+- **产出目录固定**：制作完成的视频统一写入 `productions/projects/<工程>/deliver/`，不散落在其他位置。
 - **模板源码只读**：制作过程中不得修改模板源码；确有特殊需求时，先复制工程到产出目录再调整。
 
 ## 启动方式
@@ -25,13 +25,12 @@
 
 ```sh
 # 1) 任务服务（平台数据上游，数据正本 platform.db）
-#    原默认端口 8899 当前被其它演示占用，这里用 8898 启动：
-cd /Users/wrg/Important/uni-ai-video-productions
-nohup python3 pipeline/serve.py 8898 > /tmp/uni-pipeline.log 2>&1 &
+cd productions/pipeline
+nohup python3 serve.py 8898 > /tmp/uni-pipeline.log 2>&1 &
 
 # 2) 平台服务（单入口）
-cd /Users/wrg/Important/uni-ai-video-templates
-python3 web/serve.py --pipeline http://127.0.0.1:8898
+cd UniStudio
+python3 web/serve.py --pipeline 127.0.0.1:8898
 ```
 
 浏览器访问 http://127.0.0.1:8610/ （加 `--no-open` 不自动打开；`--port` 可换端口）。
@@ -42,7 +41,7 @@ python3 web/serve.py --pipeline http://127.0.0.1:8898
 
 - 平台页 `index.html` 通过相对路径 `/api/stats`、`/api/records`、`/projects/...` 取数；
 - `web/serve.py` 把这些路径反向代理到任务服务（默认 `127.0.0.1:8898`），媒体带 Range（成片可拖动播放）；
-- 任务服务（`uni-ai-video-productions/pipeline/`）从 `platform.db` 读真实数据，与 CLI / 定时任务共用同一把 flock。
+- 任务服务（`productions/pipeline/`）从 `platform.db` 读真实数据，与 CLI / 定时任务共用同一把 flock。
 
 ## 新增模板时如何更新
 
