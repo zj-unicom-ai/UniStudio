@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><title>光影党史·动态可视化预览</title><style>
+*{box-sizing:border-box}body{margin:0;padding:24px;background:#12100f;color:#eee9db;font:15px system-ui,"Noto Sans CJK SC",sans-serif}.wrap{max-width:1250px;margin:auto}h1{font-family:serif;margin:0 0 7px}.hint{color:#b8aa97}.screen{border:1px solid #5A4540;aspect-ratio:16/9;margin:15px 0;background:#000;position:relative;overflow:hidden}.screen iframe{width:1920px;height:1080px;position:absolute;left:0;top:0;border:0;transform-origin:0 0}.controls{display:flex;align-items:center;gap:18px;flex-wrap:wrap}button,select{border:1px solid #846158;background:#302124;color:#eee9db;padding:10px 15px;border-radius:6px;cursor:pointer}input{flex:1;min-width:300px;accent-color:#b99a67}code{color:#d5bd95}</style></head><body><div class="wrap">
+<h1>光影党史 · 纯代码动画预览</h1><div class="hint">1920×1080｜197 镜、9 章、20:00 目标时间轴｜此页无需服务器和 GSAP；旁白/音效尚未合成</div>
+<div class="screen" id="screen"><iframe id="stage" src="./index.html?t=0"></iframe></div>
+<div class="controls"><button id="toggle">播放</button><input id="seek" type="range" min="0" max="1200" step="0.04" value="0"><span id="clock">00:00 / 20:00</span><select id="chapter"></select></div>
+<p class="hint">时间轴按文字长度等比分配，仅用于先看动态效果。制作成片前必须先完成旁白、逐句校准时码。<code>npm install</code> 后可交给 HyperFrames 渲染。</p>
+</div><script src="./src/episode-data.js"></script><script>
+const f=document.getElementById('stage'),root=document.getElementById('screen'),seek=document.getElementById('seek'),btn=document.getElementById('toggle'),sel=document.getElementById('chapter'),out=document.getElementById('clock');let now=0,playing=false,last=0;
+const fmt=x=>`${String(Math.floor(x/60)).padStart(2,'0')}:${String(Math.floor(x%60)).padStart(2,'0')}`;
+window.EP01.chapters.forEach(c=>{const o=document.createElement('option');o.value=c.start;o.textContent=fmt(c.start)+' '+c.title;sel.appendChild(o)});
+function resize(){const z=root.clientWidth/1920;f.style.transform=`scale(${z})`;}addEventListener('resize',resize);resize();
+function sync(){seek.value=now;out.textContent=fmt(now)+' / 20:00';f.contentWindow.postMessage({kind:'seek',t:now},'*')}
+seek.addEventListener('input',()=>{now=Number(seek.value);sync()});sel.addEventListener('change',()=>{now=Number(sel.value);sync()});btn.onclick=()=>{playing=!playing;btn.textContent=playing?'暂停':'播放';last=performance.now()};
+function frame(ts){if(playing){const dt=last?(ts-last)/1000:0;now=Math.min(1199.95,now+Math.min(dt,.25));sync();if(now>=1199.95){playing=false;btn.textContent='播放'}}last=ts;requestAnimationFrame(frame)}requestAnimationFrame(frame);
+</script></body></html>

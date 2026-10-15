@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>光影党史 EP01 · 60 秒样片</title>
+  <style>
+    @font-face { font-family: "GuangyingSans"; src: url("../../assets/fonts/NotoSansSC-500.woff") format("woff"); font-weight: 500; font-style: normal; }
+    @font-face { font-family: "GuangyingSans"; src: url("../../assets/fonts/NotoSansSC-700.woff") format("woff"); font-weight: 700; font-style: normal; }
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #E9DFCA; }
+    #sample { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #E9DFCA; color: #181516; }
+    #drawing, #overlay { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+    #drawing { z-index: 0; }
+    #overlay { z-index: 2; pointer-events: none; }
+    #sample video.clip { position: absolute; z-index: 1; inset: 0; width: 1920px; height: 1080px; object-fit: contain; }
+    text { font-family: "GuangyingSans", sans-serif; font-weight: 500; }
+    .ink { fill: #181516; }
+    .muted { fill: #756B60; }
+    .red { fill: #A94542; }
+    .gold { fill: #A9844F; }
+    .eyebrow { font-size: 25px; letter-spacing: 4px; }
+    .headline { font-size: 58px; font-weight: 700; letter-spacing: 2px; }
+    .date { font-size: 48px; font-weight: 700; }
+    .event { font-size: 28px; }
+    .small { font-size: 22px; }
+    .rule { stroke: #C5A677; stroke-width: 8; fill: none; stroke-linecap: round; }
+    .node { fill: #E9DFCA; stroke: #A94542; stroke-width: 8; }
+    .card { fill: #F1E9D9; stroke: #C5A677; stroke-width: 3; }
+    .badge { fill: #A94542; }
+    .badge-text { fill: #FFF9EF; font-size: 24px; font-weight: 600; letter-spacing: 1px; }
+  </style>
+</head>
+<body>
+  <main id="sample" data-composition-id="guangyingdangshi-ep01-60s-graphics" data-start="0" data-duration="45" data-width="1920" data-height="1080" data-fps="30">
+    <svg id="drawing" viewBox="0 0 1920 1080" aria-label="光影党史 EP01 60秒样片">
+      <rect width="1920" height="1080" fill="#E9DFCA" />
+
+      <g id="beatOpening" opacity="1">
+        <text x="130" y="150" class="eyebrow red">光影党史  /  EP01</text>
+        <text x="130" y="250" class="headline ink">从组织形成，到探索前进</text>
+        <path id="openingRoad" d="M230 565 C430 520 580 610 770 565 S1110 520 1300 565 S1510 610 1690 565" class="rule" stroke-dasharray="1500" stroke-dashoffset="1500" />
+        <g id="open1921" opacity="0">
+          <circle cx="250" cy="560" r="27" class="node" />
+          <text x="250" y="670" text-anchor="middle" class="date ink">1921</text>
+          <text x="250" y="720" text-anchor="middle" class="event muted">中国共产党成立</text>
+        </g>
+        <g id="open1927" opacity="0">
+          <circle cx="720" cy="575" r="27" class="node" />
+          <text x="720" y="670" text-anchor="middle" class="date ink">1927</text>
+          <text x="720" y="720" text-anchor="middle" class="event muted">南昌起义</text>
+        </g>
+        <g id="open1929" opacity="0">
+          <circle cx="1200" cy="550" r="27" class="node" />
+          <text x="1200" y="670" text-anchor="middle" class="date ink">1929</text>
+          <text x="1200" y="720" text-anchor="middle" class="event muted">古田会议</text>
+        </g>
+        <g id="open1935" opacity="0">
+          <circle cx="1665" cy="570" r="27" class="node" />
+          <text x="1665" y="670" text-anchor="middle" class="date ink">1935</text>
+          <text x="1665" y="720" text-anchor="middle" class="event muted">遵义会议</text>
+        </g>
+        <text x="130" y="930" class="small muted">沿着历史节点，看一条道路怎样在实践中展开</text>
+      </g>
+
+      <g id="beatTimeline" opacity="0">
+        <text x="130" y="145" class="eyebrow red">时代背景 · 历史坐标</text>
+        <text x="130" y="245" class="headline ink">从社会激荡，走向组织与实践</text>
+        <path id="historyLine" d="M170 530 H1750" class="rule" stroke-dasharray="1580" stroke-dashoffset="1580" />
+        <g id="hist1911" opacity="0"><circle cx="190" cy="530" r="18" class="node"/><text x="190" y="635" text-anchor="middle" class="date ink">1911</text><text x="190" y="690" text-anchor="middle" class="event muted">辛亥革命</text></g>
+        <g id="hist1919" opacity="0"><circle cx="500" cy="530" r="18" class="node"/><text x="500" y="635" text-anchor="middle" class="date ink">1919</text><text x="500" y="690" text-anchor="middle" class="event muted">五四运动</text></g>
+        <g id="hist1921" opacity="0"><circle cx="810" cy="530" r="18" class="node"/><text x="810" y="635" text-anchor="middle" class="date ink">1921</text><text x="810" y="690" text-anchor="middle" class="event muted">中国共产党成立</text></g>
+        <g id="hist1927" opacity="0"><circle cx="1120" cy="530" r="18" class="node"/><text x="1120" y="635" text-anchor="middle" class="date ink">1927</text><text x="1120" y="690" text-anchor="middle" class="event muted">南昌起义</text></g>
+        <g id="hist1929" opacity="0"><circle cx="1430" cy="530" r="18" class="node"/><text x="1430" y="635" text-anchor="middle" class="date ink">1929</text><text x="1430" y="690" text-anchor="middle" class="event muted">古田会议</text></g>
+        <g id="hist1935" opacity="0"><circle cx="1740" cy="530" r="18" class="node"/><text x="1740" y="635" text-anchor="middle" class="date ink">1935</text><text x="1740" y="690" text-anchor="middle" class="event muted">遵义会议</text></g>
+        <text x="130" y="915" class="small muted">依据 R01 串联背景与节点；画面为信息图解</text>
+      </g>
+
+      <g id="beatDiagram" opacity="0">
+        <text x="130" y="125" class="eyebrow red">1935  /  贵州遵义  /  1月15—17日</text>
+        <text x="130" y="225" class="headline ink">把现实问题摆上桌面</text>
+        <g id="diagramStart" opacity="0">
+          <path d="M210 560 H360 M360 560 l35 -30 m-35 30 l35 30" stroke="#A94542" stroke-width="7" fill="none" stroke-linecap="round" />
+          <rect x="130" y="430" width="390" height="250" rx="24" class="card" />
+          <text x="325" y="525" text-anchor="middle" class="event muted">长征初期</text>
+          <text x="325" y="590" text-anchor="middle" class="date red">受挫</text>
+        </g>
+        <g id="diagramExperience" opacity="0">
+          <path d="M525 555 H665" stroke="#C5A677" stroke-width="7" fill="none" stroke-linecap="round" />
+          <circle cx="740" cy="555" r="75" fill="#A94542" />
+          <text x="740" y="566" text-anchor="middle" class="event" fill="#FFF9EF">总结经验</text>
+        </g>
+        <g id="diagramIssues" opacity="0">
+          <path d="M815 555 H930 M930 555 V445 H1030 M930 555 V665 H1030" stroke="#C5A677" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          <rect x="1030" y="385" width="420" height="120" rx="20" class="card" />
+          <rect x="1030" y="605" width="420" height="120" rx="20" class="card" />
+          <text x="1240" y="460" text-anchor="middle" class="event ink">军事问题</text>
+          <text x="1240" y="680" text-anchor="middle" class="event ink">组织问题</text>
+        </g>
+        <g id="diagramAdjust" opacity="0">
+          <path d="M1450 445 H1525 V555 H1600 M1450 665 H1525 V555" stroke="#A94542" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="1690" cy="555" r="95" fill="#181516" />
+          <text x="1690" y="545" text-anchor="middle" class="event" fill="#FFF9EF">讨论</text>
+          <text x="1690" y="592" text-anchor="middle" class="event" fill="#FFF9EF">与调整</text>
+        </g>
+        <text x="130" y="900" class="small muted">依据 R09 整理的结构示意 · 非原始史料</text>
+      </g>
+
+    </svg>
+
+  </main>
+
+  <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      const id = 'guangyingdangshi-ep01-60s-graphics';
+      const tl = gsap.timeline({ paused: true });
+      const enter = (selector, at, duration = 0.6) => tl.fromTo(selector,
+        { autoAlpha: 0, y: 18 },
+        { autoAlpha: 1, y: 0, duration, ease: 'power2.out' }, at);
+      tl.set('#beatOpening', { autoAlpha: 0 }, 15);
+      tl.set('#beatTimeline', { autoAlpha: 1, y: 0 }, 15);
+      tl.to('#openingRoad', { strokeDashoffset: 0, duration: 3.6, ease: 'power2.inOut' }, 0.8);
+      ['#open1921', '#open1927', '#open1929', '#open1935'].forEach((id, i) => enter(id, 1.5 + i * 1.45, 0.45));
+
+      tl.set('#beatTimeline', { autoAlpha: 0 }, 30);
+      tl.set('#beatDiagram', { autoAlpha: 1, y: 0 }, 30);
+      tl.to('#historyLine', { strokeDashoffset: 0, duration: 3.4, ease: 'power2.inOut' }, 15.5);
+      ['#hist1911', '#hist1919', '#hist1921', '#hist1927', '#hist1929', '#hist1935'].forEach((id, i) => enter(id, 16.1 + i * 0.8, 0.4));
+
+      enter('#diagramStart', 31, 0.45);
+      enter('#diagramExperience', 33.3, 0.5);
+      enter('#diagramIssues', 36, 0.5);
+      enter('#diagramAdjust', 40.2, 0.5);
+      tl.set('#beatDiagram', { autoAlpha: 0 }, 45);
+
+      tl.to({}, { duration: 45, ease: 'none' }, 0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines[id] = tl;
+      window.__hfMotionReady = true;
+    })();
+  </script>
+</body>
+</html>

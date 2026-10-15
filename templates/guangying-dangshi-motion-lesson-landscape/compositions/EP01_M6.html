@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920,height=1080">
+<title>光影党史 EP01 · M6 内容驱动画面版</title>
+<style>
+@font-face{font-family:GuangyingSans;src:url("../assets/fonts/NotoSansSC-500.woff") format("woff");font-weight:500}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#191617}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:radial-gradient(ellipse at 58% 44%,#302728 0%,#211b1c 58%,#191617 100%);color:#F4EEDF}
+#illustration,#interface,#title-cover,#captions{position:absolute;inset:0;width:1920px;height:1080px}
+#illustration{z-index:1}
+#interface{z-index:2;pointer-events:none}
+#title-cover{z-index:3;pointer-events:none}
+#title-cover{display:block;object-fit:cover;opacity:1;pointer-events:none}
+#captions{z-index:4;pointer-events:none}
+text{font-family:GuangyingSans,sans-serif}
+hf-audio-group{display:none!important}
+</style>
+</head>
+<body>
+<div id="stage" data-composition-id="guangyingdangshi-ep01-m6" data-start="0" data-duration="729.78" data-width="1920" data-height="1080" data-fps="25">
+  <svg id="illustration" viewBox="0 0 1920 1080" role="img" aria-label="按旁白内容编排的 SVG 图解"></svg>
+  <svg id="interface" viewBox="0 0 1920 1080" aria-label="章节与播放进度">
+    <rect x="0" y="0" width="12" height="1080" fill="#842D34"/>
+    <rect x="108" y="104" width="52" height="5" fill="#A94542"/>
+    <text x="178" y="113" fill="#C5A677" font-size="20" letter-spacing="2">光影党史 / DOCUMENTARY</text>
+    <text id="chapter-title" x="108" y="190" fill="#F4EEDF" font-size="34" font-weight="600"></text>
+    <text id="chapter-number" x="1810" y="111" text-anchor="end" fill="#B3A798" font-size="22">M6 · 01</text>
+    <path d="M108 218 H1812" stroke="#665149" stroke-width="1"/>
+    <path d="M108 990 H1812" stroke="#665149" stroke-width="2"/>
+    <rect id="progress-fill" x="108" y="988" width="0" height="4" fill="#C5A677"/>
+    <text id="timecode" x="108" y="1034" fill="#B3A798" font-size="21">00:00</text>
+    <text x="1812" y="1034" text-anchor="end" fill="#B3A798" font-size="21">12:09</text>
+  </svg>
+  <img id="title-cover" class="clip" src="../assets/EP01_M6_cover.svg" alt="光影党史专题课：从石库门到遵义，在探索中寻找中国革命的道路，回望1921至1935年，授课人 Walton" data-start="0" data-duration="4" data-track-index="2">
+  <svg id="captions" viewBox="0 0 1920 1080" aria-label="旁白字幕">
+    <rect x="96" y="868" width="1725" height="88" rx="4" fill="rgba(10,7,8,.88)"/>
+    <rect x="96" y="868" width="8" height="88" fill="#A94542"/>
+    <text id="caption-a" x="138" y="925" fill="#F6F0E6" font-size="35"></text>
+    <text id="caption-b" x="138" y="948" fill="#F6F0E6" font-size="30"></text>
+  </svg>
+  <hf-audio-group id="voiceover" data-label="Voiceover"></hf-audio-group>
+  <audio id="narration" class="clip" src="../media/voice/EP01_M5_narration.wav" data-start="0" data-duration="729.78" data-track-index="3" data-audio-group="voiceover"></audio>
+  <audio id="music-bed" class="clip" src="../media/audio/EP01_M5_music.wav" data-start="0" data-duration="729.78" data-track-index="4" data-audio-group="music" data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;voiceover&quot;],&quot;strength&quot;:0.4}"></audio>
+</div>
+<script src="../node_modules/gsap/dist/gsap.min.js"></script>
+<script src="../src/episode-data-m5.js"></script>
+<script src="../src/episode-scenes-m6.js"></script>
+<script src="../src/graphics-m6.js"></script>
+<script>
+(function(){
+  const id='guangyingdangshi-ep01-m6',duration=729.78;
+  if(window.gsap){
+    const timeline=gsap.timeline({paused:true});
+    timeline.to({clock:0},{clock:duration,duration,ease:'none',onUpdate:function(){window.renderAt(this.targets()[0].clock)}},0);
+    window.__timelines=window.__timelines||{};window.__timelines[id]=timeline;window.__hfMotionReady=true;
+  }else window.__hfMotionReady=false;
+  window.addEventListener('message',event=>{if(event.data&&event.data.kind==='seek'&&Number.isFinite(event.data.t))window.renderAt(event.data.t)});
+  const query=new URLSearchParams(location.search);if(query.has('t'))window.renderAt(Number(query.get('t'))||0);
+})();
+</script>
+</body>
+</html>

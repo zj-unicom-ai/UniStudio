@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" role="img" aria-labelledby="cover-title cover-desc">
+  <title id="cover-title">从石库门到遵义：在探索中寻找中国革命的道路</title>
+  <desc id="cover-desc">光影党史专题党课，回望1921至1935年，从党的创建到道路探索与遵义转折。授课人：Walton。</desc>
+  <defs>
+    <radialGradient id="cover-glow" cx="67%" cy="44%" r="82%">
+      <stop offset="0" stop-color="#382B27"/>
+      <stop offset=".58" stop-color="#241E1D"/>
+      <stop offset="1" stop-color="#191617"/>
+    </radialGradient>
+    <linearGradient id="cover-door" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#A94542"/>
+      <stop offset="1" stop-color="#64272C"/>
+    </linearGradient>
+  </defs>
+  <style>
+    @font-face{font-family:CoverSans;src:url('fonts/NotoSansSC-500.woff') format('woff');font-weight:500}
+  </style>
+  <rect width="1920" height="1080" fill="url(#cover-glow)"/>
+  <rect width="14" height="1080" fill="#842D34"/>
+  <path d="M108 112 H1810" stroke="#665149" stroke-width="1" opacity=".8"/>
+  <path d="M108 112 H160" stroke="#A94542" stroke-width="6"/>
+
+  <text x="182" y="121" fill="#C5A677" font-family="CoverSans, sans-serif" font-size="23" font-weight="500" letter-spacing="3">光影党史　/　党史专题课</text>
+  <text x="150" y="324" fill="#F4EEDF" font-family="CoverSans, sans-serif" font-size="76" font-weight="700" letter-spacing="2">从石库门到遵义</text>
+  <path d="M154 370 H270" stroke="#A94542" stroke-width="6" stroke-linecap="round"/>
+  <text x="150" y="444" fill="#E9DFC9" font-family="CoverSans, sans-serif" font-size="43" font-weight="500">在探索中寻找中国革命的道路</text>
+  <text x="152" y="512" fill="#B3A798" font-family="CoverSans, sans-serif" font-size="27" font-weight="500">回望 1921—1935：从党的创建到道路探索与遵义转折</text>
+
+  <path d="M150 605 H920" stroke="#665149" stroke-width="2"/>
+  <rect x="150" y="656" width="188" height="62" rx="31" fill="#842D34" stroke="#C5A677" stroke-width="2"/>
+  <text x="244" y="696" text-anchor="middle" fill="#F4EEDF" font-family="CoverSans, sans-serif" font-size="23" font-weight="500">授课人</text>
+  <text x="368" y="701" fill="#F4EEDF" font-family="CoverSans, sans-serif" font-size="36" font-weight="700" letter-spacing="1">Walton</text>
+  <text x="152" y="808" fill="#8F8377" font-family="CoverSans, sans-serif" font-size="20" font-weight="500" letter-spacing="2">EP01　·　历史进程示意</text>
+
+  <!-- Symbolic Shikumen facade: an illustration, not a documentary photograph. -->
+  <g fill="none" stroke="#C5A677" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1110 568 V371 Q1110 337 1146 337 H1439 Q1474 337 1474 371 V568" stroke-width="5"/>
+    <path d="M1078 568 H1505 M1144 337 L1174 292 H1410 L1440 337" stroke-width="4"/>
+    <path d="M1190 568 V447 Q1190 396 1292 396 Q1395 396 1395 447 V568" stroke-width="4"/>
+    <path d="M1220 568 V451 Q1220 421 1292 421 Q1365 421 1365 451 V568" stroke="#A94542" stroke-width="3"/>
+    <path d="M1292 422 V568 M1220 500 H1365" stroke="#C5A677" stroke-width="2" opacity=".8"/>
+    <path d="M1136 373 H1172 M1412 373 H1448 M1152 407 H1172 M1412 407 H1432" stroke-width="3" opacity=".7"/>
+  </g>
+  <path d="M1222 565 V452 Q1222 424 1292 424 Q1362 424 1362 452 V565 Z" fill="url(#cover-door)" opacity=".72"/>
+  <path d="M1438 568 L1510 477 L1575 548 L1648 425 L1740 568 Z" fill="#29302B" stroke="#637568" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M1508 478 L1535 512 M1648 425 L1680 470" stroke="#C5A677" stroke-width="2" opacity=".8"/>
+  <path d="M1581 568 L1648 492 L1716 568" fill="#34302A" stroke="#C5A677" stroke-width="3" stroke-linejoin="round"/>
+  <text x="1292" y="600" text-anchor="middle" fill="#B3A798" font-family="CoverSans, sans-serif" font-size="19" font-weight="500" letter-spacing="2">石库门</text>
+  <text x="1648" y="600" text-anchor="middle" fill="#B3A798" font-family="CoverSans, sans-serif" font-size="19" font-weight="500" letter-spacing="2">遵义</text>
+
+  <!-- A timeline path, not a geographic route. -->
+  <path d="M1090 700 C1225 650 1300 650 1372 700 S1538 750 1612 700 S1730 650 1810 700" fill="none" stroke="#C5A677" stroke-width="5" stroke-linecap="round"/>
+  <g font-family="CoverSans, sans-serif" text-anchor="middle" font-weight="700">
+    <g transform="translate(1112 692)"><circle r="40" fill="#842D34" stroke="#C5A677" stroke-width="3"/><text y="8" fill="#F4EEDF" font-size="19">1921</text><text y="83" fill="#B3A798" font-size="18" font-weight="500">创建</text></g>
+    <g transform="translate(1345 692)"><circle r="40" fill="#292323" stroke="#C5A677" stroke-width="3"/><text y="8" fill="#F4EEDF" font-size="19">1927</text><text y="83" fill="#B3A798" font-size="18" font-weight="500">转向</text></g>
+    <g transform="translate(1578 692)"><circle r="40" fill="#292323" stroke="#A94542" stroke-width="3"/><text y="8" fill="#F4EEDF" font-size="19">1929</text><text y="83" fill="#B3A798" font-size="18" font-weight="500">建设</text></g>
+    <g transform="translate(1780 692)"><circle r="40" fill="#842D34" stroke="#C5A677" stroke-width="3"/><text y="8" fill="#F4EEDF" font-size="19">1935</text><text y="83" fill="#B3A798" font-size="18" font-weight="500">转折</text></g>
+  </g>
+
+  <path d="M150 962 H1810" stroke="#665149" stroke-width="1"/>
+  <text x="150" y="1012" fill="#8F8377" font-family="CoverSans, sans-serif" font-size="18" font-weight="500" letter-spacing="2">从历史现场出发　·　沿着实践寻找道路</text>
+</svg>

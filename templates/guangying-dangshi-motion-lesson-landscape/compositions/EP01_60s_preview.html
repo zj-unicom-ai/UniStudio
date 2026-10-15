@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>光影党史 EP01 · 60 秒样片</title>
+  <style>
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #E9DFCA; }
+    #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #E9DFCA; }
+    #sample-graphics, #sample-whiteboard-label, #whiteboard-1935, #whiteboard-1935-coda { position: absolute; left: 0; width: 1920px; height: 1080px; }
+    #sample-graphics { z-index: 0; }
+    #whiteboard-1935, #whiteboard-1935-coda { z-index: 1; top: 44px; object-fit: contain; }
+    #sample-whiteboard-label { z-index: 2; }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="guangyingdangshi-ep01-60s" data-start="0" data-duration="60" data-width="1920" data-height="1080" data-fps="30">
+    <div id="sample-graphics" class="clip" data-composition-id="sample-graphics" data-composition-src="compositions/EP01_60s/graphics.html" data-start="0" data-duration="45" data-track-index="0"></div>
+    <video id="whiteboard-1935" class="clip" data-start="45" data-duration="8" data-track-index="9" data-hf-media-start-basis="global" src="../media/huashu/1935-decision.mp4" muted playsinline preload="auto"></video>
+    <video id="whiteboard-1935-coda" class="clip" data-start="53" data-duration="7" data-track-index="9" data-hf-media-start-basis="global" src="../media/huashu/1935-coda.mp4" muted playsinline preload="auto"></video>
+    <div id="sample-whiteboard-label" class="clip" data-composition-id="sample-whiteboard-label" data-composition-src="compositions/EP01_60s/whiteboard-label.html" data-start="45" data-duration="15" data-track-index="10"></div>
+  </div>
+  <script src="../node_modules/gsap/dist/gsap.min.js"></script>
+  <script>
+    const id = 'guangyingdangshi-ep01-60s';
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 60, ease: 'none' }, 0);
+    window.__timelines = window.__timelines || {};
+    window.__timelines[id] = tl;
+    window.__hfMotionReady = true;
+  </script>
+</body>
+</html>

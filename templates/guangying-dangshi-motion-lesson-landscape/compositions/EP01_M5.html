@@ -1,0 +1,34 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=1920,height=1080"><title>光影党史 EP01 · M5 12–13 分钟版</title>
+<style>
+@font-face{font-family:GuangyingSans;src:url("../assets/fonts/NotoSansSC-500.woff") format("woff");font-weight:500}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#181516}
+#main{position:relative;width:1920px;height:1080px;background:#181516;overflow:hidden}
+#sceneCanvas{position:absolute;inset:0;z-index:0;width:1920px;height:1080px}
+video.huashu{position:absolute;left:0;top:44px;width:1920px;height:1080px;object-fit:contain;z-index:10}
+.caption{position:absolute;inset:0;width:1920px;height:1080px;z-index:20}
+.source-label{position:absolute;inset:0;width:1920px;height:1080px;z-index:30;display:none}
+text{font-family:GuangyingSans,sans-serif;font-weight:500}
+hf-audio-group{display:none!important}
+</style></head><body>
+<div id="main" data-composition-id="guangyingdangshi-ep01-m5" data-start="0" data-duration="729.78" data-width="1920" data-height="1080" data-fps="25">
+<canvas id="sceneCanvas" width="1920" height="1080"></canvas>
+<hf-audio-group id="voiceover" data-label="Voiceover"></hf-audio-group>
+<audio id="narration" class="clip" src="../media/voice/EP01_M5_narration.wav" data-start="0" data-duration="729.78" data-track-index="3" data-audio-group="voiceover"></audio>
+<audio id="music-bed" class="clip" src="../media/audio/EP01_M5_music.wav" data-start="0" data-duration="729.78" data-track-index="4" data-audio-group="music" data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;voiceover&quot;],&quot;strength&quot;:0.4}"></audio>
+<video id="huashu-s04" class="clip huashu" src="../media/huashu/1921-organization.mp4" muted playsinline preload="auto" data-start="188.15" data-hf-media-start-basis="global" data-duration="8" data-track-index="10"></video>
+<svg id="source-label" class="source-label" viewBox="0 0 1920 1080" aria-label="图解动画说明">
+<rect x="80" y="38" width="390" height="54" rx="27" fill="#A94542"/>
+<text x="275" y="73" text-anchor="middle" fill="#FFF9EF" font-size="22">图解动画 · 非原始史料</text>
+<text id="source-ref" x="1810" y="105" text-anchor="end" fill="#493B34" font-size="19">依据：R02 · R12 · R13</text>
+</svg>
+<svg id="caption-overlay" class="caption" viewBox="0 0 1920 1080" aria-label="旁白字幕">
+<rect x="96" y="868" width="1725" height="88" rx="4" fill="rgba(10,7,8,.84)"/>
+<rect x="96" y="868" width="8" height="88" fill="#A94542"/>
+<text id="caption-line-1" x="138" y="923" fill="#F6F0E6" font-size="35"></text>
+<text id="caption-line-2" x="138" y="947" fill="#F6F0E6" font-size="30"></text>
+</svg>
+</div>
+<script src="../node_modules/gsap/dist/gsap.min.js"></script>
+<script src="../src/episode-data-m5.js"></script><script src="../src/graphics-m5.js"></script>
+<script>(function(){const id='guangyingdangshi-ep01-m5';if(window.gsap){const tl=gsap.timeline({paused:true});tl.to({clock:0},{clock:729.78,duration:729.78,ease:'none',onUpdate:function(){window.renderAt(this.targets()[0].clock)}},0);window.__timelines=window.__timelines||{};window.__timelines[id]=tl;window.__hfMotionReady=true;}else{window.__hfMotionReady=false;}window.addEventListener('message',e=>{if(e.data&&e.data.kind==='seek'&&Number.isFinite(e.data.t))window.renderAt(e.data.t)});const qp=new URLSearchParams(location.search);if(qp.has('t'))window.renderAt(Number(qp.get('t'))||0);})();</script>
+</body></html>

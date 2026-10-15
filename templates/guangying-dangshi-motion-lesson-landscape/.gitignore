@@ -1,0 +1,8 @@
+node_modules/
+third_party/
+media/huashu/*.mp4
+media/voice/*.wav
+media/archive/*
+!media/archive/.gitkeep
+output/*
+!output/.gitkeep

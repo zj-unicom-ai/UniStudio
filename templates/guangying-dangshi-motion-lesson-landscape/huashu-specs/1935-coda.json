@@ -1,0 +1,22 @@
+{
+  "grammar": "y3_whiteboard",
+  "duration": 7,
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "theme": {
+    "bg": "#E9DFCA",
+    "surface": "#E9DFCA",
+    "ink": "#181516",
+    "sub": "#AD9E8D",
+    "accent": "#A94542",
+    "accent2": "#C5A677"
+  },
+  "cues": [
+    { "at": 0, "kind": "draw", "text": "现实问题", "data": { "icon": "cross" } },
+    { "at": 1.3, "kind": "point", "text": "总结经验" },
+    { "at": 2.5, "kind": "draw", "text": "讨论与调整", "data": { "icon": "target" } },
+    { "at": 4.5, "kind": "point", "text": "从现实问题到行动调整" },
+    { "at": 6.1, "kind": "highlight", "data": { "target": "draw", "index": 1 } }
+  ]
+}

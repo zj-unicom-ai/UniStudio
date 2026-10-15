@@ -1,0 +1,10 @@
+{
+ "grammar":"y3_whiteboard","duration":8,"fps":30,"width":1920,"height":1080,"theme":{"bg":"#E9DFCA","surface":"#E9DFCA","ink":"#181516","sub":"#AD9E8D","accent":"#A94542","accent2":"#C5A677"},
+ "cues":[
+ {"at":0,"kind":"draw","text":"1927","data":{"icon":"clock"}},
+ {"at":1.2,"kind":"point","text":"在挫折中探索"},
+ {"at":2.7,"kind":"draw","text":"三湾改编","data":{"icon":"target"}},
+ {"at":4.1,"kind":"point","text":"组织与道路的调整"},
+ {"at":6.1,"kind":"highlight","data":{"target":"draw","index":1}}
+ ]
+}
