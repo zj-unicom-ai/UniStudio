@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ai-news-image-switch-brief-vertical",
+    "name": "无旁白图片快报",
+    "path": "templates/ai-news-image-switch-brief-vertical",
+    "aspect_ratio": "9:16",
+    "narration": false,
+    "skill": "SKILL.md",
+    "project_source": ".",
+    "notes": "单条资讯、图片快切、BGM；不生成旁白。"
+  },
+  {
+    "id": "woshi-news-vertical",
+    "name": "沃资讯｜单条快讯",
+    "path": "templates/woshi-news-vertical",
+    "aspect_ratio": "9:16",
+    "narration": true,
+    "skill": null,
+    "project_source": ".",
+    "notes": "读取 README.md、BRIEF.md、DESIGN.md；新工程使用用户配置的 TTS，音频落到 assets/audio/voiceover-female-news-fast.wav 后重算包络。"
+  },
+  {
+    "id": "ai-news-single-story-digital-presenter-vertical",
+    "name": "单条资讯数字人深度解读",
+    "path": "templates/ai-news-single-story-digital-presenter-vertical",
+    "aspect_ratio": "9:16",
+    "narration": true,
+    "skill": "SKILL.md",
+    "project_source": ".",
+    "notes": "更换开场白还需要 MuseTalk 等口型服务；TTS 可用不代表口型服务已就绪。"
+  },
+  {
+    "id": "gangge-ai-international-vision",
+    "name": "刚哥聊 AI｜国际视野",
+    "path": "templates/gangge-ai-international-vision",
+    "aspect_ratio": "9:16",
+    "narration": true,
+    "skill": "SKILL.md",
+    "project_source": "assets/template-project",
+    "notes": "默认配音音色：九边 (a1822192)。随包样例 WAV 为静音占位，正式制作须用九边音色生成真实旁白。"
+  },
+  {
+    "id": "ai-weekly-news-roundup-landscape",
+    "name": "AI 周见｜科技周报",
+    "path": "templates/ai-weekly-news-roundup-landscape",
+    "aspect_ratio": "16:9",
+    "narration": true,
+    "skill": "SKILL.md",
+    "project_source": ".",
+    "notes": "3–10 条资讯；配音 WAV 按 composition ID 命名，再运行 make_voice_manifest.py。"
+  },
+  {
+    "id": "idea-explainer-landscape",
+    "name": "一念三千｜日常观念讲解",
+    "path": "templates/idea-explainer-landscape",
+    "aspect_ratio": "16:9",
+    "narration": true,
+    "skill": "SKILL.md",
+    "project_source": ".",
+    "notes": "长视频分段旁白；先更新新工程的配音请求，再构建时长和时间线。"
+  },
+  {
+    "id": "guangying-dangshi-motion-lesson-landscape",
+    "name": "光影党史｜动态党课",
+    "path": "templates/guangying-dangshi-motion-lesson-landscape",
+    "aspect_ratio": "16:9",
+    "narration": true,
+    "skill": "SKILL.md",
+    "project_source": ".",
+    "notes": "横屏长篇党史课件，样片 12:09.8；画面为内容驱动 SVG 图解并标注示意。新内容须分章 TTS 配音、ASR 重算时码并更新场景映射；随包示例旁白声线 CC-BY-NC 仅限非商用。"
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "name": "hyperframes",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "npx --yes hyperframes@0.8.158 preview",
+    "check": "npx --yes hyperframes@0.8.158 check",
+    "render": "node scripts/render-with-cover.mjs",
+    "publish": "npx --yes hyperframes@0.8.158 publish"
+  },
+  "dependencies": {
+    "gsap": "3.14.2"
+  }
+}

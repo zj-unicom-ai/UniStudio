@@ -1,14 +1,10 @@
 # 视频号发布工作流（可复制命令 + 踩坑）
 
-所有命令在能跑 `agent-browser`（`/opt/homebrew/bin/agent-browser`）与 `curl` 的机器上执行。端口示例 `9333`。
+这份参考记录 iframe 表单的操作经验，不代表所有账号或平台当前页面。运行环境需已安装 `agent-browser` 与真实 Chrome，端口示例为 `9333`。遇到选择器失效应先重新读取当前页面。
 
-## 栏目 → 合集 / 原创（每条必挂，判据见 SKILL「发布前必做」）
+## 账号、合集与原创
 
-| 来源 | 合集 | 原创 |
-|---|---|---|
-| 《刚哥聊 AI》（`视频创作/刚哥聊AI/<日期>/renders/*.mp4`） | 刚哥聊AI（账号已存在） | 声明 |
-| 快播资讯（`ai-news-*` 模板：快播版 `ai-news-holographic-image-vertical`、`ai-news-holographic-image-bgm-vertical`、`ai-news-single-story-presenter-vertical`、`ai-news-digital-presenter`、`ai-news-editorial-landscape`） | 科技前沿（账号暂无，首次用时按 5.6 创建） | 声明 |
-| 其他（品牌片、活动片等） | 不自动挂，`needs_human` 问用户 | 问用户 |
+以本机 `unistudio.local.json` 为准。文中的「科技前沿」「刚哥聊AI」只是合集名示例，不能据模板自动套用。合集为空就不挂；仅在配置要求且作品具备权利时执行原创声明。不能把示例账号历史、合集内容数或旧定时任务当作当前机器的事实。
 
 ## 0. 为什么不能用 browser-use MCP
 
@@ -20,7 +16,7 @@
 ## 1. 起调试实例并接管
 
 ```bash
-bash scripts/launch_wechat_chrome.sh "https://channels.weixin.qq.com/platform/post/create" 9333
+bash skills/publish-wechat-channels/scripts/launch_wechat_chrome.sh "https://channels.weixin.qq.com/platform/post/create" 9333
 agent-browser connect 9333
 agent-browser get url    # 期望停在 .../platform/post/create（未登录会弹回 login.html）
 ```
@@ -115,9 +111,9 @@ agent-browser eval "(()=>{const d=document.querySelector('iframe').contentDocume
 
 挂错要改：对 `.collection-text .clear-icon` 派发事件序列清除，再重开下拉选正确的。
 
-## 5.7 声明原创（固定动作，2026-10-09 实测）
+## 5.7 按配置声明原创（历史 DOM 参考）
 
-"声明原创"是 `.form-item` 里的 ant checkbox（`.declare-original-checkbox input[type=checkbox]`），本工作区每条都勾。勾上会弹「原创权益」对话框，里面还有一个"我已阅读并同意《原创声明须知》和《使用条款》"的同意 checkbox——**不勾同意，对话框主按钮【声明原创】一直是 `weui-desktop-btn_disabled`**（`disabled` 属性为 false，禁用态写在 class 上，别只读 `.disabled`）：
+"声明原创"是 `.form-item` 里的 ant checkbox（`.declare-original-checkbox input[type=checkbox]`），仅在用户配置要求且作品具备相应权利时勾选。勾上会弹「原创权益」对话框，里面还有一个"我已阅读并同意《原创声明须知》和《使用条款》"的同意 checkbox——**不勾同意，对话框主按钮【声明原创】一直是 `weui-desktop-btn_disabled`**（`disabled` 属性为 false，禁用态写在 class 上，别只读 `.disabled`）：
 
 ```bash
 agent-browser eval "(()=>{const d=document.querySelector('iframe').contentDocument;d.querySelector('.declare-original-checkbox input[type=checkbox]').click();return 'box'})()"
@@ -131,7 +127,7 @@ agent-browser eval "(()=>{const d=document.querySelector('iframe').contentDocume
 
 ## 6. 提交前确认 + 发表
 
-先把完整字段表（账号/短标题/描述/话题/封面/**合集**/**原创**/位置/定时）交用户确认，得到明确"发"。发表按钮文本恰为"发表"（另有"保存草稿""直接发表"，勿点错）：
+提交前回读完整字段表（账号/短标题/描述/话题/封面/可选合集/原创/位置/定时）；当前用户已明确授权且字段完整时按授权执行，缺少关键输入时再询问。发表按钮文本恰为"发表"（另有"保存草稿""直接发表"，勿点错）：
 
 ```bash
 agent-browser frame "iframe"
@@ -176,7 +172,7 @@ pkill -f "user-data-dir=$HOME/.chrome-wxpublish" || true
 - **原创权益弹窗的同意框：先置 `checked=true` 再 dispatch `change`，然后等约 1 秒**让 React 重渲染，【声明原创】按钮才会去掉 `weui-desktop-btn_disabled`；只 dispatch click 或不等待，按钮一直 disabled。真实 `agent-browser click` 点这个框会被 `wujie-app` 遮挡报 covered，但遮挡报错后状态往往已经落上，回读 `checked`/按钮 class 为准。
 - **封面"裁剪不成功"是假失败**：`upload 'input[type=file][accept*="image"]' <cover.png>` 后顶部弹"裁剪不成功"toast、【确认】点不动，但封面预览实际已换成上传的完整帧。若确认关不掉弹窗，直接对【确认】再派发一次事件序列即可关闭，回看 `封面预览` 缩略图确认已是完整画面即可，不必纠结 toast。
 - **状态判读**：发表后 URL 跳 `/platform/post/list`、条目在列表顶部且带"原创审核中/审核中/转码中"徽标 → 记 `platform_pending`（审核通过才公开），**不是 `published`**；`published` 要求无待处理徽标且带浏览/点赞计数。核验用 `eval` 读 `iframe.contentDocument.body.innerText`，别用 browser-use 的 snapshot（它看到的是受管 Chromium 的 login.html，跟 agent-browser 接管的真实 Chrome 不是同一个实例）。
-- **发布 cron 与手工共用 9333**：本工作区有每 20 分钟的自动发布任务也连 9333 这个 `~/.chrome-wxpublish` 实例。手工补发前先看看板该条是否已是 `publishing`/`platform_pending`（可能 cron 已在跑），避免重复上传；收尾**不要 pkill 9333 共享实例**。
+- **发布会话互斥**：先通过 UniStudio 的 `claim` 领取任务。同平台有未结束会话时先核验收口，不抢占页面；不要关闭其他会话复用的 Chrome。仓库本身不会创建定时发布任务。
 
 ## 与创作侧衔接
 
@@ -196,7 +192,7 @@ pkill -f "user-data-dir=$HOME/.chrome-wxpublish" || true
   ```
   判别上传是否真成功：iframe 文本从"上传时长8小时内…"变成"取消上传 | 封面预览 | 编辑"，再变成带账号名（万智创界）与 转发/赞/评论/删除 的预览卡。
 
-- **不要用"本地 http.server + 页面内 fetch + DataTransfer"绕上传**：`fetch("http://127.0.0.1:PORT/x.mp4")` 在 `channels.weixin.qq.com` 里直接 `ERR Failed to fetch`（Chrome 的本地网络访问限制，页面没有 meta CSP 也照样拦）。走上面的 ref 方案。顺带：`8899` 端口被本工作区看板 `pipeline/serve.py` 占着，临时起服务会静默失败并拿到看板的 404 页，换端口前先看 `lsof`。
+- **不要用"本地 http.server + 页面内 fetch + DataTransfer"绕上传**：`fetch("http://127.0.0.1:PORT/x.mp4")` 在 `channels.weixin.qq.com` 里直接 `ERR Failed to fetch`（Chrome 的本地网络访问限制，页面没有 meta CSP 也照样拦）。走上面的 ref 方案。临时起服务前确认端口可用，不能假设当前机器的端口占用情况。
 
 - **合集"内容数"会滞后约 1 分钟**：点完发表立刻切「合集 (6)」标签，`刚哥聊AI` 仍是发布前的 12；等 45–60 秒重载才变 13。核合集要按"发布前基线 → 稍后复查"两步走，别因为第一次读到 12 就判定漏挂（发表页下拉里的"共 N 个内容"就是最方便的基线）。
 

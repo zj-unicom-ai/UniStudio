@@ -1,0 +1,17 @@
+{
+  "provider": "VoiceStudio local API",
+  "voiceStudioVersion": "0.5.6",
+  "engine": "omnivoice",
+  "language": "Chinese",
+  "voiceDesign": "female",
+  "speed": 1.12,
+  "effectPreset": "broadcast",
+  "seed": 20261015,
+  "audioId": "f44d37d6",
+  "generationSeconds": 49.39,
+  "durationSeconds": 46.89,
+  "sampleRate": 24000,
+  "scriptPath": "content/narration.txt",
+  "audioPath": "assets/audio/voiceover.wav",
+  "profileSaved": false
+}

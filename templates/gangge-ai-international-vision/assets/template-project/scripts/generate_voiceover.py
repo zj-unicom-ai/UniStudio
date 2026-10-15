@@ -4,16 +4,22 @@ from pathlib import Path
 P=Path(__file__).resolve().parents[1]
 def main():
  parser=argparse.ArgumentParser(description=__doc__)
- parser.add_argument('--url',default=os.environ.get('TTS_URL'),help='Full authorized speech endpoint, e.g. http://localhost:3900/v1/audio/speech')
- parser.add_argument('--voice',default=os.environ.get('TTS_VOICE'),help='Voice profile on YOUR provider')
- parser.add_argument('--model',default=os.environ.get('TTS_MODEL'),help='Model supported by YOUR provider')
+ parser.add_argument('--url',default=os.environ.get('TTS_URL','http://localhost:3900/generate'),help='Full authorized speech endpoint, e.g. http://localhost:3900/generate')
+ parser.add_argument('--voice',default=os.environ.get('TTS_VOICE','a1822192'),help='Voice profile on YOUR provider (default: Jiubian a1822192)')
+ parser.add_argument('--model',default=os.environ.get('TTS_MODEL','omnivoice'),help='Model supported by YOUR provider (default: omnivoice)')
  args=parser.parse_args()
  if not all((args.url,args.voice,args.model)): parser.error('Set --url, --voice and --model (or TTS_URL/TTS_VOICE/TTS_MODEL). Import WAV instead if no TTS is available.')
  r=json.loads((P/'voice-requests.json').read_text(encoding='utf-8')); out=P/'assets/voice-guobiao';out.mkdir(parents=True,exist_ok=True)
  manifest=[]
  for seg in r['segments']:
-  body=json.dumps({'model':args.model,'voice':args.voice,'input':seg['text'],'language':r.get('language','zh'),'speed':r.get('speed',1.0),'response_format':'wav'},ensure_ascii=False).encode()
-  headers={'Content-Type':'application/json'}
+  boundary='----WebKitFormBoundary7MA4YWxkTrZu0gW'
+  body=(
+   f'--{boundary}\r\nContent-Disposition: form-data; name="text"\r\n\r\n{seg["text"]}\r\n'
+   f'--{boundary}\r\nContent-Disposition: form-data; name="profile_id"\r\n\r\n{args.voice}\r\n'
+   f'--{boundary}\r\nContent-Disposition: form-data; name="engine"\r\n\r\n{args.model}\r\n'
+   f'--{boundary}--\r\n'
+  ).encode('utf-8')
+  headers={'Content-Type':f'multipart/form-data; boundary={boundary}'}
   if os.environ.get('TTS_API_KEY'): headers['Authorization']='Bearer '+os.environ['TTS_API_KEY']
   req=urllib.request.Request(args.url,data=body,headers=headers,method='POST')
   with urllib.request.urlopen(req,timeout=600) as response: data=response.read()

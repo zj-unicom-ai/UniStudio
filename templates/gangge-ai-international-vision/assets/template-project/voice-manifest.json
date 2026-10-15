@@ -1,0 +1,17 @@
+[
+  {
+    "id": "00",
+    "path": "assets/voice-guobiao/00.wav",
+    "duration_s": 4.72
+  },
+  {
+    "id": "01",
+    "path": "assets/voice-guobiao/01.wav",
+    "duration_s": 4.0
+  },
+  {
+    "id": "02",
+    "path": "assets/voice-guobiao/02.wav",
+    "duration_s": 4.0
+  }
+]

@@ -1,7 +1,7 @@
 {
-  "src": "http://127.0.0.1:8610/web/index.html#/templates",
-  "url": "http://127.0.0.1:8610/web/index.html#/templates",
-  "outdir": "/Users/wrg/Important/uni-ai-video-templates/web/_shots",
+  "src": "http://127.0.0.1:8610/web/index.html",
+  "url": "http://127.0.0.1:8610/web/index.html",
+  "outdir": "/Users/wrg/Important/UniStudio/web/_shots",
   "include": [
     "lint",
     "screenshots",
@@ -9,29 +9,29 @@
   ],
   "shots": {
     "desktop": {
-      "screenshot": "/Users/wrg/Important/uni-ai-video-templates/web/_shots/127_0_0_1_desktop.jpg",
-      "screenshotBytes": 205658,
+      "screenshot": "/Users/wrg/Important/UniStudio/web/_shots/127_0_0_1_desktop.jpg",
+      "screenshotBytes": 53512,
       "truncated": false,
       "structure": {
-        "title": "自媒体数字员工平台 · Uni AI Video Templates",
-        "firstH1": "自媒体数字员工平台",
+        "title": "UniStudio · 创作工作室",
+        "firstH1": "首页",
         "viewport": {
           "w": 1440,
           "h": 900
         },
         "fullpage": {
           "w": 1440,
-          "h": 3303
+          "h": 900
         },
         "counts": {
-          "section": 9,
-          "h1": 4,
-          "h2": 6,
-          "img": 5,
+          "section": 1,
+          "h1": 2,
+          "h2": 2,
+          "img": 0,
           "canvas": 0,
-          "svg": 12,
-          "links": 35,
-          "buttons": 17
+          "svg": 11,
+          "links": 0,
+          "buttons": 13
         }
       },
       "consoleErrors": [],
@@ -45,7 +45,7 @@
   "chromiumExec": "/Users/wrg/Library/Caches/ms-playwright/chromium_headless_shell-1223/chrome-headless-shell-mac-arm64/chrome-headless-shell",
   "engineDegraded": true,
   "engineDegradedReason": "playwright 未装",
-  "elapsedSec": 3.11,
+  "elapsedSec": 3.36,
   "schemaVersion": 2,
   "status": "pass",
   "engineInfo": {
@@ -56,11 +56,11 @@
     ]
   },
   "input": {
-    "original": "http://127.0.0.1:8610/web/index.html#/templates",
+    "original": "http://127.0.0.1:8610/web/index.html",
     "resolvedPath": null,
-    "baseUrl": "http://127.0.0.1:8610/web/index.html#/templates",
+    "baseUrl": "http://127.0.0.1:8610/web/index.html",
     "protocol": "http",
-    "cwd": "/Users/wrg/Important/uni-ai-video-templates",
+    "cwd": "/Users/wrg/Library/Application Support/Doubao/Profile 2/.doubao/agent_mode/workspace/.skills/html",
     "mediaMode": {
       "reducedMotion": true
     }
@@ -69,8 +69,8 @@
     "screenshots": [
       {
         "viewport": "desktop",
-        "path": "/Users/wrg/Important/uni-ai-video-templates/web/_shots/127_0_0_1_desktop.jpg",
-        "size": 205658,
+        "path": "/Users/wrg/Important/UniStudio/web/_shots/127_0_0_1_desktop.jpg",
+        "size": 53512,
         "visualCoverage": {
           "complete": true,
           "reason": null
@@ -86,5 +86,5 @@
   },
   "findings": [],
   "prioritizedActions": [],
-  "reportPath": "/Users/wrg/Important/uni-ai-video-templates/web/_shots/report.json"
+  "reportPath": "/Users/wrg/Important/UniStudio/web/_shots/report.json"
 }

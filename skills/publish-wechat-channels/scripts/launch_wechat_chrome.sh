@@ -6,11 +6,19 @@ set -euo pipefail
 
 URL="${1:-https://channels.weixin.qq.com/platform/post/create}"
 PORT="${2:-9333}"
-PROFILE_DIR="${HOME}/.chrome-wxpublish"
-CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+PROFILE_DIR="${UNISTUDIO_CHROME_PROFILE:-${HOME}/.unistudio/wechat-channels}"
+CHROME="${CHROME_BIN:-}"
+if [[ -z "$CHROME" ]]; then
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+  else
+    CHROME="$(command -v google-chrome || command -v google-chrome-stable || true)"
+  fi
+fi
+mkdir -p "$PROFILE_DIR"
 
 if [[ ! -x "$CHROME" ]]; then
-  echo "未找到 Google Chrome: $CHROME" >&2
+  echo "未找到 Google Chrome，请通过 CHROME_BIN 指定真实 Chrome 可执行文件: $CHROME" >&2
   exit 2
 fi
 
@@ -21,6 +29,7 @@ if curl -s --max-time 2 "http://127.0.0.1:${PORT}/json/version" >/dev/null 2>&1;
 fi
 
 nohup "$CHROME" \
+  --remote-debugging-address=127.0.0.1 \
   --remote-debugging-port="${PORT}" \
   --user-data-dir="${PROFILE_DIR}" \
   --no-first-run --no-default-browser-check \

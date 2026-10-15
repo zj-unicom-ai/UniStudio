@@ -1,0 +1,91 @@
+{
+  "src": "http://127.0.0.1:8610/web/index.html#/templates",
+  "url": "http://127.0.0.1:8610/web/index.html#/templates",
+  "outdir": "/Users/wrg/Important/UniStudio/web/_shots/templates_h2",
+  "include": [
+    "lint",
+    "screenshots",
+    "structure"
+  ],
+  "shots": {
+    "desktop": {
+      "screenshot": "/Users/wrg/Important/UniStudio/web/_shots/templates_h2/127_0_0_1_desktop.jpg",
+      "screenshotBytes": 85994,
+      "truncated": false,
+      "structure": {
+        "title": "UniStudio · 创作工作室",
+        "firstH1": "模板总览",
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "fullpage": {
+          "w": 1440,
+          "h": 900
+        },
+        "counts": {
+          "section": 2,
+          "h1": 1,
+          "h2": 3,
+          "img": 5,
+          "canvas": 0,
+          "svg": 14,
+          "links": 5,
+          "buttons": 37
+        }
+      },
+      "consoleErrors": [],
+      "consoleWarnings": [],
+      "horizontalOverflow": [],
+      "resourceErrors": [],
+      "reportSource": "cdp"
+    }
+  },
+  "engine": "chrome_cli",
+  "chromiumExec": "/Users/wrg/Library/Caches/ms-playwright/chromium_headless_shell-1223/chrome-headless-shell-mac-arm64/chrome-headless-shell",
+  "evalIgnored": "chrome_cli 降级模式不支持 --eval 注入，本次已忽略；如需注入 JS，请装 playwright。",
+  "engineDegraded": true,
+  "engineDegradedReason": "playwright 未装",
+  "elapsedSec": 3.44,
+  "schemaVersion": 2,
+  "status": "pass",
+  "engineInfo": {
+    "name": "chrome_cli",
+    "degraded": true,
+    "degradedReasons": [
+      "playwright 未装"
+    ]
+  },
+  "input": {
+    "original": "http://127.0.0.1:8610/web/index.html#/templates",
+    "resolvedPath": null,
+    "baseUrl": "http://127.0.0.1:8610/web/index.html#/templates",
+    "protocol": "http",
+    "cwd": "/Users/wrg/Library/Application Support/Doubao/Profile 2/.doubao/agent_mode/workspace/.skills/html",
+    "mediaMode": {
+      "reducedMotion": true
+    }
+  },
+  "artifacts": {
+    "screenshots": [
+      {
+        "viewport": "desktop",
+        "path": "/Users/wrg/Important/UniStudio/web/_shots/templates_h2/127_0_0_1_desktop.jpg",
+        "size": 85994,
+        "visualCoverage": {
+          "complete": true,
+          "reason": null
+        }
+      }
+    ]
+  },
+  "summary": {
+    "blocker": 0,
+    "error": 0,
+    "warning": 0,
+    "info": 0
+  },
+  "findings": [],
+  "prioritizedActions": [],
+  "reportPath": "/Users/wrg/Important/UniStudio/web/_shots/templates_h2/report.json"
+}

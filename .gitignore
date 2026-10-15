@@ -25,3 +25,6 @@ build/
 
 # 视频产出目录（本地运行产物，不入库）
 productions/
+
+# 本机服务配置（账号、声线与地址不随仓库分享）
+unistudio.local.json

@@ -1,0 +1,18 @@
+{
+  "hyperframes_command": ["hyperframes"],
+  "tts": {
+    "base_url": "http://127.0.0.1:3900",
+    "health_path": "/health",
+    "speech_path": "/v1/audio/speech",
+    "model": "omnivoice",
+    "voice": "",
+    "api_key_env": "UNISTUDIO_TTS_API_KEY"
+  },
+  "publishers": {
+    "wechat-channels": {
+      "account": "",
+      "collection": "",
+      "original": false
+    }
+  }
+}

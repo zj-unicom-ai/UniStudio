@@ -1,0 +1,19 @@
+{
+  "provider": "VoiceStudio local API",
+  "voiceStudioVersion": "0.5.6",
+  "engine": "omnivoice",
+  "language": "Chinese",
+  "profileId": "c5a1e453",
+  "profileName": "女播报快节奏",
+  "profileKind": "clone",
+  "speed": 1.0,
+  "effectPreset": "broadcast",
+  "seed": 20261015,
+  "audioId": "00b60403",
+  "generationSeconds": 61.26,
+  "durationSeconds": 42.27,
+  "sampleRate": 24000,
+  "scriptPath": "content/narration.txt",
+  "audioPath": "assets/audio/voiceover-female-news-fast.wav",
+  "profileSaved": false
+}

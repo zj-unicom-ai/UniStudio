@@ -17,7 +17,7 @@ description: 使用随包参考工程制作“刚哥聊 AI｜国际视野”竖�
 
 - `story-data.json`：替换本期标题、日期、来源行、场景 HTML 和场景标题；保留 `base_css`、地球和品牌视觉。`scene_boundaries` 是每页首段旁白在 segments 中的零基索引。
 - `voice-requests.json`：替换分段稿，编号与 `assets/voice-guobiao/<id>.wav` 对应。新工程中的 WAV 是静音演示，不能当成正式配音。
-- 用使用者实际可用的授权 TTS，或直接导入分段 WAV。可选适配器 `scripts/generate_voiceover.py` 的 endpoint、model、voice 均由使用者配置；不依赖分享者的 VoiceStudio 地址、profile 或密钥。原机“国标视野”是用户确认的声线，其他机器仅在确实拥有同一声线时使用，否则说明需要配置自己的声线。
+- **默认配音音色：九边 (profile_id: a1822192)**。用使用者实际可用的授权 TTS，或直接导入分段 WAV。可选适配器 `scripts/generate_voiceover.py` 的 endpoint、model、voice 均由使用者配置；不依赖分享者的 VoiceStudio 地址、profile 或密钥。voice profile 固定为九边，其他声线仅在用户明确要求时使用。
 - 导入真实 WAV 后执行 `npm run compose -- --narration`。时间线按 WAV 实际时长构建；缺音频时报错，不使用估算代替。没有旁白能力时先做稿件与画面工程；只有用户接受无旁白版本时才交付静音版本。
 - 事实与评论分开，在 `SOURCES.md` 记录来源、日期和限定。无法读取给定链接时请用户提供正文，不编造事实；日期不明时不把资料写成当日新闻。
 

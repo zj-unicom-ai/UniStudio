@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0",
+  "visualStyle": {
+    "referencePath": "assets/backgrounds/reference-date-clean-v1.png",
+    "backgroundPath": "assets/backgrounds/reference-date-clean-v1.png"
+  },
+  "brand": {
+    "name": "沃资讯快播",
+    "publishDate": "2026.10.15"
+  },
+  "video": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "showProgress": false,
+    "showTimeOfDay": false,
+    "showImageIndex": false,
+    "showCountdown": false
+  },
+  "story": {
+    "titleParts": [
+      {
+        "text": "AI 能否指挥",
+        "accent": false
+      },
+      {
+        "text": "机械臂？",
+        "accent": true
+      }
+    ],
+    "subtitle": "AA-Robotics v0.1｜研究预览",
+    "imageAssets": [
+      {
+        "id": "robot",
+        "path": "assets/images/robot-arm.svg",
+        "alt": "六轴机械臂与工作台的原创示意图",
+        "source": "original SVG illustration",
+        "focalPoint": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      {
+        "id": "understanding",
+        "path": "assets/images/robot-understanding.svg",
+        "alt": "机械臂视觉识别工作台目标物的原创示意图",
+        "source": "original SVG illustration",
+        "focalPoint": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      {
+        "id": "planning",
+        "path": "assets/images/robot-planning.svg",
+        "alt": "从机械臂末端到目标物的动作规划路径示意图",
+        "source": "original SVG illustration",
+        "focalPoint": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      {
+        "id": "tasks",
+        "path": "assets/images/eight-tasks.svg",
+        "alt": "八项任务的抽象图形，不代表具体任务或成绩",
+        "source": "original SVG illustration",
+        "focalPoint": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      }
+    ],
+    "imageTimeline": [
+      {
+        "startSec": 0.0,
+        "assetId": "robot"
+      },
+      {
+        "startSec": 9.92,
+        "assetId": "understanding"
+      },
+      {
+        "startSec": 21.64,
+        "assetId": "planning"
+      },
+      {
+        "startSec": 31.55,
+        "assetId": "tasks"
+      }
+    ],
+    "summarySegments": [
+      {
+        "startSec": 0.0,
+        "kicker": "评测焦点",
+        "text": "研究预览首批公布八项任务结果，测试前沿语言模型控制六轴机械臂，能否理解真实环境、规划连续动作，并把目标执行到位。"
+      },
+      {
+        "startSec": 13.52,
+        "kicker": "关键差别",
+        "text": "模型既要看懂物体与位置，也要安排动作顺序，让机械臂和夹爪协同配合。空间判断、动作衔接和现场误差，都会影响任务结果。"
+      },
+      {
+        "startSec": 27.95,
+        "kicker": "研究预览",
+        "text": "八项结果只是第一批观察。研究预览仍需要更多场景与重复测试，才能判断模型能力是否稳定，以及能否迁移到新任务。"
+      }
+    ],
+    "narration": {
+      "textPath": "content/narration.txt",
+      "audioPath": "assets/audio/voiceover-female-news-fast.wav",
+      "envelopePath": "assets/audio/voice-envelope.json",
+      "speed": 1.0,
+      "engine": "omnivoice",
+      "effectPreset": "broadcast",
+      "seed": 20261015,
+      "startsAtSec": 0.35,
+      "profileId": "c5a1e453",
+      "profileName": "女播报快节奏",
+      "profileKind": "clone"
+    },
+    "references": [
+      "SOURCES.md"
+    ],
+    "editorialStatus": "DRAFT_NEEDS_PRIMARY_SOURCE"
+  },
+  "motion": {
+    "imageTransitionSec": 0.52,
+    "imageScaleTo": 1.04,
+    "summaryTransitionSec": 0.22,
+    "waveSeed": 20261015,
+    "waveLineCount": 24,
+    "barCount": 64,
+    "particleCount": 32,
+    "endHoldSec": 0.8,
+    "imageEntranceSec": 0.65
+  }
+}

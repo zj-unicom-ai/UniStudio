@@ -1,0 +1,10 @@
+[
+  {
+    "id": "wechat-channels",
+    "name": "视频号",
+    "aliases": ["微信视频号", "视频号", "wechat"],
+    "skill": "skills/publish-wechat-channels/SKILL.md",
+    "capabilities": ["publish", "draft", "schedule", "status"],
+    "requirements": ["agent-browser", "Google Chrome", "目标账号已登录"]
+  }
+]

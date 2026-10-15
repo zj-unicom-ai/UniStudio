@@ -4,1003 +4,1591 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UniStudio · 创作工作室</title>
-<meta name="description" content="UniStudio 创作工作室：把 AI 视频模板、生成任务与发布流程收进同一个工作室空间——选模板、看成片、跟发布。">
-<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2.5" y="3.5" width="15.5" height="15.5" rx="4" fill="%230B1220" stroke="%23FFC857" stroke-width="1.8"/><path d="M8.6 8.5v7c0 .65.7 1.03 1.25.66l5.4-3.5a.78.78 0 000-1.32L9.85 7.84a.78.78 0 00-1.25.66z" fill="%235CDBE8"/><rect x="16.5" y="15.5" width="5" height="5" rx="1.5" fill="%235CDBE8"/></svg>'>
-<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='26' fill='%230B0F14'/%3E%3Cpath d='M28 20V62a32 32 0 0 0 64 0V20' fill='none' stroke='%23F4F6FA' stroke-width='18' stroke-linecap='round'/%3E%3Ccircle cx='60' cy='38' r='10' fill='%23B6F23A'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* ===== 设计令牌：深蓝底 + 青蓝科技线 + 琥珀高亮（延续模板封面视觉语言） ===== */
 :root{
-  --ink:#0B1220;--panel:#111A2E;--panel-2:#172340;--line:#233252;
-  --cyan:#5CDBE8;--amber:#FFC857;--ok:#6FE3A1;--orange:#FF9E5E;--bad:#FF5C5C;--hold:#C9A6FF;
-  --text:#EAF0FA;--muted:#93A3BF;--faint:#5E6E8C;--radius:10px;
-  --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
-  --sans:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --ink-900:#0B0F14; --ink-800:#121821; --ink-700:#1A2230; --ink-600:#263041;
+  --slate-500:#5A6678; --slate-400:#8C98AB; --mist-200:#DDE2EA; --paper-50:#F4F6FA;
+  --blue:#3B5BFF; --blue-300:#8AA0FF; --blue-700:#2640D9;
+  --green:#B6F23A; --green-700:#1F7A2E;
+  --amber:#FFB224; --red:#FF5D5D;
+  --panel:#0E131A; --side:#121821;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --r-label:6px; --r-input:10px; --r-card:16px; --r-panel:24px;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--ink);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
-a{color:var(--cyan);text-decoration:none}
-a:hover{text-decoration:underline}
-button{font-family:inherit;cursor:pointer}
-:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
-::selection{background:rgba(92,219,232,.28)}
-.page{display:none}
-.page.active{display:block;animation:fadein .25s ease}
-@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.page.active{animation:none}html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
-
-/* ===== 顶部导航 ===== */
-.topnav{position:sticky;top:0;z-index:40;background:rgba(11,18,32,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.topnav .wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px 16px;padding-top:12px;padding-bottom:12px}
-.brand{display:flex;align-items:center;gap:9px;color:var(--text);font-family:var(--serif);font-weight:900;font-size:16px;letter-spacing:.02em}
-.brand:hover{text-decoration:none}
-.brand svg{flex:none}
-.brand small{font-family:var(--sans);font-weight:400;color:var(--faint);font-size:11px;letter-spacing:.08em}
-.nav-links{display:flex;align-items:center;gap:4px}
-.nav-link{padding:7px 13px;border-radius:7px;color:var(--muted);font-size:13.5px;font-weight:500;transition:color .15s,background .15s}
-.nav-link:hover{color:var(--text);background:var(--panel-2);text-decoration:none}
-.nav-link.active{color:var(--amber);background:rgba(255,200,87,.08)}
-
-/* ===== 通用页面头 ===== */
-.page-head{padding:38px 0 4px}
-.page-head h1{font-family:var(--serif);font-weight:900;font-size:clamp(1.6rem,4.5vw,2.3rem);line-height:1.2}
-.page-head .sub{color:var(--muted);font-size:14px;margin-top:6px;max-width:52em}
-.page-head .accent{color:var(--amber)}
-
-/* ===== 主页 hero ===== */
-.home-hero{position:relative;overflow:hidden;background:radial-gradient(900px 340px at 50% -160px,rgba(23,35,64,.95) 0%,rgba(11,18,32,0) 62%);padding:56px 0 34px;border-bottom:1px solid var(--line)}
-.hero-shine{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.hero-flow{position:absolute;inset:-20%;background:linear-gradient(100deg,transparent 20%,rgba(92,219,232,.10) 38%,rgba(255,200,87,.10) 50%,rgba(201,166,255,.10) 62%,transparent 80%);background-size:200% 100%;animation:heroFlow 7s linear infinite}
-@keyframes heroFlow{from{background-position:200% 0}to{background-position:-200% 0}}
-@media (prefers-reduced-motion:reduce){.hero-flow{animation:none!important}}
-.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--faint);margin-bottom:14px}
-.eyebrow b{color:var(--amber);font-weight:500}
-.home-hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(2rem,6.5vw,3.2rem);line-height:1.15;letter-spacing:.02em}
-.home-hero h1 .accent{color:var(--amber)}
-.home-hero .lede{color:var(--muted);font-size:15.5px;max-width:46em;margin-top:14px}
-.home-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:14px;font-weight:500;border:1px solid transparent;transition:background .15s,border-color .15s,color .15s}
-.btn:hover{text-decoration:none}
-.btn-primary{background:var(--amber);color:#1A1406;font-weight:700}
-.btn-primary:hover{background:#FFD989}
-.btn-ghost{border-color:var(--line);color:var(--text)}
-.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
-
-/* ===== 能力入口卡 ===== */
-.cap-section{padding:40px 0 8px}
-.cap-section h2,.pipeline-section h2{font-family:var(--serif);font-weight:700;font-size:1.3rem;margin-bottom:4px}
-.cap-section .sub{color:var(--faint);font-size:13px;margin-bottom:20px}
-.cap-cards{display:grid;grid-template-columns:1fr;gap:16px}
-.cap-card{display:flex;flex-direction:column;gap:12px;padding:22px 22px 20px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);transition:border-color .18s,transform .18s}
-.cap-card:hover{border-color:var(--cyan);transform:translateY(-2px);text-decoration:none}
-.cap-card .cap-icon{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:var(--panel-2);color:var(--amber)}
-.cap-card:nth-child(2) .cap-icon{color:var(--cyan)}
-.cap-card h3{font-family:var(--serif);font-weight:700;font-size:1.08rem}
-.cap-card p{font-size:13.5px;color:var(--muted);line-height:1.65}
-.cap-card .cap-meta{font-size:12px;color:var(--faint);border-top:1px dashed var(--line);padding-top:10px}
-.cap-card .go{color:var(--cyan);font-size:13px;font-weight:500}
-
-/* ===== 主页统计与工作流 ===== */
-.home-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:26px}
-.stat{background:var(--panel);padding:18px 20px}
-.stat b{display:block;font-family:var(--serif);font-weight:900;font-size:1.8rem;line-height:1.2;color:var(--amber);font-variant-numeric:tabular-nums}
-.stat.cyan b{color:var(--cyan)}
-.stat.ok b{color:var(--ok)}
-.stat span{font-size:12px;color:var(--muted);letter-spacing:.04em}
-.home-note{font-size:11.5px;color:var(--faint);margin-top:8px}
-.flow-section{padding:36px 0 8px}
-.flow{display:flex;flex-direction:column;gap:0;margin-top:18px}
-.flow-step{position:relative;display:flex;gap:14px;padding:0 0 22px 0}
-.flow-step .dot{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--panel-2);color:var(--faint)}
-.flow-step .body{padding-top:3px}
-.flow-step .body b{display:block;font-size:14px;font-weight:600}
-.flow-step .body span{font-size:12.5px;color:var(--faint)}
-.flow-step:not(:last-child) .dot::after{content:"";position:absolute;left:14px;top:30px;width:1px;height:22px;background:var(--line)}
-
-/* ===== 筛选与搜索（模板页） ===== */
-.controls{display:flex;flex-direction:column;gap:12px;margin:26px 0 6px}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--muted);font-size:13px;transition:border-color .15s,color .15s,background .15s}
-.chip:hover{border-color:var(--cyan);color:var(--text)}
-.chip[aria-pressed="true"]{border-color:var(--amber);color:var(--amber);background:rgba(255,200,87,.08);font-weight:500}
-.search input{width:100%;max-width:380px;padding:9px 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:16px;font-family:inherit}
-.search input::placeholder{color:var(--faint)}
-.search input:focus{outline:none;border-color:var(--cyan)}
-
-/* ===== 模板卡片栅格 ===== */
-.gallery-section{margin-top:30px}
-.gallery-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:12px}
-.gallery-head h2{font-family:var(--serif);font-weight:700;font-size:1.3rem}
-.gallery-head p{font-size:13px;color:var(--faint)}
-.grid{display:grid;grid-template-columns:1fr;gap:22px}
-.card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:border-color .18s,transform .18s,box-shadow .18s}
-.card:hover{border-color:var(--cyan);transform:translateY(-2px);box-shadow:0 10px 30px rgba(4,8,18,.45)}
-.card-cover{position:relative;background:var(--panel-2)}
-.card-cover img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .3s}
-.card:hover .card-cover img{transform:scale(1.025)}
-.card-cover[data-aspect="vertical"]{aspect-ratio:9/16}
-.card-cover[data-aspect="landscape"]{aspect-ratio:16/9}
-.play-badge{position:absolute;right:12px;bottom:12px;display:flex;align-items:center;gap:6px;padding:7px 12px 7px 9px;border-radius:999px;background:rgba(9,14,26,.78);border:1px solid rgba(255,200,87,.5);color:var(--amber);font-size:12px;font-weight:500;backdrop-filter:blur(4px)}
-.play-badge svg{flex:none}
-.card-body{display:flex;flex-direction:column;gap:8px;padding:16px 18px 18px}
-.tags{display:flex;flex-wrap:wrap;gap:6px}
-.tag{font-size:11px;padding:2px 9px;border-radius:4px;border:1px solid var(--line);color:var(--muted);letter-spacing:.03em}
-.tag.v{color:var(--amber);border-color:rgba(255,200,87,.4)}
-.tag.h{color:var(--cyan);border-color:rgba(92,219,232,.4)}
-.card-body h3{font-family:var(--serif);font-weight:700;font-size:1.14rem;line-height:1.35}
-.card-body .en{font-size:12px;color:var(--faint);letter-spacing:.02em}
-.card-body .desc{font-size:13.5px;color:var(--muted);line-height:1.65}
-.spec{font-size:12.5px;color:var(--faint);font-variant-numeric:tabular-nums;border-top:1px dashed var(--line);padding-top:10px;margin-top:2px}
-.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:2px}
-.actions a{font-size:13px;font-weight:500}
-.actions .sample-link{color:var(--amber)}
-.actions .sample-link:hover{color:#FFD989}
-.empty{text-align:center;padding:60px 20px;border:1px dashed var(--line);border-radius:var(--radius);color:var(--muted)}
-.empty p{margin-bottom:16px}
-
-/* ===== 规格对比表 ===== */
-.compare-section{margin-top:48px}
-.compare-section h2{font-family:var(--serif);font-weight:700;font-size:1.3rem;margin-bottom:6px}
-.compare-note{font-size:12.5px;color:var(--faint);margin-bottom:16px}
-.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius)}
-table{width:100%;min-width:820px;border-collapse:collapse;table-layout:fixed}
-colgroup col:first-child{width:23%}
-colgroup col:nth-child(2){width:9%}
-colgroup col:nth-child(3){width:15%}
-colgroup col:nth-child(4){width:13%}
-colgroup col:nth-child(5){width:20%}
-colgroup col:nth-child(6){width:20%}
-thead th{font-size:12px;font-weight:500;color:var(--faint);text-align:left;padding:11px 14px;background:var(--panel-2);border-bottom:1px solid var(--line);letter-spacing:.04em}
-tbody td{padding:12px 14px;border-bottom:1px solid var(--line);font-size:13px;color:var(--muted);vertical-align:top}
-tbody tr:last-child td{border-bottom:none}
-tbody tr:hover td{background:rgba(23,35,64,.55)}
-td.tpl-name{color:var(--text);font-weight:500}
-td.tpl-name small{display:block;color:var(--faint);font-weight:400;font-size:11.5px;margin-top:2px}
-td .spec-mini{color:var(--faint)}
-td.v-flag{color:var(--amber)}
-td.h-flag{color:var(--cyan)}
-
-/* ===== 生产规范（两条铁律） ===== */
-.rules{display:grid;grid-template-columns:1fr;gap:14px;margin-top:22px}
-.rule{display:flex;gap:12px;padding:16px 18px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
-.rule .ri{flex:none;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:9px;border:1px solid var(--line);background:var(--panel-2);color:var(--amber)}
-.rule b{display:block;font-size:13.5px}
-.rule p{font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.65}
-.rule code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;color:var(--cyan);background:rgba(92,219,232,.08);padding:1px 6px;border-radius:4px;word-break:break-all}
-
-/* ===== 发布 Skill 展示 ===== */
-.publish-value{margin-top:22px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:20px;display:flex;flex-direction:column;gap:16px}
-.publish-value h2{font-family:var(--serif);font-size:16px}
-.pv-lead{font-size:13px;color:var(--muted);line-height:1.7;margin-top:6px}
-.pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.pv-card{border:1px solid var(--line);border-radius:10px;background:var(--panel-2);padding:13px 14px}
-.pv-card.num b{display:block;font-family:var(--serif);font-size:26px;font-variant-numeric:tabular-nums;color:var(--amber)}
-.pv-card.num span{font-size:11.5px;color:var(--muted)}
-.pv-card h4{font-size:13px;font-weight:600;margin-bottom:5px}
-.pv-card p{font-size:11.5px;color:var(--muted);line-height:1.6;margin:0}
-.skill-show{margin-top:34px}
-.skill-show>h2{font-family:var(--serif);font-size:1.15rem}
-.skill-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);overflow:hidden;margin-top:12px}
-.sk-head{display:flex;align-items:center;gap:14px;padding:16px 18px;border-bottom:1px solid var(--line);background:var(--panel-2)}
-.sk-plat{flex:none;display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:1px solid rgba(111,227,161,.45);color:var(--ok);font-size:12px;font-weight:600}
-.sk-plat::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ok)}
-.sk-head b{display:block;font-size:15px;font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:.2px}
-.sk-head p{font-size:12px;color:var(--muted);margin:3px 0 0;line-height:1.6}
-.sk-badge{margin-left:auto;flex:none;font-size:11px;color:var(--cyan);border:1px solid rgba(92,219,232,.5);border-radius:999px;padding:4px 11px;font-weight:600;white-space:nowrap}
-.sk-cols{display:grid;grid-template-columns:1fr;gap:18px;padding:16px 18px}
-.sk-col h4{font-size:12px;color:var(--faint);font-weight:600;letter-spacing:.08em;margin:0 0 9px}
-.sk-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
-.sk-col li{font-size:12.5px;color:var(--muted);line-height:1.55;padding-left:14px;position:relative;margin:0}
-.sk-col li::before{content:"";position:absolute;left:0;top:.55em;width:5px;height:5px;border-radius:50%;background:var(--cyan);opacity:.7}
-.sk-col code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--cyan)}
-.sk-foot{padding:11px 18px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--faint)}
-.sk-foot code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--cyan)}
-.coming{margin-top:34px;padding:22px 20px;border:1px dashed var(--line);border-radius:var(--radius);text-align:center}
-.coming h2{font-family:var(--serif);font-size:15px;margin:0 0 5px}
-.coming p{font-size:12px;color:var(--muted);margin:0 0 14px}
-.coming-chips{display:flex;flex-wrap:wrap;gap:9px;justify-content:center}
-.coming-chips .chip.on{border-color:rgba(111,227,161,.5);color:var(--ok)}
-.coming-chips .chip.off{color:var(--faint);cursor:default}
-.coming-chips .chip.off:hover{border-color:var(--line);color:var(--faint)}
-
-/* ===== 任务看板（数据来自任务服务 /api） ===== */
-.b-toolbar{display:flex;flex-direction:column;gap:14px;margin:22px 0 6px}
-.b-pills{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.b-pill{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;border:1px solid var(--line);background:var(--panel);font-size:12.5px;color:var(--muted)}
-.b-pill b{font-variant-numeric:tabular-nums;color:var(--text);font-weight:700}
-.b-pill .d{width:7px;height:7px;border-radius:50%;flex:none}
-.b-upd{margin-left:auto;font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums}
-.b-groups{margin-top:26px}
-.b-day{margin-bottom:30px}
-.b-dayhead{display:flex;align-items:baseline;gap:10px;margin-bottom:13px;border-bottom:1px solid var(--line);padding-bottom:8px}
-.b-dayhead .d{font-family:var(--serif);font-weight:700;font-size:14.5px;font-variant-numeric:tabular-nums}
-.b-dayhead .rel{font-size:11px;color:var(--amber);background:rgba(255,200,87,.08);border:1px solid rgba(255,200,87,.35);border-radius:999px;padding:2px 9px;font-weight:600}
-.b-dayhead .n{font-size:11.5px;color:var(--faint)}
-.b-cards{display:grid;grid-template-columns:1fr;gap:14px}
-.bcard{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:border-color .15s,transform .15s}
-.bcard:hover{border-color:var(--cyan);transform:translateY(-2px)}
-.bthumb{position:relative;aspect-ratio:16/9;background:var(--panel-2)}
-.bthumb img{display:block;width:100%;height:100%;object-fit:cover}
-.bthumb .st{position:absolute;left:10px;top:10px;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:3px 9px;border-radius:999px;background:rgba(9,14,26,.82);border:1px solid var(--line);backdrop-filter:blur(3px)}
-.bthumb .st .d{width:6px;height:6px;border-radius:50%}
-.bthumb .play{position:absolute;right:10px;bottom:10px;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--amber);padding:6px 12px;border-radius:999px;background:rgba(9,14,26,.78);border:1px solid rgba(255,200,87,.5)}
-.bbody{padding:13px 15px 15px;display:flex;flex-direction:column;gap:7px}
-.bbody h4{font-size:14px;font-weight:600;line-height:1.4}
-.bbody .bmeta{font-size:12px;color:var(--faint)}
-.bbody .btopics{display:flex;flex-wrap:wrap;gap:5px}
-.bbody .btopics span{font-size:10.5px;padding:1px 7px;border-radius:4px;border:1px solid var(--line);color:var(--muted)}
-.bbody .binfo{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums;border-top:1px dashed var(--line);padding-top:8px}
-.bbody .bpath{font-size:10.5px;color:var(--faint);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.state-box{padding:60px 20px;border:1px dashed var(--line);border-radius:var(--radius);text-align:center;color:var(--muted)}
-.state-box p{margin-bottom:14px}
-/* 状态色（信号灯语义） */
-.d-ready{background:var(--amber)}
-.d-publishing{background:var(--cyan)}
-.d-published{background:var(--ok)}
-.d-platform_pending{background:var(--orange)}
-.d-needs_human{background:var(--bad)}
-.d-failed{background:var(--bad)}
-.d-held{background:var(--hold)}
-.st-ready{color:var(--amber);border-color:rgba(255,200,87,.5)}
-.st-publishing{color:var(--cyan);border-color:rgba(92,219,232,.5)}
-.st-published{color:var(--ok);border-color:rgba(111,227,161,.5)}
-.st-platform_pending{color:var(--orange);border-color:rgba(255,158,94,.5)}
-.st-needs_human{color:var(--bad);border-color:rgba(255,92,92,.5)}
-.st-failed{color:var(--bad);border-color:rgba(255,92,92,.5)}
-.st-held{color:var(--hold);border-color:rgba(201,166,255,.5)}
-
-/* ===== 自动发布 ===== */
-.pipeline{margin-top:20px}
-.p-step{position:relative;display:flex;gap:14px;padding-bottom:22px}
-.p-step .dot{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--panel-2);color:var(--faint);font-size:12px;font-variant-numeric:tabular-nums}
-.p-step .body{padding-top:2px}
-.p-step .body b{display:block;font-size:14px;font-weight:600}
-.p-step .body span{font-size:12.5px;color:var(--faint)}
-.p-step:not(:last-child) .dot::after{content:"";position:absolute;left:14px;top:30px;width:1px;height:22px;background:var(--line)}
-.p-step.done .dot{color:var(--ok);border-color:rgba(111,227,161,.5)}
-.p-step.done .body b{color:var(--ok)}
-.p-step.current .dot{color:var(--amber);border-color:var(--amber);background:rgba(255,200,87,.1)}
-.p-step.current .body b{color:var(--amber)}
-.platform-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
-.plat-chip{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;border:1px solid var(--line);background:var(--panel);font-size:12.5px;color:var(--muted)}
-.plat-chip .d{width:7px;height:7px;border-radius:50%}
-.plat-chip.on .d{background:var(--ok)}
-.plat-chip.off .d{background:var(--faint)}
-.plat-chip.on{color:var(--text)}
-.records-table{min-width:720px}
-td.rec-task{color:var(--text);font-weight:500}
-td .st-tag{font-size:11.5px;padding:2px 9px;border-radius:4px;border:1px solid var(--line)}
-.st-tag.ok{color:var(--ok);border-color:rgba(111,227,161,.5)}
-.st-tag.warn{color:var(--amber);border-color:rgba(255,200,87,.5)}
-.st-tag.muted{color:var(--faint)}
-
-/* ===== 页脚 / 灯箱 ===== */
-.footer{border-top:1px solid var(--line);margin-top:56px;padding:24px 0 36px}
-.footer p{font-size:12.5px;color:var(--muted)}
-.lightbox{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:rgba(6,10,20,.88);padding:24px}
-.lightbox[hidden]{display:none}
-.lb-body{position:relative;max-width:min(92vw,960px);width:100%}
-.lb-body video{width:100%;max-height:80vh;background:#000;border-radius:10px}
-.lb-close{position:absolute;top:-44px;right:0;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--text)}
-.lb-close:hover{border-color:var(--amber);color:var(--amber)}
-.lb-fallback{margin-top:14px;color:var(--muted);font-size:13.5px;line-height:1.7}
-.lb-fallback a{color:var(--amber)}
-
-/* ===== 响应式：窄屏优先 ===== */
-@media (min-width:640px){
-  .grid{grid-template-columns:repeat(2,1fr)}
-  .grid .card:last-child:nth-child(odd){grid-column:1 / -1}
-  .controls{flex-direction:row;align-items:center;flex-wrap:wrap;justify-content:space-between}
-  .search input{margin-left:auto}
-  .cap-cards{grid-template-columns:repeat(3,1fr)}
-  .rules{grid-template-columns:repeat(2,1fr)}
-  .b-cards{grid-template-columns:repeat(2,1fr)}
-  .flow-step{display:block;flex:1;padding:0 18px 0 0}
-  .flow{flex-direction:row}
-  .flow-step .dot::before{content:"";position:absolute;left:30px;top:15px;width:calc(100% - 18px);height:1px;background:var(--line)}
-  .flow-step:last-child .dot::before{display:none}
-  .flow-step .dot{margin-bottom:10px}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:"Noto Sans SC",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  background:var(--ink-900); color:var(--paper-50);
+  padding:16px; -webkit-font-smoothing:antialiased;
 }
-@media (min-width:1024px){
-  .grid{grid-template-columns:repeat(3,1fr)}
-  .home-stats{grid-template-columns:repeat(4,1fr)}
-  .b-cards{grid-template-columns:repeat(3,1fr)}
-}
+.font-display{font-family:"Space Grotesk","Noto Sans SC",sans-serif}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace; letter-spacing:.02em}
+::selection{background:rgba(59,91,255,.35)}
+button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit}
+a{color:var(--blue-300); text-decoration:none}
+h1,h2,h3,h4{font-weight:700}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--ink-600);border-radius:8px;border:2px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-track{background:transparent}
 
-/* ===== 动态背景：漂移光斑 + 细网格 ===== */
-.bg-stage{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.16;will-change:transform}
-.orb-1{width:540px;height:540px;background:radial-gradient(circle,var(--cyan),transparent 70%);top:-150px;left:-130px;animation:drift1 26s ease-in-out infinite alternate}
-.orb-2{width:460px;height:460px;background:radial-gradient(circle,var(--amber),transparent 70%);top:-110px;right:-110px;animation:drift2 32s ease-in-out infinite alternate}
-.orb-3{width:620px;height:620px;background:radial-gradient(circle,var(--hold),transparent 70%);bottom:-240px;left:28%;animation:drift3 38s ease-in-out infinite alternate}
-.orb-4{width:320px;height:320px;background:radial-gradient(circle,var(--orange),transparent 70%);top:42%;right:10%;opacity:.1;animation:drift2 28s ease-in-out infinite alternate-reverse}
-@keyframes drift1{0%{transform:translate(0,0) scale(1)}100%{transform:translate(90px,70px) scale(1.18)}}
-@keyframes drift2{0%{transform:translate(0,0) scale(1.1)}100%{transform:translate(-80px,90px) scale(.95)}}
-@keyframes drift3{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-70px,-60px) scale(1.22)}}
-.bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 25%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 0%,#000 25%,transparent 75%)}
-main,.topnav,footer{position:relative;z-index:1}
-@media (prefers-reduced-motion:reduce){.orb{animation:none!important}}
+/* ============ 应用外壳 ============ */
+.app{
+  height:calc(100vh - 32px);
+  display:flex; overflow:hidden;
+  background:var(--panel);
+  border:1px solid var(--ink-600);
+  border-radius:var(--r-panel);
+}
+/* ============ 侧边栏 ============ */
+.sidebar{
+  width:232px; flex-shrink:0;
+  background:var(--side);
+  border-right:1px solid var(--ink-600);
+  display:flex; flex-direction:column;
+  padding:20px 14px;
+}
+.brand{display:flex; align-items:center; gap:10px; padding:4px 8px 22px}
+.brand .logo-mark{width:30px;height:30px;flex-shrink:0;overflow:visible}
+.logo-mark path.u{stroke:var(--paper-50); fill:none;stroke-width:18;stroke-linecap:round}
+.logo-mark .dot{
+  fill:var(--green);
+  transform-box:fill-box; transform-origin:center;
+  animation:logoDot 2.8s ease-in-out infinite;
+  filter:drop-shadow(0 0 2.5px rgba(182,242,58,.55));
+}
+.logo-mark .dot-halo{
+  fill:none; stroke:var(--green); stroke-width:3.5;
+  transform-box:fill-box; transform-origin:center;
+  animation:logoHalo 2.8s cubic-bezier(.25,.6,.35,1) infinite;
+}
+.logo-mark .dot-halo.h2{animation-delay:-1.4s}
+@keyframes logoDot{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(.78)}
+}
+@keyframes logoHalo{
+  0%{transform:scale(1);opacity:.55}
+  75%,100%{transform:scale(2.5);opacity:0}
+}
+.brand:hover .logo-mark .dot{animation:logoDot 2.8s ease-in-out infinite,logoDotPop .55s var(--ease)}
+.brand:hover .logo-mark .dot-halo{animation-duration:1.2s}
+.brand:hover .logo-mark .dot-halo.h2{animation-delay:-.6s}
+@keyframes logoDotPop{
+  0%{transform:scale(1)}
+  35%{transform:scale(1.4)}
+  65%{transform:scale(.88)}
+  100%{transform:scale(1)}
+}
+@media (prefers-reduced-motion:reduce){
+  .logo-mark .dot,.logo-mark .dot-halo{animation:none}
+}
+.brand .brand-name{font-family:"Space Grotesk","Noto Sans SC",sans-serif;font-size:18px;font-weight:700;letter-spacing:-.01em}
+.side-nav{display:flex;flex-direction:column;gap:4px}
+.side-item{
+  display:flex; align-items:center; gap:12px;
+  width:100%; padding:10px 12px;
+  border-radius:var(--r-input);
+  color:var(--slate-400); font-size:14px; font-weight:500;
+  text-align:left;
+  transition:background .12s var(--ease),color .12s var(--ease);
+}
+.side-item svg{width:20px;height:20px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.side-item:hover{background:rgba(255,255,255,.04);color:var(--paper-50)}
+.side-item.active{background:rgba(59,91,255,.16);color:var(--blue-300)}
+.side-item.active svg{color:var(--blue-300)}
+.side-spacer{flex:1}
+.side-foot{
+  margin-top:12px; padding:14px;
+  border:1px solid var(--ink-600); border-radius:var(--r-card);
+  background:rgba(182,242,58,.05);
+}
+.side-foot .sf-row{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700}
+.side-foot .sf-dots{display:flex;gap:5px}
+.side-foot .sf-dots i{width:7px;height:7px;border-radius:50%;background:var(--green)}
+.side-foot .sf-sub{margin-top:6px;font-size:11px;color:var(--slate-400);font-family:"JetBrains Mono",monospace}
+/* 在岗灯呼吸 */
+@keyframes breathe{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.78)}}
+.tally{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);animation:breathe 2s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.tally{animation:none}}
+
+/* ============ 主区域 ============ */
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.view-header{
+  flex-shrink:0;
+  display:flex;align-items:center;gap:16px;
+  padding:18px 28px;
+  border-bottom:1px solid var(--ink-600);
+  min-height:70px;
+}
+.vh-left{display:flex;align-items:center;gap:12px;min-width:0}
+.vh-title{font-size:22px;font-weight:700;white-space:nowrap}
+.vh-date{font-size:12px;color:var(--slate-400);white-space:nowrap}
+.vh-right{margin-left:auto;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.menu-btn{display:none;width:38px;height:38px;align-items:center;justify-content:center;border:1px solid var(--ink-600);border-radius:var(--r-input)}
+.menu-btn svg{width:18px;height:18px;stroke:var(--paper-50);fill:none;stroke-width:1.75;stroke-linecap:round}
+.view-body{flex:1;overflow-y:auto;padding:26px 28px 40px}
+.view-body .wrap{max-width:1160px;margin:0 auto}
+
+/* ============ 通用组件 ============ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:10px 18px;border-radius:var(--r-input);
+  font-size:14px;font-weight:700;
+  transition:background .12s var(--ease),border-color .12s var(--ease),transform .12s var(--ease);
+}
+.btn:active{transform:scale(.97)}
+.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-700)}
+.btn-ghost{background:transparent;color:var(--paper-50);border:1px solid var(--ink-600)}
+.btn-ghost:hover{border-color:var(--slate-400);background:rgba(255,255,255,.03)}
+.btn-sm{padding:6px 12px;font-size:12px;border-radius:var(--r-label)}
+.tabs{display:flex;gap:4px;background:var(--ink-800);border:1px solid var(--ink-600);border-radius:var(--r-input);padding:3px}
+.tab{padding:7px 16px;border-radius:7px;font-size:13px;font-weight:500;color:var(--slate-400);transition:all .12s var(--ease)}
+.tab:hover{color:var(--paper-50)}
+.tab.active{background:var(--paper-50);color:var(--ink-900);font-weight:700}
+.chip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:var(--r-label);
+  border:1px solid var(--ink-600);background:var(--ink-800);
+  font-size:13px;color:var(--slate-400);
+  transition:all .12s var(--ease);
+}
+.chip:hover{border-color:var(--slate-400);color:var(--paper-50)}
+.chip.active{background:rgba(59,91,255,.16);border-color:var(--blue);color:var(--blue-300)}
+.tag{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 9px;border-radius:var(--r-label);
+  font-size:11px;font-weight:500;line-height:1.5;
+}
+.tag.mono{font-family:"JetBrains Mono",monospace}
+.tag-blue{background:rgba(59,91,255,.18);color:var(--blue-300)}
+.tag-green{background:rgba(182,242,58,.16);color:var(--green)}
+.tag-amber{background:rgba(255,178,36,.16);color:var(--amber)}
+.tag-red{background:rgba(255,93,93,.16);color:var(--red)}
+.tag-slate{background:rgba(140,152,171,.16);color:var(--slate-400)}
+.card{border:1px solid var(--ink-600);border-radius:var(--r-card);background:var(--ink-700)}
+.kicker{font-size:11px;font-weight:500;letter-spacing:.08em;color:var(--blue-300);font-family:"JetBrains Mono",monospace;text-transform:uppercase}
+.section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+.section-head h2{font-size:18px}
+.section-head .sh-sub{font-size:12px;color:var(--slate-400)}
+.section-head .sh-count{margin-left:auto;font-size:12px;color:var(--slate-400)}
+
+/* 取景框角标 */
+.vf{position:relative}
+.vf::before,.vf::after{
+  content:"";position:absolute;width:22px;height:22px;
+  border:2px solid var(--green);
+}
+.vf::before{top:-10px;left:-10px;border-right:none;border-bottom:none}
+.vf::after{bottom:-10px;right:-10px;border-left:none;border-top:none}
+
+/* ============ 首页 ============ */
+.home-hero{
+  display:grid;grid-template-columns:1.5fr 1fr;gap:36px;
+  border:1px solid var(--ink-600);border-radius:var(--r-panel);
+  background:var(--ink-800);
+  padding:38px 40px;
+  margin-bottom:24px;
+}
+.home-hero .hh-kicker{margin-bottom:18px}
+.home-hero h1{
+  font-size:48px;line-height:1.15;font-weight:900;letter-spacing:0;
+}
+.home-hero h1 .green{color:var(--green)}
+.home-hero .hh-lede{margin-top:18px;font-size:15px;line-height:1.8;color:var(--mist-200);max-width:520px}
+.home-hero .hh-actions{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+.onair-panel{
+  position:relative;
+  border:1px solid var(--ink-600);border-radius:var(--r-card);
+  background:var(--ink-900);
+  padding:20px;
+  display:flex;flex-direction:column;
+}
+.onair-top{display:flex;align-items:center;gap:8px;font-size:12px;font-family:"JetBrains Mono",monospace;color:var(--slate-400)}
+.onair-247{margin:22px 0 6px;font-family:"Space Grotesk",sans-serif;font-size:64px;font-weight:700;line-height:1;letter-spacing:-.02em}
+.onair-247 .slash{color:var(--green)}
+.onair-sub{font-size:12px;color:var(--slate-400)}
+.onair-foot{margin-top:auto;padding-top:22px}
+.pipe-segs{display:flex;gap:4px;margin-bottom:8px}
+.pipe-segs i{height:4px;flex:1;border-radius:2px;background:var(--green)}
+.pipe-segs i.blue{background:var(--blue)}
+.pipe-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--slate-400);font-family:"JetBrains Mono",monospace}
+.onair-footrow{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.onair-footrow .mono{font-size:11px;color:var(--mist-200)}
+
+/* 统计卡 */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.stat-card{padding:18px 20px;border:1px solid var(--ink-600);border-radius:var(--r-card);background:var(--ink-700)}
+.stat-card .sc-label{font-size:12px;color:var(--slate-400);margin-bottom:10px}
+.stat-card .sc-num{font-family:"Space Grotesk",sans-serif;font-size:32px;font-weight:700;line-height:1}
+.stat-card .sc-num.green{color:var(--green)}
+.stat-card .sc-num.amber{color:var(--amber)}
+.stat-card .sc-num.blue{color:var(--blue-300)}
+.stat-card .sc-num .sc-unit{margin-left:8px;font-family:inherit;font-size:12px;font-weight:400;color:var(--slate-400)}
+.stat-card .sc-platform{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700}
+.stat-card .sc-platform .ok{font-size:12px;color:var(--slate-400);font-weight:400}
+
+/* 能力卡 */
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.cap-card{padding:22px;display:flex;flex-direction:column;gap:12px;transition:border-color .15s var(--ease)}
+.cap-card:hover{border-color:var(--slate-400)}
+.cap-icon{width:42px;height:42px;border-radius:var(--r-input);background:rgba(59,91,255,.14);display:flex;align-items:center;justify-content:center}
+.cap-icon svg{width:21px;height:21px;stroke:var(--blue-300);fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.cap-card h3{font-size:16px}
+.cap-card p{font-size:13px;line-height:1.7;color:var(--slate-400)}
+.cap-card .cap-link{margin-top:auto;font-size:13px;font-weight:700;color:var(--blue-300)}
+.cap-card .cap-meta{font-size:11px;color:var(--slate-500);font-family:"JetBrains Mono",monospace}
+
+/* 工作流步骤 */
+.flow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:8px}
+.flow-step{position:relative;padding-top:14px}
+.flow-step::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue);border-radius:2px}
+.flow-step:last-child::before{background:var(--green)}
+.flow-step .fs-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:8px;background:var(--ink-700);border:1px solid var(--ink-600);font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--blue-300);margin-bottom:12px}
+.flow-step h4{font-size:14px;margin-bottom:6px}
+.flow-step p{font-size:12px;color:var(--slate-400);line-height:1.6}
+
+/* ============ 模板视图 ============ */
+.filter-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:20px}
+.filter-bar .search-box{margin-left:auto;position:relative;min-width:220px}
+.filter-bar .search-box input{
+  width:100%;padding:9px 14px 9px 36px;
+  background:var(--ink-800);border:1px solid var(--ink-600);border-radius:var(--r-input);
+  color:var(--paper-50);font-size:13px;outline:none;
+}
+.filter-bar .search-box input:focus{border-color:var(--blue)}
+.filter-bar .search-box svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--slate-400);fill:none;stroke-width:1.75}
+.tpl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:36px}
+.tpl-card{overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s var(--ease)}
+.tpl-card:hover{border-color:var(--slate-400)}
+.tpl-cover{position:relative;aspect-ratio:9/16;overflow:hidden;background:var(--ink-800)}
+.tpl-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.tpl-cover .sample-btn{
+  position:absolute;right:10px;bottom:10px;
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 11px;border-radius:var(--r-label);
+  background:rgba(11,15,20,.72);
+  border:1px solid rgba(255,255,255,.15);
+  font-size:11px;font-weight:500;
+}
+.tpl-cover .sample-btn svg{width:11px;height:11px;fill:currentColor;stroke:none}
+.tpl-info{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.tpl-tags{display:flex;flex-wrap:wrap;gap:5px}
+.tpl-info h3{font-size:15px}
+.tpl-info .tpl-en{font-family:"Space Grotesk",sans-serif;font-size:11px;color:var(--slate-500);margin-top:-4px}
+.tpl-info p{font-size:12px;line-height:1.7;color:var(--slate-400);flex:1}
+.tpl-specs{font-size:11px;color:var(--slate-400);font-family:"JetBrains Mono",monospace}
+.tpl-actions{display:flex;gap:8px;flex-wrap:wrap}
+.tpl-actions .btn-sm{flex:1}
+
+/* 画幅分段筛选器 */
+.seg{display:inline-flex;padding:3px;gap:2px;border:1px solid var(--ink-600);border-radius:var(--r-card);background:var(--ink-800)}
+.seg-btn{
+  padding:7px 15px;border-radius:7px;border:none;background:transparent;
+  font-size:13px;color:var(--slate-400);cursor:pointer;white-space:nowrap;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.seg-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.7}
+.seg-btn:hover{color:var(--mist-200)}
+.seg-btn.active{background:var(--ink-600);color:var(--paper-50)}
+
+/* 模板分组区块 */
+.tpl-section{margin-bottom:6px}
+.tpl-section .section-head{margin-bottom:14px}
+.tpl-section .sh-dot{width:7px;height:7px;border-radius:50%;background:var(--slate-400)}
+.tpl-section.sh-v .sh-dot{background:var(--blue)}
+.tpl-section.sh-h .sh-dot{background:var(--signal)}
+
+/* 横屏模板：横向卡片（左 16:9 封面，右信息） */
+.tpl-grid-h{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:36px}
+.tpl-card-h{display:flex;flex-direction:row;gap:18px;padding:14px;transition:border-color .15s var(--ease)}
+.tpl-card-h:hover{border-color:var(--slate-400)}
+.tpl-card-h .tpl-cover-h{
+  width:300px;flex-shrink:0;aspect-ratio:16/9;position:relative;
+  overflow:hidden;border-radius:10px;background:var(--ink-800);
+  border:1px solid var(--ink-600);align-self:center;
+}
+.tpl-card-h .tpl-cover-h img{width:100%;height:100%;object-fit:cover;display:block}
+.tpl-card-h .tpl-cover-h .sample-btn{
+  position:absolute;right:10px;bottom:10px;
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 11px;border-radius:var(--r-label);
+  background:rgba(11,15,20,.72);border:1px solid rgba(255,255,255,.15);
+  font-size:11px;font-weight:500;
+}
+.tpl-card-h .tpl-cover-h .sample-btn svg{width:11px;height:11px;fill:currentColor;stroke:none}
+.tpl-card-h .tpl-info{padding:4px 6px 2px 0;justify-content:center}
+.tpl-card-h .tpl-info p{max-width:560px}
+.tpl-card-h .tpl-actions{max-width:340px}
+
+/* 规格对比表 */
+.cmp-table{width:100%;border-collapse:collapse;font-size:13px;overflow:hidden;border-radius:var(--r-card)}
+.cmp-table th,.cmp-table td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--ink-600)}
+.cmp-table th{background:var(--ink-800);color:var(--slate-400);font-weight:500;font-size:12px}
+.cmp-table tr:last-child td{border-bottom:none}
+.cmp-table td .mono{font-size:11px;color:var(--slate-500)}
+.cmp-table td a{color:var(--blue-300);font-weight:500}
+
+/* ============ 任务看板（成片发布看板） ============ */
+.board-toolbar{
+  display:flex;flex-direction:column;gap:8px;
+  margin-bottom:22px;padding:14px 16px;
+  border:1px solid var(--ink-600);border-radius:var(--r-card);
+  background:rgba(255,255,255,.015);
+}
+.bf-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.bf-label{
+  flex:0 0 auto;width:34px;
+  font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:500;
+  letter-spacing:.18em;color:var(--slate-500);
+}
+.bchip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 13px;border-radius:999px;
+  border:1px solid var(--ink-600);background:var(--ink-800);
+  font-size:12.5px;color:var(--slate-400);transition:all .12s var(--ease);
+}
+.bchip i{width:7px;height:7px;border-radius:50%;background:currentColor}
+.bchip:hover{border-color:var(--slate-400);color:var(--paper-50)}
+.bchip.on{background:rgba(59,91,255,.16);border-color:var(--blue);color:var(--paper-50)}
+.bchip .bc-n{font-family:"JetBrains Mono",monospace;font-size:10.5px;opacity:.75}
+#boardSearch{
+  flex:1 1 220px;min-width:170px;
+  background:var(--ink-800);border:1px solid var(--ink-600);color:var(--paper-50);
+  padding:7px 14px;border-radius:999px;font-size:13px;outline:none;
+  font-family:"JetBrains Mono",monospace;
+}
+#boardSearch::placeholder{color:var(--slate-500);font-family:"Noto Sans SC",sans-serif}
+#boardSearch:focus{border-color:var(--blue)}
+
+/* 日期分组 */
+.bday{margin-bottom:30px}
+.bday-head{display:flex;align-items:center;gap:12px;margin:0 0 14px}
+.bday-head .bd-date{font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.bday-head .bd-rel{font-size:11px;color:var(--amber);border:1px solid rgba(255,178,36,.45);border-radius:99px;padding:2px 10px;background:rgba(255,178,36,.1)}
+.bday-head .bd-n{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--slate-500)}
+.bday-head::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--ink-600),transparent)}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(430px,1fr));gap:16px}
+
+/* 成片卡片 */
+.bcard{
+  position:relative;display:flex;flex-direction:column;
+  background:linear-gradient(180deg,var(--ink-700),var(--ink-800));
+  border:1px solid var(--ink-600);border-radius:var(--r-card);
+  overflow:hidden;transition:transform .16s var(--ease),border-color .16s var(--ease),box-shadow .16s var(--ease);
+}
+.bcard:hover{transform:translateY(-2px);border-color:var(--slate-400);box-shadow:0 16px 38px -20px rgba(0,0,0,.7)}
+.bcard.alert{border-color:rgba(255,93,93,.55);box-shadow:0 0 0 1px rgba(255,93,93,.18)}
+.b-rail{display:flex;gap:4px;padding:12px 18px 0}
+.b-rail i{flex:1;height:3px;border-radius:99px;background:var(--ink-600);min-width:0}
+.b-rail i.on{background:var(--acc)}
+.b-rail i.now{animation:breathe 1.9s ease-in-out infinite}
+.b-body{padding:13px 18px 15px;display:flex;flex-direction:column;gap:10px}
+.b-row1{display:flex;align-items:center;gap:8px;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--slate-400);flex-wrap:wrap}
+.b-pill{
+  padding:3px 10px;border-radius:99px;font-weight:600;font-size:11.5px;
+  color:var(--acc);
+  background:color-mix(in srgb,var(--acc) 14%,transparent);
+  border:1px solid color-mix(in srgb,var(--acc) 34%,transparent);
+}
+.b-status-toggle{
+  border:1px solid var(--ink-600);border-radius:999px;background:var(--ink-900);
+  color:var(--paper-50);padding:4px 9px;font-size:11px;line-height:1.2;white-space:nowrap;
+}
+.b-status-toggle:hover{border-color:var(--blue-300);color:var(--blue-300)}
+.b-status-toggle:disabled{opacity:.55;cursor:wait}
+.b-plat{padding:2px 8px;border-radius:6px;font-weight:600;font-size:10.5px;letter-spacing:.06em;color:var(--slate-400);border:1px solid var(--ink-600)}
+.b-date{margin-left:auto;color:var(--slate-500);font-variant-numeric:tabular-nums}
+.b-title{display:flex;align-items:flex-start;gap:10px}
+.b-title h4{font-size:17px;line-height:1.32;font-weight:700;flex:1 1 auto;word-break:break-word}
+.b-len{flex:0 0 auto;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--slate-500);border:1px solid var(--ink-600);border-radius:6px;padding:2px 6px;margin-top:2px}
+.b-desc{
+  margin:0;font-size:13px;line-height:1.62;color:var(--mist-200);
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer;
+}
+.b-desc.open{-webkit-line-clamp:unset}
+.b-tags{display:flex;flex-wrap:wrap;gap:6px}
+.b-tag{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--blue-300);background:rgba(59,91,255,.08);border:1px solid rgba(59,91,255,.25);border-radius:6px;padding:1px 8px}
+.b-note{
+  margin:0;font-size:12px;line-height:1.6;color:var(--slate-400);cursor:pointer;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  padding-top:9px;border-top:1px dashed var(--ink-600);
+}
+.b-note.open{-webkit-line-clamp:unset}
+.b-meta{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:start;margin-top:2px;padding-top:12px;border-top:1px dashed var(--ink-600)}
+.b-shot{
+  position:relative;width:96px;aspect-ratio:9/16;border-radius:10px;overflow:hidden;cursor:pointer;
+  background:var(--ink-900);border:1px solid var(--ink-600);flex:0 0 auto;
+}
+.b-shot img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s var(--ease)}
+.b-shot:hover img{transform:scale(1.05)}
+.b-shot .b-play{position:absolute;inset:0;display:grid;place-items:center;background:rgba(6,9,14,.4);transition:background .2s}
+.b-shot:hover .b-play{background:rgba(6,9,14,.18)}
+.b-shot .b-play span{
+  width:34px;height:34px;border-radius:50%;background:rgba(16,22,34,.85);border:1px solid var(--ink-600);
+  display:grid;place-items:center;font-size:12px;color:#fff;padding-left:2px;
+}
+.b-shot .b-dur{position:absolute;right:4px;bottom:4px;background:rgba(6,9,14,.8);border-radius:4px;padding:1px 6px;font-family:"JetBrains Mono",monospace;font-size:11px;color:#e9edf3}
+.b-info{min-width:0}
+.b-dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:12px}
+.b-dl dt{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.06em;color:var(--slate-500);white-space:nowrap}
+.b-dl dd{margin:0;word-break:break-all;color:var(--mist-200);line-height:1.7;min-width:0}
+.b-dl dd a{color:var(--blue-300);text-decoration:none}
+.b-dl dd a:hover{text-decoration:underline}
+.b-specs{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.b-specs b{font-weight:500;font-size:10.5px;font-family:"JetBrains Mono",monospace;color:var(--slate-500);background:var(--ink-900);border:1px solid var(--ink-600);border-radius:5px;padding:1px 7px}
+.b-log{font-size:12.5px;border-top:1px dashed var(--ink-600);padding-top:8px}
+.b-log summary{cursor:pointer;color:var(--slate-400);font-size:12px}
+.b-log summary code{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--slate-500)}
+.b-log table{width:100%;border-collapse:collapse;margin-top:6px}
+.b-log td{padding:4px 6px;border-top:1px solid var(--ink-600);font-size:12px;color:var(--slate-400);vertical-align:top}
+.b-log td:first-child{white-space:nowrap;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--slate-500)}
+.b-log td:nth-child(2){white-space:nowrap;color:var(--mist-200)}
+.b-log td:last-child{color:var(--slate-400)}
+.b-empty{color:var(--slate-500);padding:44px;text-align:center;border:1px dashed var(--ink-600);border-radius:var(--r-card);margin-top:20px}
+
+/* ============ 发布视图 ============ */
+.value-panel{border:1px solid var(--ink-600);border-radius:var(--r-panel);background:var(--ink-700);padding:26px 28px;margin-bottom:24px}
+.value-panel h3{font-size:18px;margin-bottom:8px}
+.value-panel .vp-lede{font-size:13px;color:var(--slate-400);line-height:1.7;margin-bottom:20px}
+.vp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.vp-card{padding:16px 18px;border:1px solid var(--ink-600);border-radius:var(--r-card);background:var(--ink-800)}
+.vp-card h4{font-size:13px;margin-bottom:6px}
+.vp-card p{font-size:12px;color:var(--slate-400);line-height:1.65}
+.vp-card .vp-num{font-family:"Space Grotesk",sans-serif;font-size:30px;font-weight:700;color:var(--green);line-height:1;margin-bottom:6px}
+.vp-card .vp-num-label{font-size:12px;color:var(--slate-400)}
+.skill-card{border:1px solid var(--ink-600);border-radius:var(--r-panel);background:var(--ink-700);margin-bottom:24px;overflow:hidden}
+.skill-head{display:flex;align-items:center;gap:14px;padding:20px 24px;border-bottom:1px solid var(--ink-600);flex-wrap:wrap}
+.skill-head .skill-id{font-family:"JetBrains Mono",monospace;font-size:14px;font-weight:500}
+.skill-head .skill-desc{font-size:12px;color:var(--slate-400);flex-basis:100%}
+.skill-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.skill-col{padding:20px 24px}
+.skill-col:first-child{border-right:1px solid var(--ink-600)}
+.skill-col h5{font-size:11px;letter-spacing:.08em;color:var(--slate-500);text-transform:uppercase;margin-bottom:12px;font-family:"JetBrains Mono",monospace;font-weight:500}
+.skill-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.skill-col li{font-size:12.5px;color:var(--mist-200);line-height:1.6;display:flex;gap:8px}
+.skill-col li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:7px}
+.skill-col li code{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--blue-300);background:rgba(59,91,255,.12);padding:1px 6px;border-radius:4px}
+.skill-foot{padding:14px 24px;border-top:1px solid var(--ink-600);font-size:11px;color:var(--slate-500);font-family:"JetBrains Mono",monospace}
+.rule-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.rule-card{padding:20px 22px;display:flex;gap:14px}
+.rule-card .rc-icon{width:38px;height:38px;flex-shrink:0;border-radius:var(--r-input);background:var(--ink-800);border:1px solid var(--ink-600);display:flex;align-items:center;justify-content:center}
+.rule-card .rc-icon svg{width:18px;height:18px;stroke:var(--blue-300);fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.rule-card h4{font-size:14px;margin-bottom:6px}
+.rule-card p{font-size:12px;color:var(--slate-400);line-height:1.7}
+.platform-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+.rec-table{width:100%;border-collapse:collapse;font-size:13px}
+.rec-table th,.rec-table td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--ink-600);vertical-align:top}
+.rec-table th{font-size:11px;color:var(--slate-500);font-weight:500;font-family:"JetBrains Mono",monospace}
+.rec-table td{font-size:12.5px}
+.rec-table td .mono{font-size:11px;color:var(--slate-400)}
+.rec-table .note{font-size:11px;color:var(--slate-400);line-height:1.6;max-width:280px}
+.coming-panel{border:1px dashed var(--ink-600);border-radius:var(--r-panel);padding:28px;text-align:center;margin-top:28px}
+.coming-panel h4{font-size:14px;margin-bottom:8px}
+.coming-panel p{font-size:12px;color:var(--slate-400);margin-bottom:16px}
+.coming-chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* ============ 数字员工 ============ */
+.emp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:28px}
+.emp-card{padding:22px 24px;display:flex;flex-direction:column;gap:12px}
+.emp-top{display:flex;align-items:center;gap:14px}
+.emp-avatar{width:48px;height:48px;border-radius:12px;background:rgba(59,91,255,.14);border:1px solid rgba(59,91,255,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.emp-avatar svg{width:24px;height:24px;stroke:var(--blue-300);fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.emp-name{font-size:15px;font-weight:700}
+.emp-status{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--slate-400)}
+.emp-stat{display:flex;gap:20px;padding:12px 14px;background:var(--ink-800);border-radius:var(--r-input);border:1px solid var(--ink-600)}
+.emp-stat .es-item .es-num{font-family:"Space Grotesk",sans-serif;font-size:18px;font-weight:700}
+.emp-stat .es-item .es-num.green{color:var(--green)}
+.emp-stat .es-item .es-num.amber{color:var(--amber)}
+.emp-stat .es-item .es-label{font-size:10px;color:var(--slate-500);margin-top:2px}
+.emp-duties{list-style:none;display:flex;flex-direction:column;gap:7px}
+.emp-duties li{font-size:12px;color:var(--slate-400);line-height:1.6;display:flex;gap:8px}
+.emp-duties li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:7px}
+.sop-panel{border:1px solid var(--ink-600);border-radius:var(--r-panel);background:var(--ink-700);padding:24px 28px;margin-bottom:24px}
+.sop-panel h3{font-size:16px;margin-bottom:4px}
+.sop-panel .sop-lede{font-size:12px;color:var(--slate-400);margin-bottom:20px}
+.ability-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ability-card{padding:16px 18px;border:1px solid var(--ink-600);border-radius:var(--r-card);background:var(--ink-800)}
+.ability-card h4{font-size:13px;margin-bottom:6px}
+.ability-card p{font-size:12px;color:var(--slate-400);line-height:1.65}
+
+/* ============ 弹窗 / 灯箱 / Toast ============ */
+.modal-mask{position:fixed;inset:0;background:rgba(11,15,20,.72);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal-mask.open{display:flex}
+.modal{width:560px;max-width:100%;max-height:86vh;overflow-y:auto;background:var(--ink-800);border:1px solid var(--ink-600);border-radius:var(--r-panel);padding:26px 28px}
+.modal h3{font-size:17px;margin-bottom:8px}
+.modal .m-lede{font-size:12.5px;color:var(--slate-400);line-height:1.7;margin-bottom:18px}
+.modal-list{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.modal-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--ink-600);border-radius:var(--r-input);background:var(--ink-700)}
+.modal-row .mr-thumb{width:32px;aspect-ratio:9/16;border-radius:5px;overflow:hidden;background:var(--ink-900);flex-shrink:0}
+.modal-row .mr-thumb img{width:100%;height:100%;object-fit:cover}
+.modal-row .mr-name{font-size:13px;font-weight:500;flex:1;min-width:0}
+.modal-row .mr-name .mr-en{display:block;font-size:10px;color:var(--slate-500);font-family:"Space Grotesk",sans-serif}
+.nav-backdrop{position:fixed;inset:0;background:rgba(11,15,20,.6);z-index:50;display:none}
+.nav-backdrop.open{display:block}
+.lightbox{position:fixed;inset:0;background:rgba(11,15,20,.92);display:none;align-items:center;justify-content:center;z-index:110;padding:24px}
+.lightbox.open{display:flex}
+.lb-content{max-width:min(480px,92vw);width:100%;position:relative}
+.lb-content video,.lb-content img{width:100%;border-radius:var(--r-card);display:block;background:#000}
+.lb-close{position:absolute;top:-14px;right:-14px;width:36px;height:36px;border-radius:50%;background:var(--ink-700);border:1px solid var(--ink-600);display:flex;align-items:center;justify-content:center}
+.lb-close svg{width:16px;height:16px;stroke:var(--paper-50);fill:none;stroke-width:2;stroke-linecap:round}
+.lb-caption{margin-top:12px;text-align:center;font-size:13px;color:var(--slate-400)}
+.lb-caption small{display:block;color:var(--slate-500);font-size:11px;margin-top:4px;font-family:"JetBrains Mono",monospace}
+.toast{
+  position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);
+  background:var(--ink-700);border:1px solid var(--ink-600);color:var(--paper-50);
+  padding:11px 20px;border-radius:var(--r-input);font-size:13px;
+  opacity:0;pointer-events:none;z-index:120;transition:opacity .2s var(--ease),transform .2s var(--ease);
+  max-width:90vw;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.page-footer{margin-top:36px;text-align:center;font-size:11px;color:var(--slate-500);line-height:2}
+.page-footer .pf-row{display:flex;align-items:center;justify-content:center;gap:8px;font-family:"JetBrains Mono",monospace;margin-bottom:8px}
+
+/* ============ 响应式 ============ */
+@media (max-width:1180px){
+  .board.has-failed{grid-template-columns:1fr}
+  .home-hero{grid-template-columns:1fr;gap:26px}
+  .onair-panel{max-width:380px}
+}
+@media (max-width:860px){
+  body{padding:10px}
+  .app{height:calc(100vh - 20px)}
+  .sidebar{
+    position:fixed;left:10px;top:10px;bottom:10px;z-index:60;
+    transform:translateX(calc(-100% - 20px));
+    transition:transform .2s var(--ease);
+    border-radius:var(--r-panel);border:1px solid var(--ink-600);
+    width:248px;
+  }
+  .app.nav-open .sidebar{transform:translateX(0)}
+  .menu-btn{display:flex}
+  .view-header{padding:12px 16px;flex-wrap:wrap;gap:10px}
+  .vh-left{flex-wrap:wrap;flex:1 1 100%}
+  .vh-date{display:block;flex-basis:calc(100% - 46px);margin-left:46px;white-space:nowrap}
+  .view-body{padding:18px 16px 36px}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .cap-grid{grid-template-columns:1fr}
+  .flow-grid{grid-template-columns:repeat(2,1fr);gap:18px}
+  .tpl-grid{grid-template-columns:1fr 1fr}
+  .tpl-card-h{flex-direction:column;gap:0;padding:0}
+  .tpl-card-h .tpl-cover-h{width:auto;margin:0;border-radius:0;border:none;border-bottom:1px solid var(--ink-600)}
+  .tpl-card-h .tpl-info{padding:14px 16px 16px}
+  .tpl-card-h .tpl-actions{max-width:none}
+  .vp-grid,.skill-body,.rule-grid,.emp-grid,.ability-grid{grid-template-columns:1fr}
+  .skill-col:first-child{border-right:none;border-bottom:1px solid var(--ink-600)}
+  .filter-bar .search-box{margin-left:0;width:100%}
+  .tabs{overflow-x:auto}
+  .home-hero{padding:26px 22px}
+  .home-hero h1{font-size:36px}
+  .onair-247{font-size:54px}
+}
+@media (max-width:520px){
+  .tpl-grid{grid-template-columns:1fr}
+  .bgrid{grid-template-columns:1fr}
+  .b-meta{grid-template-columns:76px 1fr}
+  .flow-grid{grid-template-columns:1fr}
+  .rec-table{display:block;overflow-x:auto;white-space:nowrap}
+  #newTaskBtn{padding:9px 11px}
+  #newTaskBtn .btn-label{display:none}
+}
 </style>
 </head>
 <body>
+<div class="app" id="app">
+  <!-- ===== 侧边栏 ===== -->
+  <aside class="sidebar">
+    <div class="brand">
+      <svg class="logo-mark" viewBox="0 0 120 120" aria-label="UniStudio">
+        <path class="u" d="M28 20V62a32 32 0 0 0 64 0V20"/>
+        <circle class="dot-halo" cx="60" cy="38" r="10"/>
+        <circle class="dot-halo h2" cx="60" cy="38" r="10"/>
+        <circle class="dot" cx="60" cy="38" r="10"/>
+      </svg>
+      <span class="brand-name">UniStudio</span>
+    </div>
+    <nav class="side-nav" id="sideNav"><!-- JS 渲染 --></nav>
+    <div class="side-spacer"></div>
+    <div class="side-foot">
+      <div class="sf-row">
+        <span class="sf-dots"><i></i><i></i><i></i><i></i></span>
+        <span>AI 工作流</span>
+      </div>
+      <div class="sf-sub">按需执行 · 可接入调度</div>
+    </div>
+  </aside>
+  <div class="nav-backdrop" id="navBackdrop"></div>
 
-<div class="bg-stage" aria-hidden="true">
-  <div class="bg-grid"></div>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-  <div class="orb orb-4"></div>
+  <!-- ===== 主区域 ===== -->
+  <main class="main">
+    <header class="view-header">
+      <div class="vh-left">
+        <button class="menu-btn" id="menuBtn" aria-label="打开导航">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <h1 class="vh-title" id="vhTitle"></h1>
+        <span class="vh-date mono" id="vhDate"></span>
+      </div>
+      <div class="vh-right" id="vhRight"></div>
+    </header>
+    <div class="view-body" id="viewBody"><!-- JS 渲染 --></div>
+  </main>
 </div>
 
-<nav class="topnav">
-  <div class="wrap">
-    <a class="brand" href="#/home" aria-label="返回主页">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><defs><linearGradient id="ug" x1="2.5" y1="3.5" x2="21" y2="21" gradientUnits="userSpaceOnUse"><stop stop-color="#5CDBE8"/><stop offset="1" stop-color="#FFC857"/></linearGradient></defs><rect x="2.5" y="3.5" width="15.5" height="15.5" rx="4" stroke="url(#ug)" stroke-width="1.8" fill="rgba(92,219,232,.06)"/><path d="M8.6 8.5v7c0 .65.7 1.03 1.25.66l5.4-3.5a.78.78 0 000-1.32L9.85 7.84a.78.78 0 00-1.25.66z" fill="#FFC857"/><rect x="16.5" y="15.5" width="5" height="5" rx="1.5" fill="#5CDBE8"/></svg>
-      UniStudio<small>创作工作室</small>
-    </a>
-    <div class="nav-links">
-      <a class="nav-link" data-route="home" href="#/home">主页</a>
-      <a class="nav-link" data-route="templates" href="#/templates">模板列表</a>
-      <a class="nav-link" data-route="tasks" href="#/tasks">任务看板</a>
-      <a class="nav-link" data-route="publish" href="#/publish">发布 Skill</a>
-    </div>
-  </div>
-</nav>
-
-<main>
-
-  <!-- ===== 视图：主页（项目介绍） ===== -->
-  <section class="page active" id="page-home">
-    <div class="home-hero">
-      <div class="hero-shine" aria-hidden="true">
-        <div class="hero-flow"></div>
-      </div>
-      <div class="wrap">
-        <p class="eyebrow"><b>UNISTUDIO</b> · AI 视频创作工作台</p>
-        <h1>无人值守，<span class="accent">7×24</span> 自动出片</h1>
-        <p class="lede">UniStudio 是一个 AI 视频创作工作台：模板列表、任务看板、自动化发布 Skill 三件套齐备。选一套模板，生产、制作、发布交给数字员工 7×24 小时无人值守——你只管定选题。</p>
-        <div class="home-actions">
-          <a class="btn btn-primary" href="#/templates">查看模板总览</a>
-          <a class="btn btn-ghost" href="#/tasks">打开任务看板</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="wrap">
-      <section class="cap-section" aria-label="工作台三大功能">
-        <h2>工作台三件套</h2>
-        <p class="sub">从挑模板、看成片进度到自动发出去，一个工作台全走完。</p>
-        <div class="cap-cards">
-          <a class="cap-card" href="#/templates">
-            <span class="cap-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 9h18M8 4v5M16 4v5" stroke="currentColor" stroke-width="1.7"/></svg></span>
-            <h3>模板列表</h3>
-            <p>内置一批基于 HyperFrames 的开源视频模板，竖屏横屏、资讯口播、观点解说都有。挑一套，替换文案素材即可快速成片，不用从零开始做。</p>
-            <span class="cap-meta">当前收录 5 套模板 · 竖屏 3 · 横屏 2</span>
-            <span class="go">进入模板列表</span>
-          </a>
-          <a class="cap-card" href="#/tasks">
-            <span class="cap-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M8 12.5l2.6 2.6L16 9.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <h3>任务看板</h3>
-            <p>数字员工在后台生产制作的每一条视频，进度、状态、成片都在看板上：待发布、审核中、已发布一目了然，点开即播。</p>
-            <span class="cap-meta">平台审核中 · 已发布 · 每日发布趋势</span>
-            <span class="go">进入任务看板</span>
-          </a>
-          <a class="cap-card" href="#/publish">
-            <span class="cap-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v11m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <h3>自动化发布 Skill</h3>
-            <p>发布环节做成可复用的 Skill：自动上传、定时排期、原创声明、状态回读，多平台分发由数字员工 7×24 值守，无需人工盯守。</p>
-            <span class="cap-meta">生成 → 质检 → 分发 → 数据回流</span>
-            <span class="go">查看发布 Skill</span>
-          </a>
-        </div>
-      </section>
-
-      <section class="flow-section" aria-label="工作流">
-        <h2>从模板到发布</h2>
-        <p class="sub">数字员工 7×24 值守：从模板出片到自动发布，你只负责创意与选题。</p>
-        <div class="flow" id="homeFlow"><!-- JS 渲染 --></div>
-      </section>
-
-      <section aria-label="平台概况">
-        <div class="home-stats" id="homeStats"><!-- JS 渲染 --></div>
-        <p class="home-note" id="homeStatsNote"></p>
-      </section>
-    </div>
-  </section>
-
-  <!-- ===== 视图：模板总览 ===== -->
-  <section class="page" id="page-templates">
-    <div class="wrap">
-      <div class="page-head">
-        <h1>模板<span class="accent">总览</span></h1>
-        <p class="sub">仓库内全部 HyperFrames 模板：画幅、规格、用途与入口。点击「样片」可直接播放示例视频。</p>
-      </div>
-      <div class="controls" aria-label="筛选与搜索">
-        <div class="chips" id="aspectChips"><!-- JS 渲染 --></div>
-        <div class="chips" id="typeChips"><!-- JS 渲染 --></div>
-        <div class="search"><input id="searchInput" type="search" placeholder="搜索模板名、用途、标签…" aria-label="搜索模板"></div>
-      </div>
-      <div class="gallery-section">
-        <div class="gallery-head"><h2>模板目录</h2><p id="resultCount"><!-- JS 渲染 --></p></div>
-        <div class="grid" id="grid"><!-- JS 渲染 --></div>
-        <div class="empty" id="empty" hidden><p>没有匹配的模板，换个关键词或清除筛选试试。</p><button id="resetBtn" class="btn btn-ghost" type="button">清除筛选</button></div>
-      </div>
-      <div class="compare-section">
-        <h2>规格对比</h2>
-        <p class="compare-note">各模板关键规格一览；详细环境与素材授权见各模板的 TOOLS.md。</p>
-        <div class="table-scroll">
-          <table>
-            <colgroup><col><col><col><col><col><col></colgroup>
-            <thead><tr>
-              <th scope="col">模板</th><th scope="col">画幅</th><th scope="col">分辨率 / 帧率</th><th scope="col">样片时长</th><th scope="col">语音方式</th><th scope="col">技术栈</th>
-            </tr></thead>
-            <tbody id="compareBody"><!-- JS 渲染 --></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 视图：任务看板（发布看板，数据来自任务服务） ===== -->
-  <section class="page" id="page-tasks">
-    <div class="wrap">
-      <div class="page-head">
-        <h1>任务<span class="accent">看板</span></h1>
-        <p class="sub">生成后的视频发布看板：待发布、发布中、平台审核中到已发布，数据实时读取任务服务（platform.db）。点击卡片可播放成片。</p>
-      </div>
-      <div class="b-toolbar">
-        <div class="b-pills" id="bPills"><!-- JS 渲染 --></div>
-        <div class="search"><input id="boardQ" type="search" placeholder="搜标题 / 工程 / 话题 / 记录ID…" aria-label="搜索任务"></div>
-      </div>
-      <div class="b-groups" id="bGroups"><!-- JS 渲染 --></div>
-      <div class="state-box" id="boardState" hidden><p id="boardStateMsg"></p><button id="boardRetry" class="btn btn-ghost" type="button">重新加载</button></div>
-      <p class="home-note" id="tasksNote"></p>
-    </div>
-  </section>
-
-  <!-- ===== 视图：发布 Skill（按平台的自动化发布能力展示） ===== -->
-  <section class="page" id="page-publish">
-    <div class="wrap">
-      <div class="page-head">
-        <h1>自动化发布 <span class="accent">Skill</span></h1>
-        <p class="sub">按平台沉淀的自动化发布能力：上传、定时、原创声明与状态回读全自动完成。当前已上线视频号，更多平台正在开发。</p>
-      </div>
-
-      <div class="publish-value">
-        <div>
-          <h2>这个发布 Skill 替你省掉什么</h2>
-          <p class="pv-lead">发布不再是「打开网页 → 手填字段 → 守到成功」的重复劳动。一次接入，之后每条成片自动完成上传、字段落定、定时发表与状态核验，你只需要确认选题与排期。</p>
-        </div>
-        <div class="pv-grid">
-          <div class="pv-card num"><b id="pvPublished">—</b><span>已自动发布成片</span></div>
-          <div class="pv-card"><h4>定时自动发表</h4><p>按排期自动上传发表，无需守在电脑前；支持改期与预演（dry-run）。</p></div>
-          <div class="pv-card"><h4>字段一次落定</h4><p>短标题 16 字限制、合集归属、原创声明、完整封面帧自动处理，不发半套字段。</p></div>
-          <div class="pv-card"><h4>状态自动核验</h4><p>发布后回读列表核验，审核中不误判为已发布；失败与异常自动标出并回流看板。</p></div>
-        </div>
-      </div>
-
-      <section class="skill-show" aria-label="视频号自动化发布 Skill">
-        <h2>视频号自动化发布 Skill</h2>
-        <div class="skill-card">
-          <div class="sk-head">
-            <span class="sk-plat">视频号</span>
-            <div><b>publish-wechat-channels</b><p>把本地已渲染成片自动发布到微信视频号助手：发表 / 草稿 / 定时 / 状态回读。</p></div>
-            <span class="sk-badge">已上线</span>
-          </div>
-          <div class="sk-cols">
-            <div class="sk-col">
-              <h4>能力清单</h4>
-              <ul>
-                <li>成片自动上传（真实 Chrome + CDP 接管，微信快捷登录秒回）</li>
-                <li>完整封面帧自动生成，避免默认首帧暗场</li>
-                <li>短标题 / 描述 / 话题 / 合集 / 原创声明 / 位置一次落定</li>
-                <li>定时发表：<code>schedule_publish.py</code> 支持排期、改期、预演</li>
-                <li>发布状态回读核验（published / platform_pending / needs_human）</li>
-              </ul>
-            </div>
-            <div class="sk-col">
-              <h4>关键规则</h4>
-              <ul>
-                <li>单线操作锁：同一时刻只跑一个发布会话，不与定时任务抢页面</li>
-                <li>所有成片一律声明原创；搬运 / 混剪场景先停下问用户</li>
-                <li>合集按栏目判定：《刚哥聊 AI》→ 刚哥聊AI；快播资讯 → 科技前沿</li>
-                <li>状态写回 platform.db，任务看板实时可见</li>
-              </ul>
-            </div>
-          </div>
-          <div class="sk-foot">Skill 源码（随本项目）：<a href="skills/publish-wechat-channels/" style="color:var(--cyan);text-decoration:underline;text-underline-offset:2px">skills/publish-wechat-channels/</a></div>
-        </div>
-      </section>
-
-      <div class="rules">
-        <div class="rule">
-          <span class="ri"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 7v10M16 7v10" stroke="currentColor" stroke-width="1.8" opacity=".55"/></svg></span>
-          <div><b>产出目录固定</b><p>制作完成的视频统一写入 <code>uni-ai-video-productions/projects/&lt;工程&gt;/deliver/</code>，不散落在其他位置。</p></div>
-        </div>
-        <div class="rule">
-          <span class="ri"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M9 7.5h6M9 12h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".55"/></svg></span>
-          <div><b>模板源码只读</b><p>制作过程中不得修改模板源码；确有特殊需求时，先复制工程到产出目录再调整。</p></div>
-        </div>
-      </div>
-
-      <section style="margin-top:34px">
-        <h2 style="font-family:var(--serif);font-size:1.15rem;color:var(--text);margin-bottom:8px">平台接入</h2>
-        <div class="platform-row" id="platformRow"><!-- JS 渲染 --></div>
-      </section>
-      <section class="compare-section">
-        <h2>发布记录</h2>
-        <p class="compare-note" id="publishNote"></p>
-        <div class="table-scroll">
-          <table class="records-table">
-            <colgroup><col style="width:24%"><col style="width:14%"><col style="width:14%"><col style="width:12%"><col style="width:10%"><col style="width:26%"></colgroup>
-            <thead><tr>
-              <th scope="col">任务</th><th scope="col">平台</th><th scope="col">更新时间</th><th scope="col">状态</th><th scope="col">时长</th><th scope="col">备注</th>
-            </tr></thead>
-            <tbody id="recordsBody"><!-- JS 渲染 --></tbody>
-          </table>
-        </div>
-      </section>
-
-      <div class="coming">
-        <h2>更多 Skill 正在开发中</h2>
-        <p>每个平台一套独立 Skill，能力与视频号对齐：上传、定时、原创声明与状态核验。</p>
-        <div class="coming-chips">
-          <span class="chip on">视频号 · 已上线</span>
-          <span class="chip off">小红书 · 开发中</span>
-          <span class="chip off">抖音 · 开发中</span>
-          <span class="chip off">更多平台 · 规划中</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<footer class="footer">
-  <div class="wrap"><p>UniStudio 创作工作室 · 浙江联通开源项目 · 模板基于 HyperFrames 开放模板库</p></div>
-</footer>
-
-<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="样片播放">
-  <button class="lb-close" id="lbClose" type="button" aria-label="关闭">
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-  </button>
-  <div class="lb-body">
-    <video id="lbVideo" controls playsinline preload="metadata"></video>
-    <p class="lb-fallback" id="lbFallback" hidden></p>
+<!-- 新建任务弹窗 -->
+<div class="modal-mask" id="newTaskModal">
+  <div class="modal">
+    <h3>新建任务 · 从模板开始</h3>
+    <p class="m-lede">填写内容并选择模板，复制制作指令交给当前 AI。AI 会检查环境、制作视频并登记到本地任务看板。</p>
+    <textarea id="newTaskBrief" rows="3" placeholder="本期要制作什么？可填写文案、主题或素材路径" style="width:100%;padding:12px;margin-bottom:12px;color:inherit;background:var(--ink-900);border:1px solid var(--ink-600);border-radius:8px"></textarea>
+    <div class="modal-list" id="modalList"></div>
+    <div id="taskPromptBox" hidden><textarea id="taskPrompt" rows="6" readonly aria-label="交给 AI 的制作指令" style="width:100%;padding:12px;color:inherit;background:var(--ink-900)"></textarea><button class="btn btn-primary btn-sm" id="copyTaskPrompt">复制制作指令</button></div>
+    <button class="btn btn-ghost btn-sm" id="modalClose">关闭</button>
   </div>
 </div>
+
+<!-- 灯箱 -->
+<div class="lightbox" id="lightbox">
+  <div class="lb-content">
+    <button class="lb-close" id="lbClose" aria-label="关闭">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div id="lbMedia"></div>
+    <div class="lb-caption" id="lbCaption"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-const TEMPLATES = [
-  {
-    id: "ai-news-image-switch-brief-vertical",
-    nameZh: "无旁白图片快报",
-    nameEn: "AI News Image-Switch Brief",
-    tagline: "单条 AI 资讯快报 · 中央图片按节拍快切",
-    desc: "全息背景、标题与摘要面板固定，中央画框在 4–8 张资讯图之间按节拍切换；只铺 BGM，不含旁白和音效，适合抖音、视频号、Shorts 等竖屏平台快报。",
-    aspect: "vertical", ratio: "9:16", res: "1080 × 1920", fps: "30 fps",
-    duration: "约 18.3 秒", voice: "无旁白 · BGM-only", type: "资讯快报",
-    stack: "HyperFrames 0.6.46 · GSAP 3.14.2 · Python 3",
-    cover: "../templates/ai-news-image-switch-brief-vertical/preview/cover.png",
-    sample: "../templates/ai-news-image-switch-brief-vertical/preview/full-sample.mp4",
-    readme: "../templates/ai-news-image-switch-brief-vertical/README.md",
-    usage: "../templates/ai-news-image-switch-brief-vertical/USAGE.md",
-    skill: "../templates/ai-news-image-switch-brief-vertical/SKILL.md"
-  },
-  {
-    id: "ai-news-single-story-digital-presenter-vertical",
-    nameZh: "单条资讯数字人深度解读",
-    nameEn: "AI News Single-Story Digital Presenter",
-    tagline: "一条 AI 热点深度拆解 · 数字人封面开场",
-    desc: "封面数字人口型开场白，正文分段旁白与信息卡片，六秒固定片尾；每页时长按旁白实测长度自动对齐。适合围绕单条热点逐页展开的日更栏目。",
-    aspect: "vertical", ratio: "9:16", res: "1080 × 1920", fps: "30 fps",
-    duration: "约 1 分 44 秒", voice: "数字人口播 + 旁白", type: "深度解读",
-    stack: "HyperFrames 0.8.140 · GSAP · Python 3",
-    cover: "../templates/ai-news-single-story-digital-presenter-vertical/preview/cover.png",
-    sample: "../templates/ai-news-single-story-digital-presenter-vertical/preview/full-sample.mp4",
-    readme: "../templates/ai-news-single-story-digital-presenter-vertical/README.md",
-    usage: "../templates/ai-news-single-story-digital-presenter-vertical/USAGE.md",
-    skill: "../templates/ai-news-single-story-digital-presenter-vertical/SKILL.md"
-  },
-  {
-    id: "gangge-ai-international-vision",
-    nameZh: "刚哥聊 AI｜国际视野",
-    nameEn: "Gangge AI International Vision",
-    tagline: "文本切换式单资讯口播 · 动态地球与品牌片尾",
-    desc: "深蓝动态地球、自然标题进场、同步字幕与完整六秒品牌片尾随工程提供；替换标题、正文、来源和旁白即可持续产出系列视频，无需数字人或生成图片。",
-    aspect: "vertical", ratio: "9:16", res: "1080 × 1920", fps: "30 fps",
-    duration: "约 18.9 秒", voice: "口播旁白 · 示例静音轨+音效", type: "口播解读",
-    stack: "HyperFrames 0.8.133 · GSAP 3.14.2 · Python 3",
-    cover: "../templates/gangge-ai-international-vision/preview/cover.png",
-    sample: "../templates/gangge-ai-international-vision/preview/full-sample.mp4",
-    readme: "../templates/gangge-ai-international-vision/README.md",
-    usage: "../templates/gangge-ai-international-vision/USAGE.md",
-    skill: "../templates/gangge-ai-international-vision/SKILL.md"
-  },
-  {
-    id: "ai-weekly-news-roundup-landscape",
-    nameZh: "AI 周见｜科技周报",
-    nameEn: "AI Weekly News Roundup",
-    tagline: "多条 AI 资讯一周盘点 · 横版编辑风",
-    desc: "目录、资讯页、可选数据对比与三点拆解卡、结尾回顾；深蓝网格开场配亮黄高亮。一期通常 3–10 条资讯，另含一张竖版封面组合供封面实验。",
-    aspect: "landscape", ratio: "16:9", res: "1920 × 1080", fps: "30 fps",
-    duration: "约 2 分 24 秒", voice: "演示无声 · 正式需配音", type: "科技周报",
-    stack: "HyperFrames 0.8.133 · GSAP 3.14.2 · Python 3",
-    cover: "../templates/ai-weekly-news-roundup-landscape/preview/cover-h.png",
-    sample: "../templates/ai-weekly-news-roundup-landscape/preview/full-sample.mp4",
-    readme: "../templates/ai-weekly-news-roundup-landscape/README.md",
-    usage: "../templates/ai-weekly-news-roundup-landscape/USAGE.md",
-    skill: "../templates/ai-weekly-news-roundup-landscape/SKILL.md"
-  },
-  {
-    id: "idea-explainer-landscape",
-    nameZh: "一念三千｜日常观念讲解",
-    nameEn: "Concept Explainer",
-    tagline: "抽象观念长讲解 · 51 页示例与旁白",
-    desc: "从具体开场示例到生活场景、概念拆解、练习与回顾，51 页结构把抽象观念讲成可实践的方法；随包示例主题为「一念三千」，示例旁白与压缩样片均随包提供。",
-    aspect: "landscape", ratio: "16:9", res: "1920 × 1080", fps: "30 fps",
-    duration: "约 12 分 55 秒", voice: "旁白配音 · 重配需自备服务与音色", type: "观念讲解",
-    stack: "HyperFrames 0.8.145 · GSAP 3.15.0 · Python 3",
-    cover: "../templates/idea-explainer-landscape/preview/cover.png",
-    sample: "../templates/idea-explainer-landscape/preview/full-sample.mp4",
-    readme: "../templates/idea-explainer-landscape/README.md",
-    usage: "../templates/idea-explainer-landscape/USAGE.md",
-    skill: "../templates/idea-explainer-landscape/SKILL.md"
-  }
-];
-
-/* ===== 任务状态与流程定义 ===== */
-const STATUS = {
-  ready:            { cn: "待发布",     dot: "d-ready" },
-  publishing:       { cn: "发布中",     dot: "d-publishing" },
-  published:        { cn: "已发布",     dot: "d-published" },
-  platform_pending: { cn: "平台审核中", dot: "d-platform_pending" },
-  needs_human:      { cn: "需人工处理", dot: "d-needs_human" },
-  failed:           { cn: "发布失败",   dot: "d-failed" },
-  held:             { cn: "人工扣住",   dot: "d-held" }
+/* ============================================================
+ * UniStudio · 创作工作室单页（品牌规范 v1.0 对齐）
+ * 数据来自 /api/stats、/api/records（见 web/serve.py）
+ * ============================================================ */
+/* ---------- 图标（24×24，1.75 描边，圆头） ---------- */
+const ICONS = {
+  home:'<path d="M4 11 12 4l8 7"/><path d="M6 10v9h12v-9"/>',
+  templates:'<rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>',
+  board:'<rect x="4" y="4" width="16" height="16" rx="2.5"/><path d="M10 4v16M15 4v16"/>',
+  send:'<path d="M22 3 11 14"/><path d="M22 3 15 22l-4-9-9-4 20-6z"/>',
+  employee:'<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/>',
+  video:'<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m10 9 5 3-5 3z"/>',
+  check:'<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
+  clock:'<circle cx="12" cy="12" r="8"/><path d="M12 7v5l3.5 2"/>',
+  search:'<circle cx="11" cy="11" r="6.5"/><path d="m20 20-3.8-3.8"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  play:'<path d="M8 5.5v13l11-6.5z"/>',
 };
-const STATUS_ORDER = ["platform_pending", "publishing", "published", "ready", "needs_human", "failed", "held"];
-const HOME_FLOW = [
-  { name: "选定模板", desc: "只读引用，不动模板源码" },
-  { name: "复制到产出目录", desc: "工程复制到 uni-ai-video-productions/projects/&lt;工程&gt;/" },
-  { name: "AI 生成", desc: "渲染视频成片" },
-  { name: "质检预览", desc: "画面 / 字幕 / 合规检查" },
-  { name: "自动发布", desc: "发布 Skill 排期分发与数据回流" }
+
+/* ---------- 模板数据（来自仓库实际模板） ---------- */
+const TEMPLATES = [
+  {id:'ai-news-image-switch-brief-vertical', name:'无旁白图片快报', en:'AI News Image-Switch Brief',
+    shape:'9:16', type:'资讯快报', audio:'无旁白 · BGM-only',
+    cover:'../templates/ai-news-image-switch-brief-vertical/preview/cover.png',
+    sample:'../templates/ai-news-image-switch-brief-vertical/preview/full-sample.mp4',
+    resolution:'1080 × 1920', fps:30, duration:'18.3 秒',
+    desc:'全息背景、标题与摘要面板固定，中央画框在 4–8 张资讯图之间按节拍切换；只铺 BGM，不含旁白和音效，适合科普、视频号、Shorts 等竖屏平台快报。'},
+  {id:'woshi-news-vertical', name:'沃资讯｜单条快讯', en:'WoNews Daily Flash',
+    shape:'9:16', type:'资讯快报', audio:'女播报 · 快节奏',
+    cover:'../templates/woshi-news-vertical/preview/cover.png',
+    sample:'../templates/woshi-news-vertical/preview/full-sample.mp4',
+    resolution:'1080 × 1920', fps:30, duration:'约 43 秒',
+    desc:'深蓝光束竖屏快讯：栏目、日期、标题、四图轮播与语义摘要固定版式，内容数据集中在 data/episode.json，替换即可制作下一期；使用当前用户配置的播报音色，新内容需替换对应图片与配音。'},
+  {id:'ai-news-single-story-digital-presenter-vertical', name:'单条资讯数字人深度解读', en:'AI News Single-Story Digital Presenter',
+    shape:'9:16', type:'深度解读', audio:'数字人口播 + 旁白',
+    cover:'../templates/ai-news-single-story-digital-presenter-vertical/preview/cover.png',
+    sample:'../templates/ai-news-single-story-digital-presenter-vertical/preview/full-sample.mp4',
+    resolution:'1080 × 1920', fps:30, duration:'1 分 44 秒',
+    desc:'封面数字人开场白，正文分四段旁白与信息卡片，六秒定片尾；每页时长按旁白实测长度自动对齐。适合围绕单条热点深度展开的日更栏目。'},
+  {id:'gangge-ai-international-vision', name:'刚哥聊 AI｜国际视野', en:'Gangge AI International Vision',
+    shape:'9:16', type:'口播解读', audio:'口播旁白 · 示例静音音+音效',
+    cover:'../templates/gangge-ai-international-vision/preview/cover.png',
+    sample:'../templates/gangge-ai-international-vision/preview/full-sample.mp4',
+    resolution:'1080 × 1920', fps:30, duration:'18.9 秒',
+    desc:'深蓝动态地球、自然标题进场、同步字幕与完整六秒品牌片尾随工程提供；替换标题、正文、来源和旁白即可持续产出系列视频，无需数字人或生成图片。'},
+  {id:'ai-weekly-news-roundup-landscape', name:'AI 周见｜科技周报', en:'AI Weekly News Roundup',
+    shape:'16:9', type:'科技周报', audio:'演示无声 · 正式配音',
+    cover:'../templates/ai-weekly-news-roundup-landscape/preview/cover-h.png',
+    sample:'../templates/ai-weekly-news-roundup-landscape/preview/full-sample.mp4',
+    resolution:'1920 × 1080', fps:30, duration:'2 分 24 秒',
+    desc:'目录、资讯页、可选数据对比与三点拆解卡，结尾回顾；深蓝网格开场亮黄高亮。一期通常 3–10 条资讯，另一张竖版封面适合做合体封面实验。'},
+  {id:'idea-explainer-landscape', name:'一念三千｜日常观念讲解', en:'Concept Explainer',
+    shape:'16:9', type:'观念讲解', audio:'旁白配音 · 重配乐由服务与音色',
+    cover:'../templates/idea-explainer-landscape/preview/cover.png',
+    sample:'../templates/idea-explainer-landscape/preview/full-sample.mp4',
+    resolution:'1920 × 1080', fps:30, duration:'12 分 55 秒',
+    desc:'从具体开场示例到生活场景、概念拆解、练习与回顾，51 段结构把抽象观念讲成可实践的方法；随包示例旁白与压缩样片均随包提供。'},
+  {id:'guangying-dangshi-motion-lesson-landscape', name:'光影党史｜动态党课', en:'Party History Motion Lesson',
+    shape:'16:9', type:'党史教育', audio:'旁白+原创配乐 · 示例声线非商用',
+    cover:'../templates/guangying-dangshi-motion-lesson-landscape/preview/cover.png',
+    sample:'../templates/guangying-dangshi-motion-lesson-landscape/preview/full-sample.mp4',
+    resolution:'1920 × 1080', fps:25, duration:'12 分 10 秒',
+    desc:'代码动画讲党史的横屏长课：九章结构、约 130 镜头，画面为时间线、史料层次、组织关系等内容驱动的 SVG 图解并明确标注示意，不冒充历史影像；旁白字幕按 ASR 时码对齐，赤金墨黑档案米白视觉。替换脚本、配音与时码映射即可制作下一期。'},
 ];
 
-/* ===== 工具 ===== */
-const $ = (id) => document.getElementById(id);
-const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const norm = (s) => String(s || "").toLowerCase();
-const WEEK = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
-const svgPlay = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3.5 2.4v7.2l6-3.6z" fill="currentColor"/></svg>';
-function fmtTime(iso) {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  return `${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+/* ---------- 状态体系 ---------- */
+const STATUS = {
+  producing:{label:'制作中',dot:'#3B5BFF'},
+  production_failed:{label:'制作失败',dot:'#FF5D5D'},
+  scheduled:{label:'已排期',dot:'#FFB224'},
+  draft_saved:{label:'草稿已保存',dot:'#8C98AB'},
+  ready:{label:'待发布',dot:'#8C98AB'},
+  publishing:{label:'发布中',dot:'#3B5BFF'},
+  platform_pending:{label:'平台审核中',dot:'#FFB224'},
+  published:{label:'已发布',dot:'#B6F23A'},
+  failed:{label:'失败',dot:'#FF5D5D'},
+  needs_human:{label:'需人工介入',dot:'#FFB224'},
+  held:{label:'待放行',dot:'#FFB224'},
+};
+/* 发布状态 → 展示元数据（标签 / 状态色 / 流程步数 / 是否告警） */
+const STATUS_META = {
+  producing: {label:'制作中',color:'#3B5BFF',step:1},
+  production_failed: {label:'制作失败',color:'#FF5D5D',step:1,alert:true},
+  scheduled: {label:'已排期',color:'#FFB224',step:3},
+  draft_saved: {label:'草稿已保存',color:'#8C98AB',step:3},
+  published:        {label:'已发布',    color:'#B6F23A', step:4},
+  platform_pending: {label:'平台审核中', color:'#FFB224', step:3},
+  needs_human:      {label:'需人工介入', color:'#FF5D5D', step:3, alert:true},
+  held:             {label:'待放行',    color:'#B394FF', step:3, alert:true},
+  failed:           {label:'失败',      color:'#FF5D5D', step:2},
+  publishing:       {label:'发布中',    color:'#3B5BFF', step:2},
+  claimed:          {label:'制作中',    color:'#3B5BFF', step:2},
+  ready:            {label:'待发布',    color:'#8C98AB', step:2},
+  enqueued:         {label:'排队中',    color:'#8C98AB', step:1},
+};
+// 状态筛选 chips 的展示顺序
+const STATUS_ORDER = ['producing','production_failed','scheduled','draft_saved','published','platform_pending','needs_human','held','failed','publishing','claimed','ready','enqueued'];
+// 卡片顶部的流程步骤条
+const STATUS_STEPS = [{n:'制作'},{n:'待发布'},{n:'平台提交'},{n:'已发布'}];
+// 流水事件英文名 → 中文展示
+const EVENT_LABEL = {
+  enqueued:'登记', ready:'待发布', claimed:'领取', publishing:'发布中', producing:'制作中', production_failed:'制作失败', scheduled:'已排期', draft_saved:'草稿已保存', reconciled:'核验恢复', imported:'旧数据导入',
+  platform_pending:'平台审核中', published:'已发布',
+  held:'待放行', needs_human:'需人工介入', failed:'失败', reset_attempts:'重置次数', status_changed:'手动调整状态',
+};
+
+/* ---------- 全局状态 ---------- */
+const state = {
+  view:'home', tasks:[], stats:null, apiError:'',
+  taskQ:'', taskStatus:'all', taskPlatform:'all',
+  tplShape:'all', tplType:'all', tplQ:'',
+};
+
+/* ---------- 工具函数 ---------- */
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function pad(n){return String(n).padStart(2,'0');}
+function fmtDur(sec){
+  if(typeof sec==='string'&&/^\d+:\d{2}$/.test(sec))return sec;
+  if(sec==null||isNaN(sec))return '';
+  const m=Math.floor(sec/60), s=Math.round(sec%60);
+  return `${pad(m)}:${pad(s)}`;
 }
-function fmtDay(iso) {
-  if (!/^\d{4}-\d{2}-\d{2}/.test(String(iso))) return String(iso || "未排期");
-  const d = new Date(iso + "T00:00:00");
-  return `${iso.slice(5)} ${WEEK[d.getDay()]}`;
+function fmtDateTime(iso){
+  const d=new Date(iso); if(isNaN(d))return '';
+  return `${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
-function relBadge(day) {
-  if (!/^\d{4}-\d{2}-\d{2}/.test(String(day))) return "";
-  const now = new Date();
-  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
-  const diff = Math.round((new Date(today + "T00:00:00") - new Date(day + "T00:00:00")) / 86400000);
-  if (diff === 0) return '<span class="rel">今天</span>';
-  if (diff === 1) return '<span class="rel">昨天</span>';
-  return "";
+function fmtTime(iso){
+  const d=new Date(iso); if(isNaN(d))return '';
+  return `${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
-async function api(path) {
-  const r = await fetch(path);
-  if (!r.ok) throw new Error("HTTP " + r.status);
-  return r.json();
+function fmtHeaderDate(iso){
+  const d=new Date(iso); if(isNaN(d))return '';
+  return `${d.getFullYear()}.${pad(d.getMonth()+1)}.${pad(d.getDate())} · ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+function fmtDay(d){return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;}
+const byStatus = ()=>(state.stats&&state.stats.by_status)||{};
+const cnt = k=>byStatus()[k]||0;
+const platformList = ()=>Object.keys((state.stats&&state.stats.by_platform)||{});
+let toastTimer=null;
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),2600);
 }
 
-/* ===== 路由 ===== */
-const ROUTES = ["home", "templates", "tasks", "publish"];
-function routeFromHash() {
-  const h = location.hash.replace(/^#\//, "");
-  return ROUTES.includes(h) ? h : "home";
-}
-function applyRoute() {
-  const r = routeFromHash();
-  document.querySelectorAll(".page").forEach((p) => p.classList.toggle("active", p.id === "page-" + r));
-  document.querySelectorAll(".nav-link").forEach((a) => a.classList.toggle("active", a.dataset.route === r));
-  window.scrollTo({ top: 0, behavior: "auto" });
-  if (r === "home") loadHome();
-  if (r === "tasks") loadBoard();
-  if (r === "publish") loadPublish();
-}
-window.addEventListener("hashchange", applyRoute);
-
-/* ===== 主页 ===== */
-function renderHomeFlow() {
-  $("homeFlow").innerHTML = HOME_FLOW.map((s, i) =>
-    `<div class="flow-step"><span class="dot">${i + 1}</span><div class="body"><b>${s.name}</b><span>${s.desc}</span></div></div>`
-  ).join("");
-}
-async function loadHome() {
-  try {
-    const stats = await api("/api/stats");
-    const by = stats.by_status || {};
-    const cells = [
-      { n: TEMPLATES.length, label: "收录模板", cls: "" },
-      { n: by.published ?? 0, label: "已发布成片", cls: "ok" },
-      { n: by.platform_pending ?? 0, label: "平台审核中", cls: "" },
-      { n: Object.keys(stats.by_platform || {}).length, label: "接入平台", cls: "cyan" }
-    ];
-    $("homeStats").innerHTML = cells.map((c) => `<div class="stat ${c.cls}"><b>${c.n}</b><span>${c.label}</span></div>`).join("");
-    $("homeStatsNote").textContent = `任务与发布数据实时读取任务服务（platform.db），更新于 ${fmtTime(stats.updated_at)}。`;
-  } catch (e) {
-    const cells = [
-      { n: TEMPLATES.length, label: "收录模板", cls: "" },
-      { n: "—", label: "已发布成片", cls: "" },
-      { n: "—", label: "平台审核中", cls: "" },
-      { n: "—", label: "接入平台", cls: "" }
-    ];
-    $("homeStats").innerHTML = cells.map((c) => `<div class="stat ${c.cls}"><b>${c.n}</b><span>${c.label}</span></div>`).join("");
-    $("homeStatsNote").textContent = "任务服务未连接（127.0.0.1:8899），任务与发布数据暂不可用；模板统计为本地数据。";
-  }
-}
-
-/* ===== 模板总览 ===== */
-const tState = { aspect: "all", type: "all", q: "" };
-function tMatch(t) {
-  if (!tState.q) return true;
-  const q = norm(tState.q);
-  return [t.nameZh, t.nameEn, t.tagline, t.desc, t.type, t.voice, t.ratio].some((v) => norm(v).includes(q));
-}
-const tFiltered = () => TEMPLATES.filter((t) =>
-  (tState.aspect === "all" || t.aspect === tState.aspect) &&
-  (tState.type === "all" || t.type === tState.type) && tMatch(t)
-);
-const ASPECT_OPTS = [
-  { v: "all", label: "全部画幅" },
-  { v: "vertical", label: "竖屏 9:16" },
-  { v: "landscape", label: "横屏 16:9" }
+/* ---------- 侧边导航 ---------- */
+const NAV_ITEMS = [
+  {id:'home',label:'首页',icon:ICONS.home},
+  {id:'templates',label:'模板列表',icon:ICONS.templates},
+  {id:'tasks',label:'任务看板',icon:ICONS.board},
+  {id:'publish',label:'发布 Skill',icon:ICONS.send},
+  {id:'employees',label:'数字员工',icon:ICONS.employee},
 ];
-function renderAspectChips() {
-  $("aspectChips").innerHTML = ASPECT_OPTS.map((o) =>
-    `<button type="button" class="chip" data-v="${o.v}" aria-pressed="${tState.aspect === o.v}">${o.label}</button>`
-  ).join("");
+function renderNav(){
+  document.getElementById('sideNav').innerHTML = NAV_ITEMS.map(i=>
+    `<button class="side-item ${state.view===i.id?'active':''}" data-view="${i.id}">
+      <svg viewBox="0 0 24 24">${i.icon}</svg>${i.label}</button>`).join('');
 }
-function renderTypeChips() {
-  const types = [...new Set(TEMPLATES.map((t) => t.type))];
-  const all = `<button type="button" class="chip" data-v="all" aria-pressed="${tState.type === "all"}">全部类型</button>`;
-  $("typeChips").innerHTML = all + types.map((ty) =>
-    `<button type="button" class="chip" data-v="${ty}" aria-pressed="${tState.type === ty}">${ty}</button>`
-  ).join("");
+
+/* ---------- 灯箱 ---------- */
+function openLightbox(media,caption,sub){
+  document.getElementById('lbMedia').innerHTML=media;
+  document.getElementById('lbCaption').innerHTML=`${esc(caption||'')}${sub?`<small>${esc(sub)}</small>`:''}`;
+  document.getElementById('lightbox').classList.add('open');
 }
-function cardHTML(t) {
-  const flag = t.aspect === "vertical" ? "v" : "h";
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+
+/* ============================================================
+ * 视图：首页
+ * ============================================================ */
+function renderHome(){
+  // 统计口径与任务看板一致：boardItems() + boardStatus()，platform_pending 归入已发布分组
+  const boardRecords=boardItems();
+  const readyCnt=boardRecords.filter(r=>boardStatus(r)==='ready').length;
+  const publishedCnt=boardRecords.filter(r=>boardStatus(r)==='published').length;
+  const total=state.tasks.length;
+  const tplCount=TEMPLATES.length;
+  const tplVertical=TEMPLATES.filter(t=>t.shape==='9:16').length;
   return `
-  <article class="card" data-id="${t.id}">
-    <div class="card-cover" data-aspect="${t.aspect}">
-      <img src="${t.cover}" alt="${esc(t.nameZh)} 封面" loading="lazy">
-      <button type="button" class="play-badge" data-sample="${t.id}" aria-label="播放 ${esc(t.nameZh)} 样片">${svgPlay}样片</button>
+  <div class="wrap">
+    <section class="home-hero">
+      <div>
+        <h1>一念成片，<br><span class="green">让创作回到一念之间</span></h1>
+        <p class="hh-lede">UniStudio 是由数字员工驱动的视频创作工作台。重复繁琐的制作交给数字员工 7×24 小时完成，成片自动送达各内容平台，时间留给创作本身。</p>
+        <div class="hh-actions">
+          <button class="btn btn-primary" data-go="templates">查看模板总览</button>
+          <button class="btn btn-ghost" data-go="tasks">打开任务看板</button>
+        </div>
+      </div>
+      <div class="onair-panel vf">
+        <div class="onair-top"><span class="tally"></span>AI WORKFLOW · 创作流程</div>
+        <div class="onair-247">24<span class="slash">/</span>7</div>
+        <div class="onair-sub">接入 AI 调度后可持续制作</div>
+        <div class="onair-foot">
+          <div class="pipe-segs"><i></i><i></i><i></i><i class="blue"></i></div>
+          <div class="pipe-labels"><span>模板</span><span>制作</span><span>看板</span><span>发布</span></div>
+          <div class="onair-footrow">
+            <span class="mono">竖屏 9:16</span>
+            <span class="mono">1080×1920</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="sc-label">待发布</div><div class="sc-num amber">${readyCnt}</div></div>
+      <div class="stat-card"><div class="sc-label">已发布</div><div class="sc-num green">${publishedCnt}</div></div>
+      <div class="stat-card"><div class="sc-label">任务总数</div><div class="sc-num" style="color:var(--paper-50)">${total}</div></div>
+      <div class="stat-card"><div class="sc-label">视频模板</div><div class="sc-num blue">${tplCount}<span class="sc-unit">套 · 竖屏 ${tplVertical} / 横屏 ${tplCount-tplVertical}</span></div></div>
     </div>
-    <div class="card-body">
-      <div class="tags">
-        <span class="tag ${flag}">${t.aspect === "vertical" ? "竖屏" : "横屏"} ${t.ratio}</span>
-        <span class="tag">${t.type}</span>
-        <span class="tag">${t.voice}</span>
-      </div>
-      <h3>${t.nameZh}</h3>
-      <p class="en">${t.nameEn}</p>
-      <p class="desc">${t.desc}</p>
-      <p class="spec">${t.res} · ${t.fps} · ${t.duration === "—" ? t.duration : "样片" + t.duration}</p>
-      <div class="actions">
-        <a href="${t.sample}" class="sample-link" data-sample-link="${t.id}">播放样片</a>
-        <a href="${t.readme}">说明</a>
-        <a href="${t.usage}">使用</a>
-        <a href="${t.skill}">Skill</a>
-      </div>
+
+    <div class="section-head"><h2>工作台三件套</h2><span class="sh-sub">从挑模板到自动发出去，一个工作台全走完</span></div>
+    <div class="cap-grid">
+      <article class="card cap-card">
+        <div class="cap-icon"><svg viewBox="0 0 24 24">${ICONS.templates}</svg></div>
+        <h3>模板列表</h3>
+        <p>内置 ${TEMPLATES.length} 套基于 HyperFrames 的开源视频模板，竖屏横屏、资讯口播、观点解说、党史党课都有。挑一套，替换文案素材即可快速成片，不用从零开始。</p>
+        <div class="cap-meta">当前收录 ${TEMPLATES.length} 套 · 竖屏 ${TEMPLATES.filter(t=>t.shape==='9:16').length} · 横屏 ${TEMPLATES.filter(t=>t.shape==='16:9').length}</div>
+        <button class="cap-link" data-go="templates">进入模板列表</button>
+      </article>
+      <article class="card cap-card">
+        <div class="cap-icon"><svg viewBox="0 0 24 24">${ICONS.board}</svg></div>
+        <h3>任务看板</h3>
+        <p>AI 制作的每一条视频，进度与状态都在看板：制作中、待发布、发布中、平台审核中、已发布，成片点开即播。</p>
+        <div class="cap-meta">制作中 · 待发布 · 发布中 · 已发布</div>
+        <button class="cap-link" data-go="tasks">进入任务看板</button>
+      </article>
+      <article class="card cap-card">
+        <div class="cap-icon"><svg viewBox="0 0 24 24">${ICONS.send}</svg></div>
+        <h3>发布 Skill</h3>
+        <p>发布环节做成可复用的 Skill：上传、排期、字段填写与状态回读。当前提供视频号，新增平台按独立 Skill 接入。</p>
+        <div class="cap-meta">生成 → 质检 → 分发 → 数据回流</div>
+        <button class="cap-link" data-go="publish">查看发布 Skill</button>
+      </article>
+    </div>
+
+    <div class="section-head" style="margin-top:8px"><h2>从模板到发布</h2><span class="sh-sub">你是导演，数字员工是整支剧组</span></div>
+    <div class="flow-grid">
+      <div class="flow-step"><span class="fs-num">01</span><h4>选模板</h4><p>选中即可复刻同款视频</p></div>
+      <div class="flow-step"><span class="fs-num">02</span><h4>数字员工在岗制作</h4><p>检查已有环境，按模板制作</p></div>
+      <div class="flow-step"><span class="fs-num">03</span><h4>看板统一管理</h4><p>成片集中归档，随时查看</p></div>
+      <div class="flow-step"><span class="fs-num">04</span><h4>发布 Skill 自动发布</h4><p>按已接入的平台 Skill 执行</p></div>
+    </div>
+
+    <div class="page-footer">
+      <div class="pf-row"><span class="tally"></span>一念成片 · 让创作回到一念之间</div>
+      <div>UniStudio 创作工作室 · 浙江联通开源项目 · 模板基于 HyperFrames 开放模板库</div>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+ * 视图：模板列表
+ * ============================================================ */
+function tplTags(t){
+  return [
+    `<span class="tag mono ${t.shape==='9:16'?'tag-blue':'tag-slate'}">${t.shape==='9:16'?'竖屏 9:16':'横屏 16:9'}</span>`,
+    `<span class="tag tag-slate">${t.type}</span>`,
+    `<span class="tag tag-slate">${t.audio}</span>`,
+  ].join('');
+}
+function tplActions(t){
+  return `<div class="tpl-actions">
+    <button class="btn btn-ghost btn-sm" data-sample="${t.id}">播放样片</button>
+    <button class="btn btn-ghost btn-sm" data-scroll="#cmpTable">说明</button>
+    <button class="btn btn-primary btn-sm" data-go="publish">使用 Skill</button>
+  </div>`;
+}
+/* 竖屏模板：9:16 竖卡（封面在上） */
+function tplCardV(t){
+  return `<article class="card tpl-card">
+    <div class="tpl-cover">
+      <img src="${t.cover}" alt="${esc(t.name)}封面" loading="lazy">
+      <button class="sample-btn" data-sample="${t.id}"><svg viewBox="0 0 24 24">${ICONS.play}</svg>样片</button>
+    </div>
+    <div class="tpl-info">
+      <div class="tpl-tags">${tplTags(t)}</div>
+      <h3>${t.name}</h3>
+      <span class="tpl-en">${t.en}</span>
+      <p>${t.desc}</p>
+      <div class="tpl-specs">${t.resolution} · ${t.fps} fps · 样片约 ${t.duration}</div>
+      ${tplActions(t)}
     </div>
   </article>`;
 }
-function renderGrid() {
-  const list = tFiltered();
-  $("grid").innerHTML = list.map(cardHTML).join("");
-  const hasFilter = tState.aspect !== "all" || tState.type !== "all" || tState.q;
-  $("resultCount").textContent = hasFilter ? `筛选出 ${list.length} / ${TEMPLATES.length} 套模板` : `共 ${list.length} 套模板`;
-  $("empty").hidden = list.length > 0;
-}
-function renderCompare() {
-  $("compareBody").innerHTML = TEMPLATES.map((t) => {
-    const flag = t.aspect === "vertical" ? "v-flag" : "h-flag";
-    return `<tr>
-      <td class="tpl-name"><a href="${t.readme}">${t.nameZh}</a><small>${t.nameEn}</small></td>
-      <td class="${flag}">${t.ratio} ${t.aspect === "vertical" ? "竖" : "横"}</td>
-      <td>${t.res}<br><span class="spec-mini">${t.fps}</span></td>
-      <td>${t.duration}</td>
-      <td>${t.voice}</td>
-      <td class="spec-mini">${t.stack}</td>
-    </tr>`;
-  }).join("");
-}
-
-/* ===== 样片 / 成片灯箱 ===== */
-function openVideo(src, fallbackMsg) {
-  const v = $("lbVideo"), fb = $("lbFallback");
-  fb.hidden = true; fb.innerHTML = "";
-  v.hidden = false; v.src = src;
-  v.onerror = () => {
-    v.hidden = true;
-    fb.hidden = false;
-    fb.textContent = fallbackMsg || "视频加载失败（成片未生成或服务未连接）。";
-  };
-  v.onplay = () => { v.onerror = null; };
-  $("lightbox").hidden = false;
-  $("lightbox").setAttribute("aria-hidden", "false");
-  v.play().catch(() => {});
-}
-function closeLightbox() {
-  const v = $("lbVideo");
-  v.pause(); v.removeAttribute("src"); v.load();
-  $("lightbox").hidden = true;
-  $("lightbox").setAttribute("aria-hidden", "true");
-}
-
-/* ===== 任务看板（真实数据） ===== */
-let boardRecords = [];
-async function loadBoard() {
-  const box = $("boardState");
-  try {
-    const [stats, recs] = await Promise.all([api("/api/stats"), api("/api/records")]);
-    boardRecords = recs.records || [];
-    renderPills(stats);
-    renderGroups(boardRecords);
-    $("tasksNote").textContent = `数据来自任务服务 platform.db，更新于 ${fmtTime(recs.updated_at || stats.updated_at)}。`;
-    box.hidden = true;
-  } catch (e) {
-    $("bPills").innerHTML = ""; $("bGroups").innerHTML = "";
-    $("boardStateMsg").textContent = "任务服务未连接（127.0.0.1:8898），无法加载看板数据。请先启动任务服务。";
-    box.hidden = false;
-  }
-}
-function renderPills(stats) {
-  const by = stats.by_status || {};
-  const total = Object.values(by).reduce((a, b) => a + (b || 0), 0);
-  const pills = STATUS_ORDER.filter((k) => by[k]).map((k) =>
-    `<span class="b-pill"><i class="d ${STATUS[k].dot}"></i>${STATUS[k].cn}<b>${by[k]}</b></span>`
-  ).join("");
-  const plats = Object.entries(stats.by_platform || {}).map(([p, n]) =>
-    `<span class="b-pill">${esc(p)}<b>${n}</b></span>`
-  ).join("");
-  $("bPills").innerHTML = `<span class="b-pill">全部<b>${total}</b></span>${pills}${plats}` +
-    `<span class="b-upd">更新 ${fmtTime(stats.updated_at)}</span>`;
-}
-function taskCardHTML(r) {
-  const st = STATUS[r.status] || { cn: r.status || "未知", dot: "d-held" };
-  const topics = (r.topics || []).slice(0, 4).map((t) => `<span>${esc(t)}</span>`).join("");
-  const media = r.media ? `${esc(r.media.duration || "")} · ${esc(r.media.resolution || "")}` : "";
-  return `<article class="bcard" data-video="${esc(r.video_url || "")}">
-    <div class="bthumb"><img src="${esc(r.cover_url || "")}" alt="" loading="lazy" onerror="this.style.display='none'">
-      <span class="st ${esc(r.status || "")}"><i class="d ${st.dot}"></i>${st.cn}</span>
-      ${r.video_url ? `<span class="play">${svgPlay}播放成片</span>` : ""}
+/* 横屏模板：16:9 横卡（封面在左，信息在右） */
+function tplCardH(t){
+  return `<article class="card tpl-card-h">
+    <div class="tpl-cover-h">
+      <img src="${t.cover}" alt="${esc(t.name)}封面" loading="lazy">
+      <button class="sample-btn" data-sample="${t.id}"><svg viewBox="0 0 24 24">${ICONS.play}</svg>样片</button>
     </div>
-    <div class="bbody">
-      <h4>${esc(r.short_title || r.id)}</h4>
-      <p class="bmeta">${esc(r.collection || "")}${r.collection && r.template ? " · " : ""}${esc(r.template || "")}</p>
-      ${topics ? `<div class="btopics">${topics}</div>` : ""}
-      <div class="binfo"><span>${media || "—"}</span><span>${fmtTime(r.updated_at)}</span></div>
-      <p class="bpath" title="${esc(r.video || "")}">${esc(r.video || "")}</p>
+    <div class="tpl-info">
+      <div class="tpl-tags">${tplTags(t)}</div>
+      <h3>${t.name}</h3>
+      <span class="tpl-en">${t.en}</span>
+      <p>${t.desc}</p>
+      <div class="tpl-specs">${t.resolution} · ${t.fps} fps · 样片约 ${t.duration}</div>
+      ${tplActions(t)}
     </div>
   </article>`;
 }
-function renderGroups(records) {
-  const groups = {};
-  (records || []).forEach((r) => {
-    const day = (r.story_date || (r.created_at || "").slice(0, 10)) || "未排期";
-    (groups[day] = groups[day] || []).push(r);
-  });
-  const days = Object.keys(groups).sort().reverse();
-  $("bGroups").innerHTML = days.map((day) =>
-    `<div class="b-day"><div class="b-dayhead"><span class="d">${fmtDay(day)}</span>${relBadge(day)}<span class="n">${groups[day].length} 条</span></div><div class="b-cards">${groups[day].map(taskCardHTML).join("")}</div></div>`
-  ).join("") || '<div class="state-box"><p>暂无记录</p></div>';
+function filteredTemplates(shape){
+  let list=TEMPLATES.filter(t=>t.shape===shape);
+  if(state.tplType!=='all')list=list.filter(t=>t.type===state.tplType);
+  if(state.tplQ){const q=state.tplQ.toLowerCase();
+    list=list.filter(t=>t.name.toLowerCase().includes(q)||t.en.toLowerCase().includes(q)||t.type.includes(q));}
+  return list;
 }
-let qTimer = null;
-function onBoardSearch() {
-  clearTimeout(qTimer);
-  qTimer = setTimeout(() => {
-    const q = norm($("boardQ").value.trim());
-    const list = q
-      ? boardRecords.filter((r) =>
-          [r.short_title, r.id, r.template, r.collection, r.description, (r.topics || []).join(" ")]
-            .some((v) => norm(v).includes(q)))
-      : boardRecords;
-    renderGroups(list);
-  }, 250);
+function tplSectionHTML(shape){
+  const isV=shape==='9:16';
+  const list=filteredTemplates(shape);
+  if(!list.length)return '';
+  const label=isV?'竖屏模板':'横屏模板';
+  const sub=isV?'9:16 · 短视频平台竖屏信息流':'16:9 · 横屏栏目 / 视频号横版';
+  return `<section class="tpl-section ${isV?'sh-v':'sh-h'}" id="sec${isV?'V':'H'}">
+    <div class="section-head"><span class="sh-dot"></span><h2>${label}</h2><span class="sh-sub">${sub}</span><span class="sh-count">${list.length} 套</span></div>
+    <div class="${isV?'tpl-grid':'tpl-grid-h'}">${list.map(isV?tplCardV:tplCardH).join('')}</div>
+  </section>`;
+}
+function tplContentHTML(){
+  const sf=state.tplShape;
+  const v=sf==='16:9'?'':tplSectionHTML('9:16');
+  const h=sf==='9:16'?'':tplSectionHTML('16:9');
+  return (v+h)||'<div class="card" style="padding:48px;text-align:center;color:var(--slate-400);font-size:14px">没有匹配的模板，试试调整筛选条件。</div>';
+}
+function renderTemplates(){
+  const shapes=['all','9:16','16:9'];
+  const shapeLabels={all:'全部画幅','9:16':'竖屏 9:16','16:9':'横屏 16:9'};
+  const types=['all',...new Set(TEMPLATES.map(t=>t.type))];
+  return `
+  <div class="wrap">
+    <div class="filter-bar">
+      <div class="seg" role="tablist" aria-label="画幅筛选">
+        ${shapes.map(s=>`<button class="seg-btn ${state.tplShape===s?'active':''}" data-shape="${s}">${shapeLabels[s]}</button>`).join('')}
+      </div>
+      ${types.map(t=>`<button class="chip ${state.tplType===t?'active':''}" data-type="${t}">${t==='all'?'全部类型':t}</button>`).join('')}
+      <div class="search-box">
+        <svg viewBox="0 0 24 24">${ICONS.search}</svg>
+        <input id="tplSearch" placeholder="搜索模板名、用途、标签" value="${esc(state.tplQ)}">
+      </div>
+    </div>
+    <div id="tplContent">${tplContentHTML()}</div>
+    <div class="section-head"><h2>规格对比</h2><span class="sh-sub">各模板关键规格一览</span></div>
+    <div class="card" id="cmpTable">
+      <table class="cmp-table">
+        <thead><tr><th style="width:24%">模板</th><th style="width:12%">画幅</th><th style="width:18%">分辨率 / 帧率</th><th style="width:14%">样片时长</th><th style="width:16%">语音方式</th><th style="width:16%">技术栈</th></tr></thead>
+        <tbody>
+          ${TEMPLATES.map(t=>`<tr>
+            <td><a href="javascript:void(0)" data-sample="${t.id}">${t.name}</a><div class="mono">${t.en}</div></td>
+            <td><span class="mono">${t.shape}</span></td>
+            <td><span class="mono">${t.resolution} · ${t.fps} fps</span></td>
+            <td><span class="mono">约 ${t.duration}</span></td>
+            <td>${t.audio}</td>
+            <td><span class="mono">HyperFrames · GSAP · Python</span></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+    <div class="page-footer">
+      <div class="pf-row"><span class="tally"></span>一念成片 · 让创作回到一念之间</div>
+    </div>
+  </div>`;
 }
 
-/* ===== 自动发布 ===== */
-let publishPlatformDefault = "视频号";
-async function loadPublish() {
-  try {
-    const [stats, recs] = await Promise.all([api("/api/stats"), api("/api/records")]);
-    publishPlatformDefault = recs.platform_default || "视频号";
-    renderPlatforms(stats);
-    renderRecords(recs.records || []);
-    const published = (stats.by_status || {}).published;
-    $("pvPublished").textContent = published != null ? published : "—";
-    $("publishNote").textContent = `数据来自任务服务 platform.db，更新于 ${fmtTime(recs.updated_at || stats.updated_at)}。`;
-  } catch (e) {
-    $("platformRow").innerHTML = `<span class="plat-chip off"><i class="d"></i>任务服务未连接</span>`;
-    $("recordsBody").innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--faint);padding:26px">任务服务未连接（127.0.0.1:8899），发布记录暂不可用。</td></tr>`;
-    $("publishNote").textContent = "任务服务未连接，发布记录暂不可用。";
+/* ============================================================
+ * 视图：任务看板（成片发布看板）
+ * 定位：制作完成的成片统一在此管理——按状态 / 平台 / 关键词筛选，
+ *       按日期分组展示发布状态与制作流水，点封面在线播放成片。
+ * ============================================================ */
+function boardFiltered(){
+  const k=state.taskQ.trim().toLowerCase();
+  return boardItems().filter(r=>{
+    const visibleStatus=boardStatus(r);
+    const okS=state.taskStatus==='all'||visibleStatus===state.taskStatus;
+    const okP=state.taskPlatform==='all'||(r.platform||'未指定')===state.taskPlatform;
+    const okQ=!k||[r.id,r.project,r.short_title,r.description,(r.topics||[]).join(' '),r.collection,r.template,visibleStatus]
+      .join(' ').toLowerCase().includes(k);
+    return okS&&okP&&okQ;
+  });
+}
+function boardStatus(r){return ['published','platform_pending'].includes(r.status)?'published':'ready';}
+function boardItems(){return state.tasks.filter(r=>!['producing','production_failed'].includes(r.status)&&(r.video||r.cover));}
+function statusChips(){
+  const counts={ready:0,published:0};
+  boardItems().forEach(r=>{
+    counts[boardStatus(r)]++;
+  });
+  const chips=['ready','published'].filter(s=>counts[s]).map(s=>{
+    const m=STATUS_META[s]||{label:s,color:'#8C98AB'};
+    const on=state.taskStatus===s;
+    return `<button class="bchip ${on?'on':''}" data-bstatus="${s}" style="${on?`color:${m.color}`:''}">
+      <i></i><span class="bc-lbl">${m.label}</span><span class="bc-n">${counts[s]}</span></button>`;
+  }).join('');
+  return `<button class="bchip ${state.taskStatus==='all'?'on':''}" data-bstatus="all"><span class="bc-lbl">全部</span><span class="bc-n">${counts.ready+counts.published}</span></button>${chips}`;
+}
+function platformChips(){
+  const counts={};
+  boardItems().forEach(r=>{const p=r.platform||'未指定';counts[p]=(counts[p]||0)+1;});
+  const chips=Object.keys(counts).sort().map(p=>
+    `<button class="bchip ${state.taskPlatform===p?'on':''}" data-bplatform="${esc(p)}"><span class="bc-lbl">${esc(p)}</span><span class="bc-n">${counts[p]}</span></button>`).join('');
+  return `<button class="bchip ${state.taskPlatform==='all'?'on':''}" data-bplatform="all"><span class="bc-lbl">全部平台</span></button>${chips}`;
+}
+function boardToolbarHTML(){
+  return `<div class="board-toolbar" id="boardToolbar">
+    <div class="bf-row"><span class="bf-label">状态</span>${statusChips()}</div>
+    <div class="bf-row"><span class="bf-label">平台</span>${platformChips()}
+      <input id="boardSearch" type="search" placeholder="搜标题 / 工程 / 话题 / 记录 ID" value="${esc(state.taskQ)}" aria-label="搜索"></div>
+  </div>`;
+}
+function relDay(day){
+  const today=fmtDay(new Date());
+  if(day===today)return '今天';
+  const y=new Date(Date.now()-864e5);
+  if(day===fmtDay(y))return '昨天';
+  return '';
+}
+function bcard(r){
+  const shownStatus=boardStatus(r);
+  const st=STATUS_META[shownStatus]||{label:shownStatus,color:'#8C98AB',step:0};
+  const acc=st.color;
+  const platform=r.platform||'未指定';
+  const dur=r.media&&r.media.duration||'';
+  const specRes=r.media&&r.media.resolution||'';
+  const specSize=r.media&&r.media.size_mb!=null?`${Number(r.media.size_mb).toFixed(1)} MB`:'';
+  const len=r.short_title&&(r.platform_id==='wechat-channels'||r.platform==='视频号')?`${[...r.short_title].length}/16`:'';
+  const topics=(r.topics&&r.topics.length)?r.topics.map(t=>`<span class="b-tag">#${esc(t)}</span>`).join(''):'';
+  const rail=STATUS_STEPS.map((s,i)=>`<i class="${i<st.step?'on':''}${(st.alert&&i===st.step-1)?' now':''}"></i>`).join('');
+  const note=r.last_note?`<p class="b-note" data-desc title="点击展开">${esc(r.last_note)}</p>`:'';
+  const logRows=(r.log||[]).slice().reverse().map(l=>
+    `<tr><td>${esc(String(l.at||'').replace('T',' ').slice(0,16))}</td><td>${esc(EVENT_LABEL[l.event]||l.event||'')}</td><td>${esc(l.note||'')}</td></tr>`).join('');
+  const videoName=r.video?String(r.video).split('/').pop():'';
+  const day=(r.story_date||'').slice(0,10)||fmtDay(new Date(r.updated_at||r.created_at||Date.now()));
+  const dl=`
+    <dl class="b-dl">
+      <dt>资讯</dt><dd>${esc(day)}</dd>
+      <dt>登记</dt><dd>${fmtDateTime(r.created_at)||'—'}</dd>
+      <dt>核验</dt><dd>${fmtDateTime(r.updated_at)||'—'}</dd>
+      <dt>合集</dt><dd>${esc(r.collection||'—')}</dd>
+      <dt>模板</dt><dd>${esc(r.template||'—')}</dd>
+      ${videoName?`<dt>成片</dt><dd><a href="${esc(r.video_url||'#')}" download>${esc(videoName)}</a></dd>`:''}
+      <dt>工程</dt><dd>${esc(r.project||'—')}</dd>
+    </dl>`;
+  return `<article class="bcard ${st.alert?'alert':''}" data-status="${esc(r.status)}" data-platform="${esc(platform)}"
+    data-search="${esc([r.id,r.project,r.short_title,r.description,(r.topics||[]).join(' '),r.collection,r.template,platform,r.status].join(' ').toLowerCase())}"
+    style="--acc:${acc}">
+    <div class="b-rail" role="img" aria-label="流程 ${st.step}/${STATUS_STEPS.length} · 当前 ${st.label}">${rail}</div>
+    <div class="b-body">
+      <div class="b-row1">
+        <span class="b-pill">${st.label}</span>
+        <button class="b-status-toggle" data-status-task="${esc(r.id)}" data-next-status="${shownStatus==='published'?'ready':'published'}" ${r.status==='publishing'?'disabled':''}>改为${shownStatus==='published'?'待发布':'已发布'}</button>
+        <span class="b-plat">${esc(platform)}</span>
+        ${r.attempts>1?`<span>试 ${r.attempts} 次</span>`:''}
+        <span class="b-date">${esc(day)}</span>
+      </div>
+      <div class="b-title"><h4>${esc(r.short_title||r.project||'未命名任务')}</h4>${len?`<span class="b-len">${len}</span>`:''}</div>
+      ${r.description?`<p class="b-desc" data-desc title="点击展开">${esc(r.description)}</p>`:''}
+      ${topics?`<div class="b-tags">${topics}</div>`:''}
+      ${note}
+      <div class="b-meta">
+        <div class="b-shot" data-task="${esc(r.id)}">
+          ${r.cover_url?`<img src="${esc(r.cover_url)}" alt="封面" loading="lazy">`:''}
+          <span class="b-play"><span>▶</span></span>
+          ${dur?`<span class="b-dur">${esc(dur)}</span>`:''}
+        </div>
+        <div class="b-info">
+          ${dl}
+          <div class="b-specs">
+            ${dur?`<b>时长 ${esc(dur)}</b>`:''}${specRes?`<b>${esc(specRes)}</b>`:''}${specSize?`<b>${specSize}</b>`:''}
+          </div>
+        </div>
+      </div>
+      ${logRows?`<details class="b-log"><summary>流水 · <code>${esc(r.id)}</code></summary><table><tbody>${logRows}</tbody></table></details>`:''}
+    </div>
+  </article>`;
+}
+function boardResultsHTML(){
+  const list=boardFiltered();
+  if(state.apiError)return `<div class="b-empty">${esc(state.apiError)} · 请检查本地任务服务</div>`;
+  if(!list.length)return `<div class="b-empty">${state.tasks.length?'没有匹配的任务 · 换个筛选条件再试':'还没有任务 · 选择模板，把制作指令交给 AI，完成后成片会自动登记在这里'}</div>`;
+  const groups={};
+  list.forEach(r=>{
+    const day=(r.story_date||'').slice(0,10)||fmtDay(new Date(r.updated_at||r.created_at||Date.now()));
+    (groups[day]=groups[day]||[]).push(r);
+  });
+  return Object.keys(groups).sort((a,b)=>b.localeCompare(a)).map(day=>{
+    const rel=relDay(day);
+    return `<section class="bday">
+      <h2 class="bday-head"><span class="bd-date">${esc(day)}</span>${rel?`<span class="bd-rel">${rel}</span>`:''}<span class="bd-n">${groups[day].length} 条</span></h2>
+      <div class="bgrid">${groups[day].map(bcard).join('')}</div>
+    </section>`;
+  }).join('');
+}
+function boardHeaderRight(){
+  return `<button class="btn btn-primary" id="newTaskBtn"><svg viewBox="0 0 24 24">${ICONS.plus}</svg><span class="btn-label">新建任务</span></button>`;
+}
+function renderBoard(){
+  const upd=state.stats&&state.stats.updated_at?fmtDateTime(state.stats.updated_at):'';
+  const shown=boardFiltered().length;
+  const boardRecords=boardItems();
+  return `
+  <div class="wrap">
+    <div class="stat-grid">
+      <div class="stat-card"><div class="sc-label">待发布</div><div class="sc-num">${boardRecords.filter(r=>boardStatus(r)==='ready').length}</div></div>
+      <div class="stat-card"><div class="sc-label">已发布</div><div class="sc-num green">${boardRecords.filter(r=>boardStatus(r)==='published').length}</div></div>
+      <div class="stat-card"><div class="sc-label">成片总数</div><div class="sc-num" style="color:var(--paper-50)">${boardRecords.length}</div></div>
+      <div class="stat-card"><div class="sc-label">任务平台</div>
+        <div class="sc-platform">${esc(platformList().join('、'))||'—'}<span class="ok">${platformList().length?'已记录':'暂无'}</span></div></div>
+    </div>
+    ${boardToolbarHTML()}
+    <div id="boardResults">${boardResultsHTML()}</div>
+    <div class="page-footer">
+      <div class="pf-row"><span class="tally"></span>本地任务服务 · 每 15 秒同步状态</div>
+      <div>${upd?`数据更新于 ${upd} · `:''}显示 <span id="boardShown">${shown}</span> 条 · 点封面播放成片，点描述 / 备注展开全文</div>
+    </div>
+  </div>`;
+}
+function refreshBoard(){
+  const tb=document.getElementById('boardToolbar');
+  if(tb)tb.innerHTML=boardToolbarHTML();
+  const br=document.getElementById('boardResults');
+  if(br)br.innerHTML=boardResultsHTML();
+  const sh=document.getElementById('boardShown');
+  if(sh)sh.textContent=boardFiltered().length;
+}
+
+/* ============================================================
+ * 视图：发布 Skill
+ * ============================================================ */
+function renderPublish(){
+  const recs=state.tasks.slice().sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||'')));
+  const upd=state.stats&&state.stats.updated_at?fmtDateTime(state.stats.updated_at):'';
+  return `
+  <div class="wrap">
+    <section class="value-panel">
+      <h3>这个发布 Skill 替你省掉什么</h3>
+      <p class="vp-lede">发布不再是「打开网页 → 手填字段 → 守到成功」的重复劳动。一次接入，之后每条成片自动完成上传、字段落定、定时发表与状态核验，你只需要确认选题与排期。</p>
+      <div class="vp-grid">
+        <div class="vp-card">
+          <div class="vp-num">${cnt('published')}</div>
+          <div class="vp-num-label">已自动发布成片</div>
+        </div>
+        <div class="vp-card">
+          <h4>定时自动发表</h4>
+          <p>按排期自动上传发表，无需守在电脑前；由 AI 按 Skill 执行排期并核验。</p>
+        </div>
+        <div class="vp-card">
+          <h4>字段一次落定</h4>
+          <p>短标题（16 字限制）、合集归属、原创声明、完整封面自动处理，不发半套字段。</p>
+        </div>
+        <div class="vp-card">
+          <h4>状态自动核验</h4>
+          <p>发布后回读列表核验，审核中不误判为已发布；失败与异常回流看板，提交结果不明时先核验。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="skill-card">
+      <div class="skill-head">
+        <span class="tag tag-green mono">视频号</span>
+        <span class="skill-id">publish-wechat-channels</span>
+        <span class="tag tag-blue" style="margin-left:auto">已上线</span>
+        <span class="skill-desc">把本地仓库成片自动发布到微信视频号：上传 / 发表 / 草稿 / 定时 / 状态回读。</span>
+      </div>
+      <div class="skill-body">
+        <div class="skill-col">
+          <h5>能力清单</h5>
+          <ul>
+            <li>成片自动上传（真实 Chrome + CDP 接管，需在专用窗口完成登录）</li>
+            <li>完整封面显式上传，避免使用未完成动画的首帧</li>
+            <li>短标题 / 描述 / 话题 / 合集 / 原创声明 / 位置一次落定</li>
+            <li>按 Skill 填写定时，并回读平台排期结果</li>
+            <li>发布状态回读核验（<code>published</code> / <code>platform_pending</code> / <code>needs_human</code>）</li>
+          </ul>
+        </div>
+        <div class="skill-col">
+          <h5>关键规则</h5>
+          <ul>
+            <li>单线操作：同一时刻只跑一个发布会话，不与定时任务抢页面</li>
+            <li>原创声明按用户配置与素材权利设置，不沿用示例账号规则</li>
+            <li>目标账号与合集读取本机配置，提交前核对当前登录账号</li>
+            <li>状态回写 <code>productions/state/tasks.db</code>，任务看板实时可见</li>
+          </ul>
+        </div>
+      </div>
+      <div class="skill-foot">Skill 源码（随本项目）：skills/publish-wechat-channels/</div>
+    </section>
+
+    <div class="rule-grid">
+      <div class="card rule-card">
+        <div class="rc-icon"><svg viewBox="0 0 24 24">${ICONS.folder}</svg></div>
+        <div><h4>产出目录固定</h4>
+          <p>制作完成的成片统一存入 <code>productions/projects/&lt;工程&gt;/deliver/</code>，不散落其他位置。</p></div>
+      </div>
+      <div class="card rule-card">
+        <div class="rc-icon"><svg viewBox="0 0 24 24">${ICONS.lock}</svg></div>
+        <div><h4>模板源码只读</h4>
+          <p>制作过程中不得修改模板源码；确有特殊需求时，先复制工程到产出目录再调整。</p></div>
+      </div>
+    </div>
+
+    <div class="section-head"><h2>平台接入</h2></div>
+    <div class="platform-row">
+      <span class="tag tag-green mono" style="font-size:12px;padding:6px 14px">视频号 · ${platformList().includes('视频号')?(state.stats.by_platform['视频号']):0} 条</span>
+    </div>
+
+    <div class="section-head"><h2>发布记录</h2><span class="sh-sub">${upd?`数据来自任务服务，更新于 ${upd}`:''}</span></div>
+    <div class="card" style="overflow:hidden">
+      <table class="rec-table">
+        <thead><tr><th style="width:26%">任务</th><th style="width:10%">平台</th><th style="width:16%">更新时间</th><th style="width:12%">状态</th><th style="width:9%">时长</th><th>备注</th></tr></thead>
+        <tbody>
+          ${recs.slice(0,14).map(r=>{
+            const st=STATUS[r.status]||{label:r.status};
+            const cls=r.status==='published'?'tag-green':(r.status==='platform_pending'||r.status==='needs_human'||r.status==='held')?'tag-amber':'tag-slate';
+            const note=r.status==='published'
+              ? (r.last_note||'平台已发布，状态已回读')
+              : (r.last_note||'等待 AI 根据任务状态继续处理');
+            return `<tr>
+              <td>${esc(r.short_title||r.project||'—')}<div class="mono">${esc(r.project||'')}</div></td>
+              <td><span class="tag mono tag-green">${esc(r.platform||'未指定')}</span></td>
+              <td><span class="mono">${fmtDateTime(r.updated_at)}</span></td>
+              <td><span class="tag ${cls}">${esc(st.label)}</span></td>
+              <td><span class="mono">${r.media&&r.media.duration?fmtDur(r.media.duration):'—'}</span></td>
+              <td><div class="note">${esc(note)}</div></td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+
+    <section class="coming-panel">
+      <h4>更多 Skill 正在开发中</h4>
+      <p>每个平台一套独立 Skill，能力与视频号对齐：上传、定时、原创声明与状态核验。</p>
+      <div class="coming-chips">
+        <span class="tag tag-green mono">视频号 · 已上线</span>
+        <span class="tag tag-slate mono">小红书 · 开发中</span>
+        <span class="tag tag-slate mono">抖音 · 开发中</span>
+        <span class="tag tag-slate mono">更多平台 · 规划中</span>
+      </div>
+    </section>
+  </div>`;
+}
+
+/* ============================================================
+ * 视图：数字员工
+ * ============================================================ */
+function renderEmployees(){
+  const total=state.tasks.length;
+  const roster=[
+    {icon:ICONS.video,name:'制作员',sub:'选题 · 拍摄 · 剪辑',
+      stat:[{num:cnt('producing'),label:'制作中',cls:''},{num:cnt('ready'),label:'待发布',cls:''}],
+      duties:['按模板采集与整理素材','自动拍摄、生成镜头','渲染导出竖屏成片']},
+    {icon:ICONS.check,name:'质检员',sub:'完整性 · 问题门',
+      stat:[{num:cnt('platform_pending'),label:'审核 / 待处理',cls:'amber'},{num:cnt('published'),label:'累计通过',cls:'green'}],
+      duties:['检查画面、音轨与完整封面','记录检查结果和失败原因','合格成片登记为待发布']},
+    {icon:ICONS.send,name:'发布员',sub:'上传 · 排期 · 回读',
+      stat:[{num:cnt('published'),label:'已发布',cls:'green'},{num:total,label:'本批任务',cls:''}],
+      duties:['成片自动上传平台','定时排期与封面字段落定','发布状态回读看板']},
+    {icon:ICONS.clock,name:'核验员',sub:'状态回查 · 中断恢复',
+      stat:[{num:cnt('needs_human'),label:'需人工介入',cls:'amber'},{num:cnt('scheduled'),label:'已排期',cls:''}],
+      duties:['按要求回查平台状态','提交结果不明时先查证','记录证据再恢复中断任务']},
+  ];
+  return `
+  <div class="wrap">
+    <div class="section-head"><h2>数字员工岗位</h2><span class="sh-sub">四个流程角色，由当前 AI 按需执行</span></div>
+    <div class="emp-grid">
+      ${roster.map(e=>`
+        <article class="card emp-card">
+          <div class="emp-top">
+            <div class="emp-avatar"><svg viewBox="0 0 24 24">${e.icon}</svg></div>
+            <div>
+              <div class="emp-name">${e.name} · 数字员工</div>
+              <div class="emp-status"><span class="tally"></span>流程 · ${e.sub}</div>
+            </div>
+          </div>
+          <div class="emp-stat">
+            ${e.stat.map(s=>`<div class="es-item">
+              <div class="es-num ${s.cls}">${s.num}</div>
+              <div class="es-label">${s.label}</div></div>`).join('')}
+          </div>
+          <ul class="emp-duties">${e.duties.map(d=>`<li>${d}</li>`).join('')}</ul>
+        </article>`).join('')}
+    </div>
+
+    <section class="sop-panel">
+      <h3>标准作业流程 SOP</h3>
+      <p class="sop-lede">从选模板到已接入的平台发布，由当前 AI 按 SOP 执行；持续值守需在 AI 运行器中另行配置调度。</p>
+      <div class="flow-grid">
+        <div class="flow-step"><span class="fs-num">01</span><h4>选一个模板</h4><p>选中即可复刻同款视频</p></div>
+        <div class="flow-step"><span class="fs-num">02</span><h4>数字员工在岗制作</h4><p>检查已有环境，按模板制作</p></div>
+        <div class="flow-step"><span class="fs-num">03</span><h4>看板统一管理</h4><p>成片集中归档，随时查看</p></div>
+        <div class="flow-step"><span class="fs-num">04</span><h4>自动发布到平台</h4><p>按已接入的平台 Skill 执行</p></div>
+      </div>
+    </section>
+
+    <div class="section-head"><h2>数字员工能力清单</h2></div>
+    <div class="ability-grid">
+      <div class="ability-card"><h4>自动拍摄流程</h4><p>按模板 SOP 自动完成镜头编排、画面切换与竖屏拍摄，无需人工值守。</p></div>
+      <div class="ability-card"><h4>自动写口播稿</h4><p>按选题与素材生成口播稿，配合指定音色生成旁白，时长自动对齐。</p></div>
+      <div class="ability-card"><h4>自动剪辑成片</h4><p>字幕、配乐、转场、片尾与水印按规范自动合成，输出 1080×1920 成片。</p></div>
+      <div class="ability-card"><h4>成片检查与异常记录</h4><p>检查视频、音轨和封面，失败记录原因；发布结果不明时先核验再恢复。</p></div>
+      <div class="ability-card"><h4>自动定时发布</h4><p>按排期自动上传发表，原创声明、合集与字段一次落定。</p></div>
+      <div class="ability-card"><h4>状态自动回流</h4><p>发布结果回读核验并写入平台库，看板实时展示，不做假成功。</p></div>
+    </div>
+
+    <div class="page-footer">
+      <div class="pf-row"><span class="tally"></span>AI 工作流 · 制作、检查、发布、核验</div>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+ * 渲染调度
+ * ============================================================ */
+const VIEW_META={
+  home:{title:'首页',render:renderHome},
+  templates:{title:'模板总览',render:renderTemplates},
+  tasks:{title:'任务看板',render:renderTasksView},
+  publish:{title:'发布 Skill',render:renderPublish},
+  employees:{title:'数字员工',render:renderEmployees},
+};
+function renderTasksView(){return renderBoard();}
+function renderHeader(){
+  const meta=VIEW_META[state.view];
+  document.getElementById('vhTitle').textContent=meta.title;
+  tickClock();
+  document.getElementById('vhRight').innerHTML=state.view==='tasks'?boardHeaderRight():'';
+}
+/* 顶部实时时钟（当前日期时间） */
+function fmtNow(){
+  const d=new Date();
+  return `${d.getFullYear()}.${pad(d.getMonth()+1)}.${pad(d.getDate())} · ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+function tickClock(){
+  document.getElementById('vhDate').textContent=fmtNow();
+}
+setInterval(tickClock,10000); // 每 10 秒校准一次
+function renderAll(){
+  renderNav(); renderHeader();
+  document.getElementById('viewBody').innerHTML=VIEW_META[state.view].render();
+}
+
+/* ---------- 移动端抽屉 ---------- */
+function closeDrawer(){
+  document.getElementById('app').classList.remove('nav-open');
+  document.getElementById('navBackdrop').classList.remove('open');
+}
+function openDrawer(){
+  document.getElementById('app').classList.add('nav-open');
+  document.getElementById('navBackdrop').classList.add('open');
+}
+
+/* ---------- 新建任务弹窗 ---------- */
+function renderModalList(){
+  document.getElementById('modalList').innerHTML=TEMPLATES.map(t=>
+    `<div class="modal-row">
+      <div class="mr-thumb"><img src="${t.cover}" alt=""></div>
+      <div class="mr-name">${t.name}<span class="mr-en">${t.en}</span></div>
+      <button class="btn btn-primary btn-sm" data-modal-pick="${t.id}">选择</button>
+    </div>`).join('');
+}
+function openModal(){document.getElementById('taskPromptBox').hidden=true;renderModalList();document.getElementById('newTaskModal').classList.add('open');}
+function closeModal(){document.getElementById('newTaskModal').classList.remove('open');}
+
+/* ---------- 路由 ---------- */
+function go(view){
+  if(!VIEW_META[view])view='home';
+  state.view=view;
+  if(location.hash!=='#/'+view)location.hash='#/'+view;
+  renderAll();
+  document.getElementById('viewBody').scrollTop=0;
+  closeDrawer();
+}
+function route(){
+  const r=location.hash.replace(/^#\/?/,'')||'home';
+  state.view=VIEW_META[r]?r:'home';
+  renderAll();
+}
+
+/* ---------- 事件绑定：视图内容（挂在持久容器 #viewBody） ---------- */
+document.getElementById('viewBody').addEventListener('click',e=>{
+  const t=e.target.closest('[data-go],[data-shape],[data-type],[data-confirm],[data-sample],[data-task],[data-scroll],[data-bstatus],[data-bplatform],[data-desc],[data-status-task]');
+  if(!t)return;
+  if(t.dataset.statusTask){
+    setManualBoardStatus(t);return;
   }
-}
-function renderPlatforms(stats) {
-  const by = stats.by_platform || {};
-  const keys = Object.keys(by);
-  $("platformRow").innerHTML = keys.length
-    ? keys.map((p) => `<span class="plat-chip on"><i class="d"></i>${esc(p)} · ${by[p]} 条</span>`).join("")
-    : `<span class="plat-chip off"><i class="d"></i>暂无平台数据</span>`;
-}
-function renderRecords(records) {
-  const list = (records || []).slice()
-    .sort((a, b) => String(b.updated_at || "").localeCompare(String(a.updated_at || "")))
-    .slice(0, 14);
-  $("recordsBody").innerHTML = list.map((r) => {
-    const st = STATUS[r.status] || { cn: r.status || "未知" };
-    const cls = r.status === "published" ? "ok" : ((r.status === "failed" || r.status === "needs_human") ? "warn" : "muted");
-    const note = (r.last_note || "").replace(/\s+/g, " ").slice(0, 46);
-    return `<tr>
-      <td class="rec-task">${esc(r.short_title || r.id)}</td>
-      <td>${esc(publishPlatformDefault)}</td>
-      <td>${fmtTime(r.updated_at)}</td>
-      <td><span class="st-tag ${cls}">${st.cn}</span></td>
-      <td>${r.media ? esc(r.media.duration || "—") : "—"}</td>
-      <td class="spec-mini">${note ? esc(note) + "…" : "—"}</td>
-    </tr>`;
-  }).join("") || `<tr><td colspan="6" style="text-align:center;color:var(--faint);padding:26px">暂无记录</td></tr>`;
-}
-
-/* ===== 事件绑定 ===== */
-function bindEvents() {
-  $("aspectChips").addEventListener("click", (e) => {
-    const c = e.target.closest(".chip"); if (!c) return;
-    tState.aspect = c.dataset.v; renderAspectChips(); renderGrid();
-  });
-  $("typeChips").addEventListener("click", (e) => {
-    const c = e.target.closest(".chip"); if (!c) return;
-    tState.type = c.dataset.v; renderTypeChips(); renderGrid();
-  });
-  $("searchInput").addEventListener("input", (e) => { tState.q = e.target.value.trim(); renderGrid(); });
-  $("resetBtn").addEventListener("click", () => {
-    tState.aspect = "all"; tState.type = "all"; tState.q = "";
-    $("searchInput").value = ""; renderAspectChips(); renderTypeChips(); renderGrid();
-  });
-  $("grid").addEventListener("click", (e) => {
-    const badge = e.target.closest("[data-sample]");
-    const link = e.target.closest("[data-sample-link]");
-    if (badge || link) {
-      e.preventDefault();
-      const id = (badge || link).dataset.sample || (badge || link).dataset.sampleLink;
-      const t = TEMPLATES.find((x) => x.id === id);
-      if (t) openVideo(t.sample, "样片加载失败（Git LFS 未检出或文件缺失）。");
+  if(t.dataset.go){go(t.dataset.go);return;}
+  if(t.dataset.shape){state.tplShape=t.dataset.shape;renderAll();return;}
+  if(t.dataset.type){state.tplType=t.dataset.type;renderAll();return;}
+  if(t.dataset.bstatus){state.taskStatus=t.dataset.bstatus;refreshBoard();return;}
+  if(t.dataset.bplatform){state.taskPlatform=t.dataset.bplatform;refreshBoard();return;}
+  if(t.dataset.desc!==undefined){t.classList.toggle('open');return;}
+  if(t.dataset.confirm){
+    toast('请告诉 AI：把任务看板中的待发布视频发布到指定平台');
+    e.stopPropagation();return;
+  }
+  if(t.dataset.sample){
+    const tpl=TEMPLATES.find(x=>x.id===t.dataset.sample);
+    if(tpl){
+      openLightbox(`<video src="${tpl.sample}" controls autoplay muted playsinline></video>`,
+        `${tpl.name} · 样片（演示静音）`);
     }
-  });
-  $("boardQ").addEventListener("input", onBoardSearch);
-  $("boardRetry").addEventListener("click", loadBoard);
-  $("bGroups").addEventListener("click", (e) => {
-    const card = e.target.closest(".bcard");
-    if (card && card.dataset.video) openVideo(card.dataset.video, "成片加载失败（未生成或服务未连接）。");
-  });
-  $("lbClose").addEventListener("click", closeLightbox);
-  $("lightbox").addEventListener("click", (e) => { if (e.target === $("lightbox")) closeLightbox(); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("lightbox").hidden) closeLightbox(); });
+    return;
+  }
+  if(t.dataset.task){
+    const r=state.tasks.find(x=>String(x.id)===t.dataset.task);
+    if(r){
+      const st=STATUS_META[boardStatus(r)]||{label:boardStatus(r)};
+      const sub=`${st.label} · 更新于 ${fmtDateTime(r.updated_at)||'—'}`;
+      if(r.video_url){
+        openLightbox(`<video src="${r.video_url}" poster="${r.cover_url||''}" controls autoplay playsinline></video>`,
+          r.short_title||r.project||'', sub);
+      }else if(r.cover_url){
+        openLightbox(`<img src="${r.cover_url}" alt="">`,r.short_title||r.project||'', sub);
+      }else{
+        toast('成片尚未生成，请稍候');
+      }
+    }
+    return;
+  }
+  if(t.dataset.scroll){
+    const el=document.querySelector(t.dataset.scroll);
+    if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+    return;
+  }
+});
+
+async function setManualBoardStatus(button){
+  const id=button.dataset.statusTask;
+  const status=button.dataset.nextStatus;
+  button.disabled=true;
+  try{
+    const response=await fetch(`/api/records/${encodeURIComponent(id)}/status`,{
+      method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({status})
+    });
+    const result=await response.json();
+    if(!response.ok)throw new Error(result.error||'状态更新失败');
+    const index=state.tasks.findIndex(r=>String(r.id)===id);
+    if(index>=0)state.tasks[index]=result.record;
+    refreshBoard();
+    toast(status==='published'?'已标记为已发布':'已调整为待发布');
+    await load(false);
+  }catch(error){
+    toast(error.message||'状态更新失败');
+    button.disabled=false;
+  }
 }
 
-/* ===== 初始化 ===== */
-renderHomeFlow();
-renderAspectChips(); renderTypeChips(); renderGrid(); renderCompare();
-bindEvents();
-applyRoute();
+/* ---------- 事件绑定：新建任务弹窗列表 ---------- */
+document.getElementById('modalList').addEventListener('click',e=>{
+  const t=e.target.closest('[data-modal-pick]');
+  if(!t)return;
+  const tpl=TEMPLATES.find(x=>x.id===t.dataset.modalPick);
+  if(!tpl)return;
+  const brief=document.getElementById('newTaskBrief').value.trim()||'请先与我确定本期主题和内容';
+  document.getElementById('taskPrompt').value=`请先阅读本项目根目录 AGENTS.md。使用模板 ${tpl.id}（${tpl.name}）制作视频。内容：${brief}。先检查当前环境已有的 HyperFrames 与 TTS；在 productions/projects/ 下复制新工程，按模板说明制作和核验，成片与封面存到 deliver/，完成后用 scripts/unistudio.py ready 自动登记到任务看板。`;
+  document.getElementById('taskPromptBox').hidden=false;
+  document.getElementById('taskPrompt').scrollIntoView({block:'nearest'});
+});
+
+document.getElementById('copyTaskPrompt').addEventListener('click',async()=>{
+  const box=document.getElementById('taskPrompt');
+  try{await navigator.clipboard.writeText(box.value);toast('已复制，请交给当前 AI 执行');}
+  catch(e){box.focus();box.select();toast('请复制选中的制作指令，交给当前 AI');}
+});
+
+/* ---------- 事件绑定：侧边导航 + 看板顶部按钮（挂 document） ---------- */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-view],[id]');
+  if(!t)return;
+  if(t.id==='newTaskBtn'){openModal();return;}
+  if(t.dataset.view){go(t.dataset.view);return;}
+});
+document.addEventListener('input',e=>{
+  if(e.target.id==='boardSearch'){
+    state.taskQ=e.target.value;
+    const br=document.getElementById('boardResults');
+    if(br)br.innerHTML=boardResultsHTML();   // 输入框在 #boardToolbar 外，重渲染结果不丢焦点
+    const sh=document.getElementById('boardShown');
+    if(sh)sh.textContent=boardFiltered().length;
+    return;
+  }
+  if(e.target.id!=='tplSearch')return;
+  state.tplQ=e.target.value;
+  const box=document.getElementById('tplContent');
+  if(box)box.innerHTML=tplContentHTML(); // 输入框在 #tplContent 外，重渲染不丢焦点
+});
+/* 固定按钮 / 遮罩层 */
+document.getElementById('menuBtn').addEventListener('click',openDrawer);
+document.getElementById('navBackdrop').addEventListener('click',closeDrawer);
+document.getElementById('modalClose').addEventListener('click',closeModal);
+document.getElementById('newTaskModal').addEventListener('click',e=>{if(e.target.id==='newTaskModal')closeModal();});
+document.getElementById('lbClose').addEventListener('click',closeLightbox);
+document.getElementById('lightbox').addEventListener('click',e=>{if(e.target.id==='lightbox')closeLightbox();});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeLightbox();closeModal();closeDrawer();}
+});
+window.addEventListener('hashchange',route);
+
+/* ---------- 启动：加载真实数据后渲染 ---------- */
+async function load(refresh=false){
+  if(refresh&&document.activeElement&&/INPUT|TEXTAREA/.test(document.activeElement.tagName))return;
+  try{
+    const get=async url=>{const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);return r.json();};
+    const [st,rec]=await Promise.all([get('/api/stats'),get('/api/records')]);
+    if(!Array.isArray(rec.records)||!st.by_status)throw new Error('任务服务响应不完整');
+    const changed=JSON.stringify(state.tasks)!==JSON.stringify(rec.records)||state.apiError;
+    state.stats=st;state.tasks=rec.records;state.apiError='';
+    if(refresh&&!changed)return;
+  }catch(e){
+    state.apiError='暂时无法读取任务数据';
+    if(!refresh){state.stats=null;state.tasks=[];}
+  }
+  route();
+}
+load();
+setInterval(()=>load(true),15000);
+
+
+
+
 </script>
 </body>
 </html>

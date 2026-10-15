@@ -1,6 +1,6 @@
 {
-  "model": "",
-  "voice": "",
+  "model": "omnivoice",
+  "voice": "a1822192",
   "language": "zh",
   "speed": 1.0,
   "response_format": "wav",
