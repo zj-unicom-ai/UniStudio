@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>曜 YAO X1 Pro · 科技 Promo 竖屏样片</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700;900&display=block"
+      rel="stylesheet"
+    />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        margin: 0; width: 1080px; height: 1920px; overflow: hidden;
+        background: #0B0E13;
+        font-family: "Noto Sans SC", -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .clip { position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; overflow: hidden; }
+      .ground { position: absolute; inset: 0;
+        background: radial-gradient(130% 62% at 50% 104%, #141A22 0%, #0B0E13 62%); }
+      .pad { position: absolute; inset: 0; padding: 96px 88px 120px; display: flex; flex-direction: column; }
+      .spacer { flex: 1; }
+      .eyebrow { font-family: "JetBrains Mono", monospace; font-size: 26px; font-weight: 500;
+        letter-spacing: .2em; text-transform: uppercase; color: #9CC4FF;
+        display: flex; justify-content: space-between; gap: 16px; }
+      .eyebrow .r { color: #93A0AE; }
+      .title { font-weight: 900; letter-spacing: -.02em; line-height: 1.12; color: #F2F5F8; }
+      .body { font-weight: 400; color: #93A0AE; line-height: 1.6; }
+      .mono { font-family: "JetBrains Mono", monospace; letter-spacing: .14em; text-transform: uppercase; }
+      .warm { color: #E4B363; }
+      .cool { color: #9CC4FF; }
+      .hair { height: 2px; background: rgba(242,245,248,.14); width: 100%; }
+
+      /* 取景括号 */
+      .vf { position: absolute; inset: 172px 88px 216px; pointer-events: none; }
+      .vf i { position: absolute; width: 44px; height: 44px; border: 0 solid rgba(242,245,248,.55); }
+      .vf i.tl { top: 0; left: 0; border-top-width: 3px; border-left-width: 3px; }
+      .vf i.tr { top: 0; right: 0; border-top-width: 3px; border-right-width: 3px; }
+      .vf i.bl { bottom: 0; left: 0; border-bottom-width: 3px; border-left-width: 3px; }
+      .vf i.br { bottom: 0; right: 0; border-bottom-width: 3px; border-right-width: 3px; }
+
+      /* 掠光带 */
+      .band { position: absolute; top: -25%; bottom: -25%; width: 360px; left: -420px; pointer-events: none;
+        background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,.05) 30%, rgba(255,255,255,.20) 48%, rgba(255,255,255,.36) 52%, rgba(228,179,99,.22) 60%, transparent 82%); }
+
+      /* ---- C1 封面 ---- */
+      #c1 .imgwrap { position: absolute; inset: 0; }
+      #c1 .img { position: absolute; inset: 0; background: url('assets/hero.jpg') center/cover no-repeat; }
+      #c1 .scrim { position: absolute; inset: 0;
+        background: linear-gradient(180deg, rgba(11,14,19,.20) 0%, rgba(11,14,19,0) 34%, rgba(11,14,19,.55) 70%, rgba(11,14,19,.94) 100%); }
+      #c1 .title { font-size: 132px; }
+      #c1 .payoff { font-size: 46px; font-weight: 500; margin-top: 26px; }
+
+      /* ---- C2 卖点 ---- */
+      #c2 .panel { position: relative; height: 780px; margin: 40px -88px 0; overflow: hidden; }
+      #c2 .img { position: absolute; inset: 0; background: url('assets/macro.jpg') center/cover no-repeat; }
+      #c2 .panel::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 -70px 90px -40px #0B0E13; }
+      #c2 .title { font-size: 88px; margin-top: 56px; }
+      #c2 .body { font-size: 40px; margin-top: 26px; }
+      #c2 .chips { display: flex; gap: 18px; margin-top: 40px; }
+      #c2 .chips span { font-family: "JetBrains Mono", monospace; font-size: 26px; letter-spacing: .1em;
+        border: 1px solid rgba(77,141,255,.5); color: #9CC4FF; border-radius: 999px; padding: 12px 26px; }
+
+      /* ---- C3 规格 ---- */
+      #c3 .bluegrid { position: absolute; inset: 0; background-image:
+          linear-gradient(rgba(77,141,255,.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(77,141,255,.07) 1px, transparent 1px);
+        background-size: 88px 88px; }
+      #c3 .rows { display: flex; flex-direction: column; }
+      #c3 .row { display: flex; justify-content: space-between; align-items: baseline; padding: 30px 0;
+        border-bottom: 1px solid rgba(242,245,248,.12); }
+      #c3 .row .k { font-family: "JetBrains Mono", monospace; font-size: 28px; letter-spacing: .14em;
+        color: #93A0AE; text-transform: uppercase; }
+      #c3 .row .v { font-family: "Archivo", sans-serif; font-weight: 800; font-size: 66px; color: #F2F5F8; }
+      #c3 .row .v small { font-size: .5em; font-weight: 500; color: #93A0AE; margin-left: 8px; }
+      #c3 .bar { height: 6px; background: rgba(242,245,248,.10); margin-top: 14px; border-radius: 3px; overflow: hidden; }
+      #c3 .bar i { display: block; height: 100%; background: #4D8DFF; }
+
+      /* ---- C4 大数字 ---- */
+      #c4 .glow { position: absolute; width: 1400px; height: 1400px; left: -160px; top: 620px;
+        background: radial-gradient(closest-side, rgba(77,141,255,.20), transparent 70%); }
+      #c4 .big { font-family: "Archivo", sans-serif; font-weight: 800; font-size: 320px; line-height: .95;
+        letter-spacing: -.03em; color: #F2F5F8; }
+      #c4 .big em { font-style: normal; color: #4D8DFF; }
+      #c4 .cap { font-size: 52px; font-weight: 700; color: #F2F5F8; margin-top: 34px; }
+      #c4 .sub { font-size: 36px; color: #93A0AE; margin-top: 18px; line-height: 1.6; }
+
+      /* ---- C5 情绪 ---- */
+      #c5 { background: linear-gradient(180deg, #171310 0%, #0D0B09 70%); }
+      #c5 .glow { position: absolute; width: 1600px; height: 1600px; left: -260px; bottom: -640px;
+        background: radial-gradient(closest-side, rgba(228,179,99,.15), transparent 70%); }
+      #c5 .ghost { position: absolute; font-weight: 900; font-size: 620px; line-height: 1;
+        color: rgba(228,179,99,.07); right: -90px; top: 420px; }
+      #c5 .title { font-size: 104px; }
+      #c5 .body { font-size: 42px; margin-top: 34px; }
+      #c5 .fade { position: absolute; inset: 0; background: #000; }
+
+      /* ---- C6 CTA ---- */
+      #c6 .lock { display: flex; align-items: center; gap: 24px; }
+      #c6 .mark { width: 92px; height: 92px; border-radius: 24px;
+        background: linear-gradient(140deg, #4D8DFF 0%, #2B5FD6 60%, #E4B363 130%);
+        display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 46px; color: #0B0E13; }
+      #c6 .brand { font-weight: 900; font-size: 62px; letter-spacing: .02em; color: #F2F5F8; }
+      #c6 .title { font-size: 92px; margin-top: 40px; }
+      #c6 .pill { display: inline-flex; align-items: center; border-radius: 999px; padding: 26px 60px;
+        background: #E4B363; color: #1A1206; font-weight: 700; font-size: 46px; align-self: flex-start; }
+      #c6 .date { font-family: "JetBrains Mono", monospace; font-size: 28px; letter-spacing: .16em;
+        color: #93A0AE; margin-top: 34px; text-transform: uppercase; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="26.5" data-width="1080" data-height="1920">
+
+      <!-- C1 封面 0-3.5 -->
+      <div id="c1" class="clip" data-start="0" data-duration="3.5">
+        <div class="imgwrap"><div class="img"></div></div>
+        <div class="scrim"></div>
+        <div class="vf"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i></div>
+        <div class="band"></div>
+        <div class="pad">
+          <div class="eyebrow"><span>YAO / X1 PRO</span><span class="r">00:00</span></div>
+          <div class="spacer"></div>
+          <div class="title t1">把夜,</div>
+          <div class="title t2">拍成昼。</div>
+          <div class="payoff warm">暗光旗舰,今夜开启预约。</div>
+        </div>
+      </div>
+
+      <!-- C2 卖点 3.5-8 -->
+      <div id="c2" class="clip" data-start="3.5" data-duration="4.5">
+        <div class="ground"></div>
+        <div class="pad">
+          <div class="eyebrow"><span>OPTICS</span><span class="r">01</span></div>
+          <div class="panel"><div class="img"></div></div>
+          <div class="title cool">一英寸,<br />全像素对焦。</div>
+          <div class="body">大底进光 + 双核对焦,暗光成片率提升 3.2 倍。</div>
+          <div class="chips"><span>f/1.4</span><span>OIS</span><span>10-BIT</span></div>
+        </div>
+      </div>
+
+      <!-- C3 规格 8-13.5 -->
+      <div id="c3" class="clip" data-start="8" data-duration="5.5">
+        <div class="ground"></div>
+        <div class="bluegrid"></div>
+        <div class="pad">
+          <div class="eyebrow"><span>SPEC SHEET</span><span class="r">02</span></div>
+          <div class="spacer"></div>
+          <div class="rows">
+            <div class="row"><span class="k">Sensor</span><span class="v">1.0<small>inch</small></span></div>
+            <div class="bar"><i style="width:86%"></i></div>
+            <div class="row"><span class="k">Resolution</span><span class="v">200<small>MP</small></span></div>
+            <div class="bar"><i style="width:72%"></i></div>
+            <div class="row"><span class="k">Battery</span><span class="v">5400<small>mAh</small></span></div>
+            <div class="bar"><i style="width:64%"></i></div>
+            <div class="row"><span class="k">Charge</span><span class="v">120<small>W</small></span></div>
+            <div class="bar"><i style="width:90%"></i></div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+      </div>
+
+      <!-- C4 大数字 13.5-17 -->
+      <div id="c4" class="clip" data-start="13.5" data-duration="3.5">
+        <div class="ground"></div>
+        <div class="glow"></div>
+        <div class="pad">
+          <div class="eyebrow"><span>HEADLINE STAT</span><span class="r">03</span></div>
+          <div class="spacer"></div>
+          <div class="big">3.2<em>×</em></div>
+          <div class="cap">暗光成片率</div>
+          <div class="sub">对比上代,实验室实测。数字是唯一主角。</div>
+          <div class="spacer"></div>
+        </div>
+      </div>
+
+      <!-- C5 情绪 17-22 -->
+      <div id="c5" class="clip" data-start="17" data-duration="5">
+        <div class="glow"></div>
+        <div class="ghost">夜</div>
+        <div class="pad">
+          <div class="eyebrow"><span style="color:#F2D3A0">FOR THE NIGHT</span><span class="r">04</span></div>
+          <div class="spacer"></div>
+          <div class="title">给想留住的<br />那一晚。</div>
+          <div class="body">不是参数,是你按下快门时,身边人的脸。</div>
+          <div class="spacer"></div>
+          <div class="hair"></div>
+        </div>
+        <div class="fade"></div>
+      </div>
+
+      <!-- C6 CTA 22-26.5 -->
+      <div id="c6" class="clip" data-start="22" data-duration="4.5">
+        <div class="ground"></div>
+        <div class="band"></div>
+        <div class="pad">
+          <div class="lock"><span class="mark">曜</span><span class="brand">YAO</span></div>
+          <div class="spacer"></div>
+          <div class="title">曜 X1 Pro<br />现已开启预约</div>
+          <div class="spacer"></div>
+          <div class="pill">立即预约</div>
+          <div class="date">ON SALE 2026.10.24</div>
+        </div>
+      </div>
+
+      <!-- BGM · 电子氛围(Digital Clouds),根级音频轨,跨场景连续 -->
+      <audio
+        id="el-bgm"
+        src="assets/bgm.mp3"
+        data-start="0"
+        data-duration="26.5"
+        data-track-index="10"
+        data-volume="0.8"
+      ></audio>
+
+    </div>
+
+    <script>
+      (function () {
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        /* ---- C1 封面 (0-3.5) ---- */
+        tl.set("#c1 .band", { skewX: -18 }, 0);
+        tl.fromTo("#c1 .img", { scale: 1.0 }, { scale: 1.06, duration: 3.5, ease: "none" }, 0);
+        tl.fromTo("#c1 .eyebrow", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 0.2);
+        tl.fromTo("#c1 .vf i", { scale: 1.15, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "expo.out", stagger: 0.04 }, 0.15);
+        tl.fromTo("#c1 .t1", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "expo.out" }, 0.35);
+        tl.fromTo("#c1 .t2", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "expo.out" }, 0.5);
+        tl.fromTo("#c1 .payoff", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.95);
+        tl.fromTo("#c1 .band", { x: 0, opacity: 0 }, { x: 1500, opacity: 1, duration: 1.2, ease: "power2.inOut" }, 1.1);
+        tl.to("#c1 .band", { opacity: 0, duration: 0.2 }, 2.3);
+
+        /* ---- C2 卖点 (3.5-8) ---- */
+        tl.set("#c2 .panel", { transformPerspective: 1200, rotationY: -8 }, 3.5);
+        tl.fromTo("#c2 .panel", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 3.6);
+        tl.fromTo("#c2 .img", { scale: 1.0 }, { scale: 1.08, duration: 4.4, ease: "none" }, 3.5);
+        tl.fromTo("#c2 .title", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "expo.out" }, 4.1);
+        tl.fromTo("#c2 .body", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 4.35);
+        tl.fromTo("#c2 .chips span", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.6)", stagger: 0.08 }, 4.6);
+
+        /* ---- C3 规格 (8-13.5) ---- */
+        tl.fromTo("#c3 .eyebrow", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 8.15);
+        tl.fromTo("#c3 .row", { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, ease: "power3.out", stagger: 0.12 }, 8.3);
+        tl.fromTo("#c3 .bar i", { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.7, ease: "power3.out", stagger: 0.12 }, 8.5);
+
+        /* ---- C4 大数字 (13.5-17) ---- */
+        tl.fromTo("#c4 .big", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.9, ease: "expo.out" }, 13.7);
+        tl.fromTo("#c4 .cap", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 14.3);
+        tl.fromTo("#c4 .sub", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 14.5);
+
+        /* ---- C5 情绪 (17-22) ---- */
+        tl.fromTo("#c5 .fade", { opacity: 1 }, { opacity: 0, duration: 1.0, ease: "sine.inOut" }, 17.0);
+        tl.fromTo("#c5 .ghost", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 1.6, ease: "sine.out" }, 17.2);
+        tl.fromTo("#c5 .title", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: "sine.inOut" }, 17.4);
+        tl.fromTo("#c5 .body", { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "sine.inOut" }, 17.9);
+        tl.fromTo("#c5 .hair", { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.8, ease: "power2.out" }, 18.4);
+
+        /* ---- C6 CTA (22-26.5) ---- */
+        tl.set("#c6 .band", { skewX: -18 }, 22);
+        tl.fromTo("#c6 .lock", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.4)" }, 22.2);
+        tl.fromTo("#c6 .title", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "expo.out" }, 22.5);
+        tl.fromTo("#c6 .pill", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.4)" }, 23.0);
+        tl.fromTo("#c6 .band", { x: 0, opacity: 0 }, { x: 1500, opacity: 1, duration: 1.2, ease: "power2.inOut" }, 23.2);
+        tl.to("#c6 .band", { opacity: 0, duration: 0.2 }, 24.4);
+        tl.fromTo("#c6 .date", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 23.6);
+
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "tech-product-promo-vertical",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.138 preview",
+    "check": "npx --yes hyperframes@0.8.138 lint && npx --yes hyperframes@0.8.138 check",
+    "render": "npx --yes hyperframes@0.8.138 render"
+  },
+  "devDependencies": {
+    "@hyperframes/core": "0.8.138"
+  }
+}

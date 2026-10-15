@@ -15,10 +15,10 @@ from http.server import ThreadingHTTPServer
 from pathlib import Path
 from unittest.mock import patch
 
-from pipeline import tasks
-from pipeline import config
-from pipeline.environment import check_environment
-from pipeline.http import Handler
+from task_service import tasks
+from task_service import config
+from task_service.environment import check_environment
+from task_service.http import Handler
 from scripts import unistudio
 
 
@@ -52,11 +52,11 @@ class WorkflowTests(unittest.TestCase):
         (self.source / "renders").mkdir()
         (self.source / "renders/old.mp4").write_bytes(b"old")
         template = [{"id": "demo", "path": "templates/demo", "project_source": ".", "narration": False}]
-        for target, value in (("pipeline.config.ROOT", self.root), ("pipeline.tasks.ROOT", self.root),
-                              ("pipeline.tasks.PROJECTS", self.projects),
-                              ("pipeline.tasks.STATE", self.root / "productions/state"),
-                              ("pipeline.tasks.catalog", lambda: template),
-                              ("pipeline.http.ROOT", self.root), ("pipeline.http.PROJECTS", self.projects)):
+        for target, value in (("task_service.config.ROOT", self.root), ("task_service.tasks.ROOT", self.root),
+                              ("task_service.tasks.PROJECTS", self.projects),
+                              ("task_service.tasks.STATE", self.root / "productions/state"),
+                              ("task_service.tasks.catalog", lambda: template),
+                              ("task_service.http.ROOT", self.root), ("task_service.http.PROJECTS", self.projects)):
             mock = patch(target, value)
             mock.start()
             self.addCleanup(mock.stop)
@@ -230,7 +230,7 @@ class WorkflowTests(unittest.TestCase):
             self.assertFalse(report["ok"])
             self.assertIn("config", [c["name"] for c in report["checks"] if not c["ok"]])
         cfg = {"hyperframes_command": ["hyperframes"], "tts": {"base_url": "http://127.0.0.1:1", "model": "demo", "voice": "demo"}}
-        with patch("pipeline.environment.load_config", return_value=cfg), patch("pipeline.environment.subprocess.run") as run:
+        with patch("task_service.environment.load_config", return_value=cfg), patch("task_service.environment.subprocess.run") as run:
             run.return_value.stdout = "v22.0.0 hyperframes 0.8.158"
             report = check_environment()
         self.assertFalse(report["ok"])

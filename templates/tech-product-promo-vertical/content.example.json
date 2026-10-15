@@ -1,0 +1,41 @@
+{
+  "COOL": "#4D8DFF",
+  "WARM": "#E4B363",
+
+  "EYEBROW_BRAND": "YAO / X1 PRO",
+  "COVER_L1": "把夜,",
+  "COVER_L2": "拍成昼。",
+  "COVER_PAYOFF": "暗光旗舰,今夜开启预约。",
+
+  "F_EYEBROW": "OPTICS",
+  "F_TITLE": "一英寸,<br />全像素对焦。",
+  "F_BODY": "大底进光 + 双核对焦,暗光成片率提升 3.2 倍。",
+  "F_CHIP1": "f/1.4",
+  "F_CHIP2": "OIS",
+  "F_CHIP3": "10-BIT",
+
+  "S_EYEBROW": "SPEC SHEET",
+  "S1_KEY": "Sensor", "S1_VAL": "1.0", "S1_UNIT": "inch", "S1_W": "86%",
+  "S2_KEY": "Resolution", "S2_VAL": "200", "S2_UNIT": "MP", "S2_W": "72%",
+  "S3_KEY": "Battery", "S3_VAL": "5400", "S3_UNIT": "mAh", "S3_W": "64%",
+  "S4_KEY": "Charge", "S4_VAL": "120", "S4_UNIT": "W", "S4_W": "90%",
+
+  "ST_EYEBROW": "HEADLINE STAT",
+  "ST_NUM": "3.2",
+  "ST_UNIT": "×",
+  "ST_CAP": "暗光成片率",
+  "ST_SUB": "对比上代,实验室实测。数字是唯一主角。",
+
+  "E_EYEBROW": "FOR THE NIGHT",
+  "E_L1": "给想留住的",
+  "E_L2": "那一晚。",
+  "E_BODY": "不是参数,是你按下快门时,身边人的脸。",
+  "E_GHOST": "夜",
+
+  "BRAND_MARK": "曜",
+  "BRAND_LATIN": "YAO",
+  "C_L1": "曜 X1 Pro",
+  "C_L2": "现已开启预约",
+  "C_PILL": "立即预约",
+  "C_DATE": "ON SALE 2026.10.24"
+}

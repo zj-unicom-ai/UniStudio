@@ -2,6 +2,26 @@
   {
     "id": "ai-news-image-switch-brief-vertical",
     "name": "无旁白图片快报",
+    "description": {
+      "summary": "单条 AI 资讯图片快报：中央图片快速切换，使用 BGM，不含语音旁白。适合抖音、视频号、Shorts 等竖屏平台。",
+      "prerequisites": {
+        "runtime": ["Node.js 22+", "Python 3（标准库）"],
+        "tools": ["HyperFrames CLI 0.6.46", "FFmpeg/ffprobe", "Chromium"],
+        "tts_required": false,
+        "digital_human_required": false,
+        "network_required": true
+      },
+      "inputs": {
+        "content": "标题（≤12字）、副标题（≤16字）、摘要（1-3行，每行≤21字）",
+        "media": "4-8张图片（建议主体清晰、适合横向裁切）",
+        "audio": "BGM音频文件（随包提供，可替换）"
+      },
+      "outputs": {
+        "format": "MP4 1080×1920, 30fps, ~18秒",
+        "deliverables": ["视频MP4", "封面PNG", "播放页HTML"]
+      },
+      "notes": "图片动效由固定种子决定，重复构建顺序一致。替换BGM时需同步更新bgmDuration。"
+    },
     "path": "templates/ai-news-image-switch-brief-vertical",
     "aspect_ratio": "9:16",
     "narration": false,
@@ -18,6 +38,36 @@
     "skill": null,
     "project_source": ".",
     "notes": "读取 README.md、BRIEF.md、DESIGN.md；新工程使用用户配置的 TTS，音频落到 assets/audio/voiceover-female-news-fast.wav 后重算包络。"
+  },
+  {
+    "id": "tech-product-promo-vertical",
+    "name": "科技产品宣传｜竖屏 Promo",
+    "description": {
+      "summary": "六页科技产品发布短片：封面、卖点、参数、大数字、情绪场景和 CTA。9:16 竖屏，约 26.5 秒，使用 BGM，不含旁白。",
+      "prerequisites": {
+        "runtime": ["Node.js 22+", "Python 3（标准库）"],
+        "tools": ["HyperFrames CLI 0.8.138", "FFmpeg/ffprobe", "Chromium"],
+        "tts_required": false,
+        "digital_human_required": false,
+        "network_required": true
+      },
+      "inputs": {
+        "content": "品牌色、品牌名、主标题、1 个卖点、4 项规格、1 个核心数据、情绪文案和 CTA",
+        "media": "产品主图 assets/hero.jpg 与微距图 assets/macro.jpg；可替换随包虚构产品图",
+        "audio": "背景音乐 assets/bgm.mp3（随包 Mixkit 曲目，可替换）"
+      },
+      "outputs": {
+        "format": "MP4 1080×1920, 30fps, 26.5 秒",
+        "deliverables": ["视频 MP4", "完整封面 PNG"]
+      },
+      "notes": "样例品牌、参数、日期均为虚构内容；发布前替换并核对。GSAP 和字体从 CDN 加载，构建与渲染需要联网。"
+    },
+    "path": "templates/tech-product-promo-vertical",
+    "aspect_ratio": "9:16",
+    "narration": false,
+    "skill": "SKILL.md",
+    "project_source": ".",
+    "notes": "科技硬件、SaaS 与 AI 产品宣传；固定六页 26.5 秒结构，无旁白。按 USAGE.md 替换内容、图片和配乐。"
   },
   {
     "id": "ai-news-single-story-digital-presenter-vertical",

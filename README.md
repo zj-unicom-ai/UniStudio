@@ -27,7 +27,7 @@ python3 scripts/unistudio.py doctor
 python3 web/serve.py
 ```
 
-浏览器打开 [本地工作台](http://127.0.0.1:8610/)。**只需一个网页服务**，内置任务 API，首次启动自动创建空看板和 `productions/state/tasks.db`。`--no-open` 关闭自动打开，`--port` 换端口；无需旧的私有 pipeline 工程。
+浏览器打开 [本地工作台](http://127.0.0.1:8610/)。**只需一个网页服务**，内置任务 API，首次启动自动创建空看板和 `productions/state/tasks.db`。`--no-open` 关闭自动打开，`--port` 换端口；无需旧版任务服务目录。
 
 `hyperframes_command` 是当前环境可用的命令数组，例如 `["hyperframes"]` 或 `["npx", "--no-install", "hyperframes"]`。预检不会下载或安装 CLI。TTS 健康接口不是 `/health` 时改 `health_path`；密钥通过配置指定的环境变量传入，不写进仓库。`unistudio.local.json` 已被 Git 忽略。
 
@@ -43,7 +43,7 @@ python3 web/serve.py
 
 > 检查看板里平台审核中的视频，回读视频号状态并更新，别重复提交。
 
-网页“新建任务”也可以选择模板并复制制作指令。**网页负责浏览、预览和生成指令；AI 在当前会话执行制作与发布。** 网页不会自行启动 AI。需要全天无人值守时，在自己的 AI 运行器中另行配置定时调度和授权；仓库本身不启动定时任务。
+**网页负责浏览、预览和查看任务状态；AI 在当前会话执行制作与发布。** 网页不会自行启动 AI。需要全天无人值守时，在自己的 AI 运行器中另行配置定时调度和授权；仓库本身不启动定时任务。
 
 ## 视频模板
 
@@ -51,6 +51,7 @@ python3 web/serve.py
 | --- | --- | --- |
 | `ai-news-image-switch-brief-vertical` | 单条资讯图片快切，无旁白 | 9:16 |
 | `woshi-news-vertical` | 沃资讯日期版，配音与四图轮播 | 9:16 |
+| `tech-product-promo-vertical` | 科技产品宣传，六页固定结构、无旁白 | 9:16 |
 | `ai-news-single-story-digital-presenter-vertical` | 单条资讯数字人深度解读 | 9:16 |
 | `gangge-ai-international-vision` | 刚哥聊 AI，地球视觉与字幕 | 9:16 |
 | `ai-weekly-news-roundup-landscape` | 多条 AI 周报 | 16:9 |
@@ -77,13 +78,15 @@ AI 用 `new` 创建工程和任务，渲染检查后用 `ready` 登记成片；�
 
 完整命令、TTS 接法与恢复流程见 [AI 操作流程](docs/AI-WORKFLOW.md)，扩展平台见 [发布技能契约](docs/PUBLISHER-CONTRACT.md)。已有旧看板可按操作流程显式导入，旧数据不会自动改写。
 
+仓库版本号、变更记录与发版步骤见 [发版规范](docs/RELEASE.md) 和 [更新日志](CHANGELOG.md)。
+
 ## 目录
 
 ```text
 AGENTS.md                    # AI 执行入口
 config/unistudio.example.json # 本机配置示例
 scripts/unistudio.py          # 环境检查、工程、配音、任务与发布状态 CLI
-pipeline/                    # 可入库的任务服务源码（Python 标准库）
+task_service/                # 当前任务服务源码（Python 标准库）
 web/                         # 工作台页面与单入口服务
 templates/catalog.json       # 视频模板目录
 skills/publishers.json       # 实际可用的发布技能目录

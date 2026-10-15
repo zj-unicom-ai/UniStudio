@@ -4,7 +4,7 @@ import re
 from http.server import SimpleHTTPRequestHandler
 from urllib.parse import unquote, urlsplit
 
-from .config import PROJECTS, ROOT, catalog, publishers
+from .config import PROJECTS, ROOT, catalog_with_ages, publishers
 from .tasks import list_tasks, set_board_status, stats
 
 
@@ -41,7 +41,7 @@ class Handler(SimpleHTTPRequestHandler):
                 elif path == "/api/records":
                     payload = {"records": list_tasks()}
                 elif path == "/api/templates":
-                    payload = {"templates": catalog()}
+                    payload = {"templates": catalog_with_ages()}
                 elif path == "/api/publishers":
                     payload = {"publishers": publishers()}
                 elif path == "/api/health":

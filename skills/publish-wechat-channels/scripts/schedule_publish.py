@@ -8,8 +8,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
-from pipeline import tasks
-from pipeline.config import load_config
+from task_service import tasks
+from task_service.config import load_config
 
 
 def main():

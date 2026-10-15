@@ -42,6 +42,7 @@ python3 scripts/unistudio.py tts \
 | 模板 | 关键音频衔接 |
 | --- | --- |
 | 图片快报 | 不生成旁白，保留 BGM |
+| 科技产品 Promo | 不生成旁白，保留 BGM；替换示例品牌、参数与日期，并从成片截取完整封面 |
 | 沃资讯 | 新配音放 `assets/audio/voiceover-female-news-fast.wav`，运行 `scripts/build-envelope.py` 后 build |
 | 数字人资讯 | `assets/voice/<段落ID>.wav`，更新 voice-manifest 与 timing；新开场白须重新生成口型 |
 | 刚哥国际视野 | 按 voice-requests 分段写 `assets/voice-guobiao/`，更新 manifest/voice-mode，再 compose |
@@ -110,7 +111,7 @@ python3 scripts/unistudio.py reconcile --id task-实际ID \
 
 ## 7. 旧看板迁移与本地服务
 
-历史版本曾把服务代码和数据库一起放在被忽略的 `productions/pipeline/`。新源码不依赖它，也不自动修改其中的数据。如果存在旧 JSON 镜像，可显式导入：
+当前任务服务源码位于 `task_service/`，运行数据库位于 `productions/state/tasks.db`。历史版本把旧服务和运行数据放在被忽略的 `productions/pipeline/`；当前服务不依赖或自动修改该目录。如果存在旧 JSON 镜像，可显式导入：
 
 ```sh
 python3 scripts/unistudio.py import-legacy --source productions/pipeline/publish-queue.json
@@ -118,6 +119,6 @@ python3 scripts/unistudio.py import-legacy --source productions/pipeline/publish
 
 按 ID 幂等导入，不覆盖新库已有记录；原始数据不变，越界媒体路径不公开，进行中的旧会话转为需人工核验。旧库若比镜像新，先用旧工具导出最新镜像再导入。不要把运行数据提交到 Git。
 
-`python3 web/serve.py` 默认直接读取新库；为兼容已有服务，仍可显式使用 `--pipeline 127.0.0.1:8898` 代理旧服务。该模式网页显示旧上游，CLI 写新库；除迁移期间只读查看外不要混用，以免看板与操作数据源不同。
+`python3 web/serve.py` 默认直接读取新库；迁移期间如需浏览旧服务媒体，可用 `--legacy-upstream 127.0.0.1:8898` 代理旧服务（旧参数 `--pipeline` 仍作为兼容别名）。该模式网页显示旧上游，CLI 写新库；除迁移期间只读查看外不要混用，以免看板与操作数据源不同。
 
 API 只读：`GET /api/health`、`/api/templates`、`/api/publishers`、`/api/records`、`/api/stats`。领取令牌和本机配置不对网页暴露。`/projects/<工程>/deliver/<文件>` 支持视频 Range。所有写入走 CLI，不对网页暴露执行模型或发布外部内容的接口。

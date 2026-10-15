@@ -125,8 +125,6 @@ h1,h2,h3,h4{font-weight:700}
 }
 .vh-left{display:flex;align-items:center;gap:12px;min-width:0}
 .vh-title{font-size:22px;font-weight:700;white-space:nowrap}
-.vh-date{font-size:12px;color:var(--slate-400);white-space:nowrap}
-.vh-right{margin-left:auto;display:flex;align-items:center;gap:12px;flex-shrink:0}
 .menu-btn{display:none;width:38px;height:38px;align-items:center;justify-content:center;border:1px solid var(--ink-600);border-radius:var(--r-input)}
 .menu-btn svg{width:18px;height:18px;stroke:var(--paper-50);fill:none;stroke-width:1.75;stroke-linecap:round}
 .view-body{flex:1;overflow-y:auto;padding:26px 28px 40px}
@@ -262,26 +260,56 @@ h1,h2,h3,h4{font-weight:700}
 }
 .filter-bar .search-box input:focus{border-color:var(--blue)}
 .filter-bar .search-box svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--slate-400);fill:none;stroke-width:1.75}
-.tpl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:36px}
+.tpl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:36px}
 .tpl-card{overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s var(--ease)}
 .tpl-card:hover{border-color:var(--slate-400)}
 .tpl-cover{position:relative;aspect-ratio:9/16;overflow:hidden;background:var(--ink-800)}
 .tpl-cover img{width:100%;height:100%;object-fit:cover;display:block}
 .tpl-cover .sample-btn{
-  position:absolute;right:10px;bottom:10px;
-  display:inline-flex;align-items:center;gap:5px;
-  padding:5px 11px;border-radius:var(--r-label);
+  position:absolute;right:8px;bottom:8px;
+  display:inline-flex;align-items:center;gap:4px;
+  padding:4px 9px;border-radius:var(--r-label);
   background:rgba(11,15,20,.72);
   border:1px solid rgba(255,255,255,.15);
-  font-size:11px;font-weight:500;
+  font-size:10px;font-weight:500;
 }
-.tpl-cover .sample-btn svg{width:11px;height:11px;fill:currentColor;stroke:none}
-.tpl-info{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
-.tpl-tags{display:flex;flex-wrap:wrap;gap:5px}
-.tpl-info h3{font-size:15px}
-.tpl-info .tpl-en{font-family:"Space Grotesk",sans-serif;font-size:11px;color:var(--slate-500);margin-top:-4px}
-.tpl-info p{font-size:12px;line-height:1.7;color:var(--slate-400);flex:1}
-.tpl-specs{font-size:11px;color:var(--slate-400);font-family:"JetBrains Mono",monospace}
+.tpl-cover .sample-btn svg{width:10px;height:10px;fill:currentColor;stroke:none}
+.tpl-info{padding:10px 12px 12px;display:flex;flex-direction:column;gap:6px;flex:1}
+.tpl-tags{display:flex;flex-wrap:wrap;gap:4px}
+.tpl-info h3{font-size:14px}
+.tpl-info .tpl-en{font-family:"Space Grotesk",sans-serif;font-size:10px;color:var(--slate-500);margin-top:-3px}
+.tpl-info p{font-size:11px;line-height:1.6;color:var(--slate-400);flex:1}
+.tpl-specs{font-size:10px;color:var(--slate-400);font-family:"JetBrains Mono",monospace}
+/* 模板环境要求 */
+.tpl-env{margin:6px 0;padding:8px 10px;border:1px solid var(--ink-600);border-radius:8px;background:var(--ink-800)}
+.env-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--slate-500);margin-bottom:5px}
+.env-stack{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px}
+.stack-badge{font-size:9px;font-family:"JetBrains Mono",monospace;padding:2px 6px;border-radius:5px;background:var(--ink-700);color:var(--mist-300);border:1px solid var(--ink-600)}
+.env-flags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:3px}
+.env-flag{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:500}
+.env-need{background:rgba(59,91,255,0.15);color:#7B93FF;border:1px solid rgba(59,91,255,0.3)}
+.env-skip{background:rgba(100,116,139,0.1);color:var(--slate-500);border:1px solid rgba(100,116,139,0.2)}
+.env-note{font-size:10px;color:var(--slate-500);line-height:1.5;margin-top:4px}
+
+/* 模板说明弹窗 */
+.tpl-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:20px}
+.tpl-modal.active{display:flex}
+.tpl-modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px)}
+.tpl-modal-dialog{position:relative;width:min(680px,90vw);max-height:85vh;overflow-y:auto;background:var(--ink-900);border:1px solid var(--ink-600);border-radius:16px;padding:24px 28px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.tpl-modal-close{position:absolute;top:12px;right:14px;font-size:28px;line-height:1;border:none;background:transparent;color:var(--slate-400);cursor:pointer;padding:4px 8px;border-radius:6px;transition:color .15s}
+.tpl-modal-close:hover{color:var(--mist-200)}
+.tpl-modal-header h3{margin:0 0 4px;font-size:20px;color:var(--mist-200)}
+.tpl-modal-en{font-size:12px;color:var(--slate-500);font-family:"Space Grotesk",sans-serif}
+.tpl-modal-section{margin-top:18px;padding-top:14px;border-top:1px solid var(--ink-700)}
+.tpl-modal-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--slate-500);margin-bottom:8px}
+.tpl-modal-stack{display:flex;flex-wrap:wrap;gap:6px}
+.tpl-modal-flags{display:flex;flex-wrap:wrap;gap:6px}
+.tpl-modal-note{font-size:12px;color:var(--slate-400);line-height:1.7;padding:10px 12px;background:var(--ink-800);border-radius:8px;border-left:3px solid var(--blue)}
+.tpl-modal-list{margin:0;padding-left:18px;font-size:12px;color:var(--slate-400);line-height:1.8}
+.tpl-modal-list li{margin-bottom:4px}
+.tpl-modal-specs{font-size:12px;font-family:"JetBrains Mono",monospace;color:var(--mist-300);padding:8px 12px;background:var(--ink-800);border-radius:8px}
+.tpl-modal-deliverables{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.deliverable-tag{font-size:10px;padding:3px 8px;border-radius:5px;background:rgba(59,91,255,.15);color:#7B93FF;border:1px solid rgba(59,91,255,.3)}
 .tpl-actions{display:flex;gap:8px;flex-wrap:wrap}
 .tpl-actions .btn-sm{flex:1}
 
@@ -516,18 +544,7 @@ h1,h2,h3,h4{font-weight:700}
 .ability-card h4{font-size:13px;margin-bottom:6px}
 .ability-card p{font-size:12px;color:var(--slate-400);line-height:1.65}
 
-/* ============ 弹窗 / 灯箱 / Toast ============ */
-.modal-mask{position:fixed;inset:0;background:rgba(11,15,20,.72);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
-.modal-mask.open{display:flex}
-.modal{width:560px;max-width:100%;max-height:86vh;overflow-y:auto;background:var(--ink-800);border:1px solid var(--ink-600);border-radius:var(--r-panel);padding:26px 28px}
-.modal h3{font-size:17px;margin-bottom:8px}
-.modal .m-lede{font-size:12.5px;color:var(--slate-400);line-height:1.7;margin-bottom:18px}
-.modal-list{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
-.modal-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--ink-600);border-radius:var(--r-input);background:var(--ink-700)}
-.modal-row .mr-thumb{width:32px;aspect-ratio:9/16;border-radius:5px;overflow:hidden;background:var(--ink-900);flex-shrink:0}
-.modal-row .mr-thumb img{width:100%;height:100%;object-fit:cover}
-.modal-row .mr-name{font-size:13px;font-weight:500;flex:1;min-width:0}
-.modal-row .mr-name .mr-en{display:block;font-size:10px;color:var(--slate-500);font-family:"Space Grotesk",sans-serif}
+/* ============ 灯箱 / Toast ============ */
 .nav-backdrop{position:fixed;inset:0;background:rgba(11,15,20,.6);z-index:50;display:none}
 .nav-backdrop.open{display:block}
 .lightbox{position:fixed;inset:0;background:rgba(11,15,20,.92);display:none;align-items:center;justify-content:center;z-index:110;padding:24px}
@@ -569,12 +586,11 @@ h1,h2,h3,h4{font-weight:700}
   .menu-btn{display:flex}
   .view-header{padding:12px 16px;flex-wrap:wrap;gap:10px}
   .vh-left{flex-wrap:wrap;flex:1 1 100%}
-  .vh-date{display:block;flex-basis:calc(100% - 46px);margin-left:46px;white-space:nowrap}
   .view-body{padding:18px 16px 36px}
   .stat-grid{grid-template-columns:repeat(2,1fr)}
   .cap-grid{grid-template-columns:1fr}
   .flow-grid{grid-template-columns:repeat(2,1fr);gap:18px}
-  .tpl-grid{grid-template-columns:1fr 1fr}
+  .tpl-grid{grid-template-columns:repeat(2,1fr);gap:12px}
   .tpl-card-h{flex-direction:column;gap:0;padding:0}
   .tpl-card-h .tpl-cover-h{width:auto;margin:0;border-radius:0;border:none;border-bottom:1px solid var(--ink-600)}
   .tpl-card-h .tpl-info{padding:14px 16px 16px}
@@ -588,13 +604,11 @@ h1,h2,h3,h4{font-weight:700}
   .onair-247{font-size:54px}
 }
 @media (max-width:520px){
-  .tpl-grid{grid-template-columns:1fr}
+  .tpl-grid{grid-template-columns:1fr;gap:14px}
   .bgrid{grid-template-columns:1fr}
   .b-meta{grid-template-columns:76px 1fr}
   .flow-grid{grid-template-columns:1fr}
   .rec-table{display:block;overflow-x:auto;white-space:nowrap}
-  #newTaskBtn{padding:9px 11px}
-  #newTaskBtn .btn-label{display:none}
 }
 </style>
 </head>
@@ -631,24 +645,10 @@ h1,h2,h3,h4{font-weight:700}
           <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
         <h1 class="vh-title" id="vhTitle"></h1>
-        <span class="vh-date mono" id="vhDate"></span>
       </div>
-      <div class="vh-right" id="vhRight"></div>
     </header>
     <div class="view-body" id="viewBody"><!-- JS 渲染 --></div>
   </main>
-</div>
-
-<!-- 新建任务弹窗 -->
-<div class="modal-mask" id="newTaskModal">
-  <div class="modal">
-    <h3>新建任务 · 从模板开始</h3>
-    <p class="m-lede">填写内容并选择模板，复制制作指令交给当前 AI。AI 会检查环境、制作视频并登记到本地任务看板。</p>
-    <textarea id="newTaskBrief" rows="3" placeholder="本期要制作什么？可填写文案、主题或素材路径" style="width:100%;padding:12px;margin-bottom:12px;color:inherit;background:var(--ink-900);border:1px solid var(--ink-600);border-radius:8px"></textarea>
-    <div class="modal-list" id="modalList"></div>
-    <div id="taskPromptBox" hidden><textarea id="taskPrompt" rows="6" readonly aria-label="交给 AI 的制作指令" style="width:100%;padding:12px;color:inherit;background:var(--ink-900)"></textarea><button class="btn btn-primary btn-sm" id="copyTaskPrompt">复制制作指令</button></div>
-    <button class="btn btn-ghost btn-sm" id="modalClose">关闭</button>
-  </div>
 </div>
 
 <!-- 灯箱 -->
@@ -680,7 +680,6 @@ const ICONS = {
   check:'<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
   clock:'<circle cx="12" cy="12" r="8"/><path d="M12 7v5l3.5 2"/>',
   search:'<circle cx="11" cy="11" r="6.5"/><path d="m20 20-3.8-3.8"/>',
-  plus:'<path d="M12 5v14M5 12h14"/>',
   folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
   lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
   play:'<path d="M8 5.5v13l11-6.5z"/>',
@@ -693,43 +692,77 @@ const TEMPLATES = [
     cover:'../templates/ai-news-image-switch-brief-vertical/preview/cover.png',
     sample:'../templates/ai-news-image-switch-brief-vertical/preview/full-sample.mp4',
     resolution:'1080 × 1920', fps:30, duration:'18.3 秒',
-    desc:'全息背景、标题与摘要面板固定，中央画框在 4–8 张资讯图之间按节拍切换；只铺 BGM，不含旁白和音效，适合科普、视频号、Shorts 等竖屏平台快报。'},
+    desc:'全息背景、标题与摘要面板固定，中央画框在 4–8 张资讯图之间按节拍切换；只铺 BGM，不含旁白和音效，适合科普、视频号、Shorts 等竖屏平台快报。',
+    stack:['Node.js 22+','Python 3','HyperFrames 0.6.46','FFmpeg','Chromium'],
+    tts:false, digitalHuman:false, network:true,
+    envNote:'GSAP 从 CDN 加载，构建时需联网。无需 TTS 和数字人服务。'},
   {id:'woshi-news-vertical', name:'沃资讯｜单条快讯', en:'WoNews Daily Flash',
     shape:'9:16', type:'资讯快报', audio:'女播报 · 快节奏',
     cover:'../templates/woshi-news-vertical/preview/cover.png',
     sample:'../templates/woshi-news-vertical/preview/full-sample.mp4',
     resolution:'1080 × 1920', fps:30, duration:'约 43 秒',
-    desc:'深蓝光束竖屏快讯：栏目、日期、标题、四图轮播与语义摘要固定版式，内容数据集中在 data/episode.json，替换即可制作下一期；使用当前用户配置的播报音色，新内容需替换对应图片与配音。'},
+    desc:'深蓝光束竖屏快讯：栏目、日期、标题、四图轮播与语义摘要固定版式，内容数据集中在 data/episode.json，替换即可制作下一期；使用当前用户配置的播报音色，新内容需替换对应图片与配音。',
+    stack:['Node.js','Python 3','HyperFrames 0.8.158','FFmpeg','Chromium'],
+    tts:true, digitalHuman:false, network:true,
+    envNote:'首次 npx 下载 HyperFrames CLI。需配置 VoiceStudio 本地服务（localhost:3900）和 OmniVoice 引擎。'},
+  {id:'tech-product-promo-vertical', name:'科技产品宣传｜竖屏 Promo', en:'Tech Product Promo',
+    shape:'9:16', type:'产品宣传', audio:'无旁白 · BGM-only',
+    cover:'../templates/tech-product-promo-vertical/preview/cover.png',
+    sample:'../templates/tech-product-promo-vertical/preview/full-sample.mp4',
+    resolution:'1080 × 1920', fps:30, duration:'26.5 秒',
+    desc:'六页科技产品短片：封面、核心卖点、参数、大数字、情绪场景与行动号召。替换品牌文案、产品主图和微距图即可制作；样例品牌与参数均为虚构内容。',
+    stack:['Node.js 22+','Python 3','HyperFrames 0.8.138','FFmpeg','Chromium'],
+    tts:false, digitalHuman:false, network:true,
+    envNote:'GSAP 与字体从 CDN 加载，构建时需联网。模板本身无需 TTS 和数字人。',
+    inputs:{content:'品牌色、品牌名、主标题、1 个卖点、4 项规格、1 个核心数据、情绪文案和 CTA',
+      media:'产品主图 assets/hero.jpg 与微距图 assets/macro.jpg；可替换随包虚构产品图',
+      audio:'背景音乐 assets/bgm.mp3（随包 Mixkit 曲目，可替换）'},
+    outputs:{format:'MP4 1080×1920，30 fps，26.5 秒',deliverables:['视频 MP4','完整封面 PNG']}},
   {id:'ai-news-single-story-digital-presenter-vertical', name:'单条资讯数字人深度解读', en:'AI News Single-Story Digital Presenter',
     shape:'9:16', type:'深度解读', audio:'数字人口播 + 旁白',
     cover:'../templates/ai-news-single-story-digital-presenter-vertical/preview/cover.png',
     sample:'../templates/ai-news-single-story-digital-presenter-vertical/preview/full-sample.mp4',
     resolution:'1080 × 1920', fps:30, duration:'1 分 44 秒',
-    desc:'封面数字人开场白，正文分四段旁白与信息卡片，六秒定片尾；每页时长按旁白实测长度自动对齐。适合围绕单条热点深度展开的日更栏目。'},
+    desc:'封面数字人开场白，正文分四段旁白与信息卡片，六秒定片尾；每页时长按旁白实测长度自动对齐。适合围绕单条热点深度展开的日更栏目。',
+    stack:['Node.js 22+','Python 3','HyperFrames 0.8.140','FFmpeg','Chromium','MuseTalk v1.5'],
+    tts:true, digitalHuman:true, network:true,
+    envNote:'需 TTS 服务生成旁白 WAV。封面数字人口型需 MuseTalk v1.5（Python 3.10、CUDA 11.7），可替换随包样例口型视频。'},
   {id:'gangge-ai-international-vision', name:'刚哥聊 AI｜国际视野', en:'Gangge AI International Vision',
     shape:'9:16', type:'口播解读', audio:'口播旁白 · 示例静音音+音效',
     cover:'../templates/gangge-ai-international-vision/preview/cover.png',
     sample:'../templates/gangge-ai-international-vision/preview/full-sample.mp4',
     resolution:'1080 × 1920', fps:30, duration:'18.9 秒',
-    desc:'深蓝动态地球、自然标题进场、同步字幕与完整六秒品牌片尾随工程提供；替换标题、正文、来源和旁白即可持续产出系列视频，无需数字人或生成图片。'},
+    desc:'深蓝动态地球、自然标题进场、同步字幕与完整六秒品牌片尾随工程提供；替换标题、正文、来源和旁白即可持续产出系列视频，无需数字人或生成图片。',
+    stack:['Node.js 22+','Python 3','HyperFrames 0.8.133','FFmpeg','Chromium'],
+    tts:true, digitalHuman:false, network:true,
+    envNote:'需配置 TTS 服务（默认九边音色 a1822192）。样例 WAV 为静音占位，正式制作须生成真实旁白。'},
   {id:'ai-weekly-news-roundup-landscape', name:'AI 周见｜科技周报', en:'AI Weekly News Roundup',
     shape:'16:9', type:'科技周报', audio:'演示无声 · 正式配音',
     cover:'../templates/ai-weekly-news-roundup-landscape/preview/cover-h.png',
     sample:'../templates/ai-weekly-news-roundup-landscape/preview/full-sample.mp4',
     resolution:'1920 × 1080', fps:30, duration:'2 分 24 秒',
-    desc:'目录、资讯页、可选数据对比与三点拆解卡，结尾回顾；深蓝网格开场亮黄高亮。一期通常 3–10 条资讯，另一张竖版封面适合做合体封面实验。'},
+    desc:'目录、资讯页、可选数据对比与三点拆解卡，结尾回顾；深蓝网格开场亮黄高亮。一期通常 3–10 条资讯，另一张竖版封面适合做合体封面实验。',
+    stack:['Node.js','Python 3','HyperFrames 0.8.133','FFmpeg','Chromium'],
+    tts:false, digitalHuman:false, network:true,
+    envNote:'默认样片无旁白。可选：用户自备 WAV 旁白文件并运行 make_voice_manifest.py 测量时长。'},
   {id:'idea-explainer-landscape', name:'一念三千｜日常观念讲解', en:'Concept Explainer',
     shape:'16:9', type:'观念讲解', audio:'旁白配音 · 重配乐由服务与音色',
     cover:'../templates/idea-explainer-landscape/preview/cover.png',
     sample:'../templates/idea-explainer-landscape/preview/full-sample.mp4',
     resolution:'1920 × 1080', fps:30, duration:'12 分 55 秒',
-    desc:'从具体开场示例到生活场景、概念拆解、练习与回顾，51 段结构把抽象观念讲成可实践的方法；随包示例旁白与压缩样片均随包提供。'},
+    desc:'从具体开场示例到生活场景、概念拆解、练习与回顾，51 段结构把抽象观念讲成可实践的方法；随包示例旁白与压缩样片均随包提供。',
+    stack:['Node.js','Python 3（可选）','HyperFrames 0.8.145','FFmpeg','Chromium'],
+    tts:false, digitalHuman:false, network:true,
+    envNote:'随包已含示例旁白 WAV。可选：配置 VoiceStudio API 生成新旁白（需用户自备 endpoint 和授权音色）。'},
   {id:'guangying-dangshi-motion-lesson-landscape', name:'光影党史｜动态党课', en:'Party History Motion Lesson',
     shape:'16:9', type:'党史教育', audio:'旁白+原创配乐 · 示例声线非商用',
     cover:'../templates/guangying-dangshi-motion-lesson-landscape/preview/cover.png',
     sample:'../templates/guangying-dangshi-motion-lesson-landscape/preview/full-sample.mp4',
     resolution:'1920 × 1080', fps:25, duration:'12 分 10 秒',
-    desc:'代码动画讲党史的横屏长课：九章结构、约 130 镜头，画面为时间线、史料层次、组织关系等内容驱动的 SVG 图解并明确标注示意，不冒充历史影像；旁白字幕按 ASR 时码对齐，赤金墨黑档案米白视觉。替换脚本、配音与时码映射即可制作下一期。'},
+    desc:'代码动画讲党史的横屏长课：九章结构、约 130 镜头，画面为时间线、史料层次、组织关系等内容驱动的 SVG 图解并明确标注示意，不冒充历史影像；旁白字幕按 ASR 时码对齐，赤金墨黑档案米白视觉。替换脚本、配音与时码映射即可制作下一期。',
+    stack:['Node.js 22+','Python 3.10+','HyperFrames 0.8.152','FFmpeg','Chromium'],
+    tts:true, digitalHuman:false, network:true,
+    envNote:'需 TTS 生成旁白（示例声线 CC-BY-NC 仅限非商用）。全片使用内容驱动 SVG 场景，无需数字人。历史素材须单独授权。'},
 ];
 
 /* ---------- 状态体系 ---------- */
@@ -777,7 +810,7 @@ const EVENT_LABEL = {
 const state = {
   view:'home', tasks:[], stats:null, apiError:'',
   taskQ:'', taskStatus:'all', taskPlatform:'all',
-  tplShape:'all', tplType:'all', tplQ:'',
+  tplShape:'all', tplType:'all', tplQ:'', tplAdded:{},
 };
 
 /* ---------- 工具函数 ---------- */
@@ -796,10 +829,6 @@ function fmtDateTime(iso){
 function fmtTime(iso){
   const d=new Date(iso); if(isNaN(d))return '';
   return `${pad(d.getHours())}:${pad(d.getMinutes())}`;
-}
-function fmtHeaderDate(iso){
-  const d=new Date(iso); if(isNaN(d))return '';
-  return `${d.getFullYear()}.${pad(d.getMonth()+1)}.${pad(d.getDate())} · ${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 function fmtDay(d){return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;}
 const byStatus = ()=>(state.stats&&state.stats.by_status)||{};
@@ -839,9 +868,9 @@ function closeLightbox(){document.getElementById('lightbox').classList.remove('o
  * 视图：首页
  * ============================================================ */
 function renderHome(){
-  // 统计口径与任务看板一致：boardItems() + boardStatus()，platform_pending 归入已发布分组
+  // “待发布”只统计 ready；看板的“已发布”组同时包含 platform_pending。
   const boardRecords=boardItems();
-  const readyCnt=boardRecords.filter(r=>boardStatus(r)==='ready').length;
+  const readyCnt=state.tasks.filter(r=>r.status==='ready').length;
   const publishedCnt=boardRecords.filter(r=>boardStatus(r)==='published').length;
   const total=state.tasks.length;
   const tplCount=TEMPLATES.length;
@@ -866,7 +895,7 @@ function renderHome(){
           <div class="pipe-labels"><span>模板</span><span>制作</span><span>看板</span><span>发布</span></div>
           <div class="onair-footrow">
             <span class="mono">竖屏 9:16</span>
-            <span class="mono">1080×1920</span>
+            <span class="mono">横屏 16:9</span>
           </div>
         </div>
       </div>
@@ -874,47 +903,47 @@ function renderHome(){
 
     <div class="stat-grid">
       <div class="stat-card"><div class="sc-label">待发布</div><div class="sc-num amber">${readyCnt}</div></div>
-      <div class="stat-card"><div class="sc-label">已发布</div><div class="sc-num green">${publishedCnt}</div></div>
+      <div class="stat-card"><div class="sc-label">已发布 / 审核中</div><div class="sc-num green">${publishedCnt}</div></div>
       <div class="stat-card"><div class="sc-label">任务总数</div><div class="sc-num" style="color:var(--paper-50)">${total}</div></div>
       <div class="stat-card"><div class="sc-label">视频模板</div><div class="sc-num blue">${tplCount}<span class="sc-unit">套 · 竖屏 ${tplVertical} / 横屏 ${tplCount-tplVertical}</span></div></div>
     </div>
 
-    <div class="section-head"><h2>工作台三件套</h2><span class="sh-sub">从挑模板到自动发出去，一个工作台全走完</span></div>
+    <div class="section-head"><h2>工作台功能</h2><span class="sh-sub">模板浏览 · 成片登记 · 平台状态回读</span></div>
     <div class="cap-grid">
       <article class="card cap-card">
         <div class="cap-icon"><svg viewBox="0 0 24 24">${ICONS.templates}</svg></div>
         <h3>模板列表</h3>
-        <p>内置 ${TEMPLATES.length} 套基于 HyperFrames 的开源视频模板，竖屏横屏、资讯口播、观点解说、党史党课都有。挑一套，替换文案素材即可快速成片，不用从零开始。</p>
+        <p>内置 ${TEMPLATES.length} 套基于 HyperFrames 构建的视频模板，涵盖竖屏、横屏、资讯、观点解说和党史党课。各模板说明画幅、素材与环境要求，可基于已有结构制作。</p>
         <div class="cap-meta">当前收录 ${TEMPLATES.length} 套 · 竖屏 ${TEMPLATES.filter(t=>t.shape==='9:16').length} · 横屏 ${TEMPLATES.filter(t=>t.shape==='16:9').length}</div>
         <button class="cap-link" data-go="templates">进入模板列表</button>
       </article>
       <article class="card cap-card">
         <div class="cap-icon"><svg viewBox="0 0 24 24">${ICONS.board}</svg></div>
         <h3>任务看板</h3>
-        <p>AI 制作的每一条视频，进度与状态都在看板：制作中、待发布、发布中、平台审核中、已发布，成片点开即播。</p>
-        <div class="cap-meta">制作中 · 待发布 · 发布中 · 已发布</div>
+        <p>核验并登记后的成片进入看板，按“待发布”和“已发布”两组展示；平台审核中的原始状态保留在任务记录中。制作中的工程不显示在成片看板。</p>
+        <div class="cap-meta">成片登记 · 待发布 · 已发布 / 审核中</div>
         <button class="cap-link" data-go="tasks">进入任务看板</button>
       </article>
       <article class="card cap-card">
         <div class="cap-icon"><svg viewBox="0 0 24 24">${ICONS.send}</svg></div>
         <h3>发布 Skill</h3>
-        <p>发布环节做成可复用的 Skill：上传、排期、字段填写与状态回读。当前提供视频号，新增平台按独立 Skill 接入。</p>
-        <div class="cap-meta">生成 → 质检 → 分发 → 数据回流</div>
+        <p>当前提供视频号发布 Skill，支持按要求投稿、保存草稿、排期和回读状态。其他平台需接入并登记对应 Skill。</p>
+        <div class="cap-meta">明确要求后执行 · 状态回读</div>
         <button class="cap-link" data-go="publish">查看发布 Skill</button>
       </article>
     </div>
 
-    <div class="section-head" style="margin-top:8px"><h2>从模板到发布</h2><span class="sh-sub">你是导演，数字员工是整支剧组</span></div>
+    <div class="section-head" style="margin-top:8px"><h2>制作与发布流程</h2><span class="sh-sub">你是导演，数字员工是整支剧组</span></div>
     <div class="flow-grid">
-      <div class="flow-step"><span class="fs-num">01</span><h4>选模板</h4><p>选中即可复刻同款视频</p></div>
+      <div class="flow-step"><span class="fs-num">01</span><h4>确定内容与模板</h4><p>提供主题、文案和必需素材</p></div>
       <div class="flow-step"><span class="fs-num">02</span><h4>数字员工在岗制作</h4><p>检查已有环境，按模板制作</p></div>
-      <div class="flow-step"><span class="fs-num">03</span><h4>看板统一管理</h4><p>成片集中归档，随时查看</p></div>
-      <div class="flow-step"><span class="fs-num">04</span><h4>发布 Skill 自动发布</h4><p>按已接入的平台 Skill 执行</p></div>
+      <div class="flow-step"><span class="fs-num">03</span><h4>检查并登记</h4><p>核验画面、音轨、字幕和封面</p></div>
+      <div class="flow-step"><span class="fs-num">04</span><h4>按需发布与回读</h4><p>使用已接入的平台 Skill 并记录结果</p></div>
     </div>
 
     <div class="page-footer">
-      <div class="pf-row"><span class="tally"></span>一念成片 · 让创作回到一念之间</div>
-      <div>UniStudio 创作工作室 · 浙江联通开源项目 · 模板基于 HyperFrames 开放模板库</div>
+      <div class="pf-row">模板化制作 · 成片可追溯 · 平台状态回读</div>
+      <div>UniStudio 创作工作室 · 浙江联通开源项目 · 使用 HyperFrames 构建；素材许可见各模板说明</div>
     </div>
   </div>`;
 }
@@ -932,7 +961,7 @@ function tplTags(t){
 function tplActions(t){
   return `<div class="tpl-actions">
     <button class="btn btn-ghost btn-sm" data-sample="${t.id}">播放样片</button>
-    <button class="btn btn-ghost btn-sm" data-scroll="#cmpTable">说明</button>
+    <button class="btn btn-ghost btn-sm" onclick="openTemplateModal('${t.id}')">说明</button>
     <button class="btn btn-primary btn-sm" data-go="publish">使用 Skill</button>
   </div>`;
 }
@@ -948,6 +977,7 @@ function tplCardV(t){
       <h3>${t.name}</h3>
       <span class="tpl-en">${t.en}</span>
       <p>${t.desc}</p>
+      ${tplEnvHTML(t)}
       <div class="tpl-specs">${t.resolution} · ${t.fps} fps · 样片约 ${t.duration}</div>
       ${tplActions(t)}
     </div>
@@ -965,17 +995,38 @@ function tplCardH(t){
       <h3>${t.name}</h3>
       <span class="tpl-en">${t.en}</span>
       <p>${t.desc}</p>
+      ${tplEnvHTML(t)}
       <div class="tpl-specs">${t.resolution} · ${t.fps} fps · 样片约 ${t.duration}</div>
       ${tplActions(t)}
     </div>
   </article>`;
+}
+/* 模板环境要求区块 */
+function tplEnvHTML(t){
+  if(!t.stack)return '';
+  const badges=t.stack.map(s=>`<span class="stack-badge">${s}</span>`).join('');
+  const flags=[];
+  if(t.tts) flags.push('<span class="env-flag env-need">需 TTS</span>');
+  else flags.push('<span class="env-flag env-skip">无需 TTS</span>');
+  if(t.digitalHuman) flags.push('<span class="env-flag env-need">需数字人</span>');
+  else flags.push('<span class="env-flag env-skip">无需数字人</span>');
+  if(t.network) flags.push('<span class="env-flag env-need">需联网</span>');
+  const note=t.envNote?`<div class="env-note">${t.envNote}</div>`:'';
+  return `<div class="tpl-env">
+    <div class="env-label">环境要求</div>
+    <div class="env-stack">${badges}</div>
+    <div class="env-flags">${flags.join('')}</div>
+    ${note}
+  </div>`;
 }
 function filteredTemplates(shape){
   let list=TEMPLATES.filter(t=>t.shape===shape);
   if(state.tplType!=='all')list=list.filter(t=>t.type===state.tplType);
   if(state.tplQ){const q=state.tplQ.toLowerCase();
     list=list.filter(t=>t.name.toLowerCase().includes(q)||t.en.toLowerCase().includes(q)||t.type.includes(q));}
-  return list;
+  // 按 git 首次入库日期倒序。日期并列（含都取不到）靠 Array.sort 的稳定性保留原顺序，
+  // 无 git 记录的空串在倒序中自然落到最后。
+  return list.sort((a,b)=>String(state.tplAdded[b.id]||'').localeCompare(String(state.tplAdded[a.id]||'')));
 }
 function tplSectionHTML(shape){
   const isV=shape==='9:16';
@@ -1014,16 +1065,24 @@ function renderTemplates(){
     <div class="section-head"><h2>规格对比</h2><span class="sh-sub">各模板关键规格一览</span></div>
     <div class="card" id="cmpTable">
       <table class="cmp-table">
-        <thead><tr><th style="width:24%">模板</th><th style="width:12%">画幅</th><th style="width:18%">分辨率 / 帧率</th><th style="width:14%">样片时长</th><th style="width:16%">语音方式</th><th style="width:16%">技术栈</th></tr></thead>
+        <thead><tr><th style="width:20%">模板</th><th style="width:10%">画幅</th><th style="width:14%">分辨率 / 帧率</th><th style="width:12%">样片时长</th><th style="width:14%">语音方式</th><th style="width:20%">技术栈</th><th style="width:10%">特殊依赖</th></tr></thead>
         <tbody>
-          ${TEMPLATES.map(t=>`<tr>
+          ${TEMPLATES.map(t=>{
+            const stackStr=t.stack?t.stack.join(' · '):'HyperFrames · GSAP · Python';
+            const deps=[];
+            if(t.tts) deps.push('TTS');
+            if(t.digitalHuman) deps.push('数字人');
+            if(t.network) deps.push('联网');
+            const depStr=deps.length?deps.join('、'):'无';
+            return `<tr>
             <td><a href="javascript:void(0)" data-sample="${t.id}">${t.name}</a><div class="mono">${t.en}</div></td>
             <td><span class="mono">${t.shape}</span></td>
             <td><span class="mono">${t.resolution} · ${t.fps} fps</span></td>
             <td><span class="mono">约 ${t.duration}</span></td>
             <td>${t.audio}</td>
-            <td><span class="mono">HyperFrames · GSAP · Python</span></td>
-          </tr>`).join('')}
+            <td><span class="mono">${stackStr}</span></td>
+            <td>${depStr}</td>
+          </tr>`;}).join('')}
         </tbody>
       </table>
     </div>
@@ -1144,10 +1203,13 @@ function bcard(r){
     </div>
   </article>`;
 }
+/* 登记时间（created_at）决定同一天内的先后；时间戳时区不统一，必须交给 Date.parse 换算。 */
+function taskTime(r){return Date.parse(r.created_at||'')||0;}
+function taskMtime(r){return Date.parse(r.updated_at||'')||0;}
 function boardResultsHTML(){
-  const list=boardFiltered();
+  const list=boardFiltered().slice().sort((a,b)=>taskTime(b)-taskTime(a)||taskMtime(b)-taskMtime(a));
   if(state.apiError)return `<div class="b-empty">${esc(state.apiError)} · 请检查本地任务服务</div>`;
-  if(!list.length)return `<div class="b-empty">${state.tasks.length?'没有匹配的任务 · 换个筛选条件再试':'还没有任务 · 选择模板，把制作指令交给 AI，完成后成片会自动登记在这里'}</div>`;
+  if(!list.length)return `<div class="b-empty">${state.tasks.length?'没有匹配的任务 · 换个筛选条件再试':'还没有任务 · 完成制作并登记后，成片会显示在这里'}</div>`;
   const groups={};
   list.forEach(r=>{
     const day=(r.story_date||'').slice(0,10)||fmtDay(new Date(r.updated_at||r.created_at||Date.now()));
@@ -1160,9 +1222,6 @@ function boardResultsHTML(){
       <div class="bgrid">${groups[day].map(bcard).join('')}</div>
     </section>`;
   }).join('');
-}
-function boardHeaderRight(){
-  return `<button class="btn btn-primary" id="newTaskBtn"><svg viewBox="0 0 24 24">${ICONS.plus}</svg><span class="btn-label">新建任务</span></button>`;
 }
 function renderBoard(){
   const upd=state.stats&&state.stats.updated_at?fmtDateTime(state.stats.updated_at):'';
@@ -1393,18 +1452,7 @@ function renderTasksView(){return renderBoard();}
 function renderHeader(){
   const meta=VIEW_META[state.view];
   document.getElementById('vhTitle').textContent=meta.title;
-  tickClock();
-  document.getElementById('vhRight').innerHTML=state.view==='tasks'?boardHeaderRight():'';
 }
-/* 顶部实时时钟（当前日期时间） */
-function fmtNow(){
-  const d=new Date();
-  return `${d.getFullYear()}.${pad(d.getMonth()+1)}.${pad(d.getDate())} · ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-}
-function tickClock(){
-  document.getElementById('vhDate').textContent=fmtNow();
-}
-setInterval(tickClock,10000); // 每 10 秒校准一次
 function renderAll(){
   renderNav(); renderHeader();
   document.getElementById('viewBody').innerHTML=VIEW_META[state.view].render();
@@ -1419,18 +1467,6 @@ function openDrawer(){
   document.getElementById('app').classList.add('nav-open');
   document.getElementById('navBackdrop').classList.add('open');
 }
-
-/* ---------- 新建任务弹窗 ---------- */
-function renderModalList(){
-  document.getElementById('modalList').innerHTML=TEMPLATES.map(t=>
-    `<div class="modal-row">
-      <div class="mr-thumb"><img src="${t.cover}" alt=""></div>
-      <div class="mr-name">${t.name}<span class="mr-en">${t.en}</span></div>
-      <button class="btn btn-primary btn-sm" data-modal-pick="${t.id}">选择</button>
-    </div>`).join('');
-}
-function openModal(){document.getElementById('taskPromptBox').hidden=true;renderModalList();document.getElementById('newTaskModal').classList.add('open');}
-function closeModal(){document.getElementById('newTaskModal').classList.remove('open');}
 
 /* ---------- 路由 ---------- */
 function go(view){
@@ -1516,29 +1552,10 @@ async function setManualBoardStatus(button){
   }
 }
 
-/* ---------- 事件绑定：新建任务弹窗列表 ---------- */
-document.getElementById('modalList').addEventListener('click',e=>{
-  const t=e.target.closest('[data-modal-pick]');
-  if(!t)return;
-  const tpl=TEMPLATES.find(x=>x.id===t.dataset.modalPick);
-  if(!tpl)return;
-  const brief=document.getElementById('newTaskBrief').value.trim()||'请先与我确定本期主题和内容';
-  document.getElementById('taskPrompt').value=`请先阅读本项目根目录 AGENTS.md。使用模板 ${tpl.id}（${tpl.name}）制作视频。内容：${brief}。先检查当前环境已有的 HyperFrames 与 TTS；在 productions/projects/ 下复制新工程，按模板说明制作和核验，成片与封面存到 deliver/，完成后用 scripts/unistudio.py ready 自动登记到任务看板。`;
-  document.getElementById('taskPromptBox').hidden=false;
-  document.getElementById('taskPrompt').scrollIntoView({block:'nearest'});
-});
-
-document.getElementById('copyTaskPrompt').addEventListener('click',async()=>{
-  const box=document.getElementById('taskPrompt');
-  try{await navigator.clipboard.writeText(box.value);toast('已复制，请交给当前 AI 执行');}
-  catch(e){box.focus();box.select();toast('请复制选中的制作指令，交给当前 AI');}
-});
-
-/* ---------- 事件绑定：侧边导航 + 看板顶部按钮（挂 document） ---------- */
+/* ---------- 事件绑定：侧边导航（挂 document） ---------- */
 document.addEventListener('click',e=>{
-  const t=e.target.closest('[data-view],[id]');
+  const t=e.target.closest('[data-view]');
   if(!t)return;
-  if(t.id==='newTaskBtn'){openModal();return;}
   if(t.dataset.view){go(t.dataset.view);return;}
 });
 document.addEventListener('input',e=>{
@@ -1558,12 +1575,10 @@ document.addEventListener('input',e=>{
 /* 固定按钮 / 遮罩层 */
 document.getElementById('menuBtn').addEventListener('click',openDrawer);
 document.getElementById('navBackdrop').addEventListener('click',closeDrawer);
-document.getElementById('modalClose').addEventListener('click',closeModal);
-document.getElementById('newTaskModal').addEventListener('click',e=>{if(e.target.id==='newTaskModal')closeModal();});
 document.getElementById('lbClose').addEventListener('click',closeLightbox);
 document.getElementById('lightbox').addEventListener('click',e=>{if(e.target.id==='lightbox')closeLightbox();});
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){closeLightbox();closeModal();closeDrawer();}
+  if(e.key==='Escape'){closeLightbox();closeDrawer();}
 });
 window.addEventListener('hashchange',route);
 
@@ -1586,9 +1601,89 @@ async function load(refresh=false){
 load();
 setInterval(()=>load(true),15000);
 
+/* 模板入库日期只在启动时取一次：后端每次都要跑 git log，不必跟 15 秒轮询绑在一起。
+   取不到就沿用 catalog 原有顺序，不阻塞首屏。 */
+(async()=>{
+  try{
+    const r=await fetch('/api/templates',{cache:'no-store'});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const data=await r.json();
+    if(!Array.isArray(data.templates))throw new Error('模板目录响应不完整');
+    const map={};
+    data.templates.forEach(t=>{if(t&&t.id&&t.added_at)map[t.id]=t.added_at;});
+    state.tplAdded=map;
+    if(state.view==='templates')route();   // 首屏已按原顺序渲染，拿到日期后重排
+  }catch(e){/* 静默降级：保留 catalog 顺序 */}
+})();
 
+/* ---------- 模板说明弹窗 ---------- */
+function openTemplateModal(templateId){
+  const t=TEMPLATES.find(x=>x.id===templateId);
+  if(!t)return;
+  const modal=document.getElementById('tplModal');
+  const content=document.getElementById('tplModalContent');
+  if(!modal||!content)return;
+
+  let html=`<div class="tpl-modal-header"><h3>${esc(t.name)}</h3><span class="tpl-modal-en">${esc(t.en)}</span></div>`;
+
+  // 技术栈
+  if(t.stack){
+    html+=`<div class="tpl-modal-section"><div class="tpl-modal-label">技术栈</div><div class="tpl-modal-stack">${t.stack.map(s=>`<span class="stack-badge">${s}</span>`).join('')}</div></div>`;
+  }
+
+  // 依赖标记
+  const flags=[];
+  if(t.tts) flags.push('<span class="env-flag env-need">需 TTS 服务</span>');
+  else flags.push('<span class="env-flag env-skip">无需 TTS</span>');
+  if(t.digitalHuman) flags.push('<span class="env-flag env-need">需数字人口型服务</span>');
+  else flags.push('<span class="env-flag env-skip">无需数字人</span>');
+  if(t.network) flags.push('<span class="env-flag env-need">构建时需联网</span>');
+  html+=`<div class="tpl-modal-section"><div class="tpl-modal-label">特殊依赖</div><div class="tpl-modal-flags">${flags.join('')}</div></div>`;
+
+  // 补充说明
+  if(t.envNote){
+    html+=`<div class="tpl-modal-section"><div class="tpl-modal-label">注意事项</div><div class="tpl-modal-note">${esc(t.envNote)}</div></div>`;
+  }
+
+  // 输入要求（如果有）
+  if(t.inputs){
+    html+=`<div class="tpl-modal-section"><div class="tpl-modal-label">输入要求</div><ul class="tpl-modal-list">`;
+    if(t.inputs.content) html+=`<li><strong>文案：</strong>${esc(t.inputs.content)}</li>`;
+    if(t.inputs.media) html+=`<li><strong>素材：</strong>${esc(t.inputs.media)}</li>`;
+    if(t.inputs.audio) html+=`<li><strong>音频：</strong>${esc(t.inputs.audio)}</li>`;
+    html+=`</ul></div>`;
+  }
+
+  // 输出规格
+  if(t.outputs){
+    html+=`<div class="tpl-modal-section"><div class="tpl-modal-label">输出规格</div><div class="tpl-modal-specs">${esc(t.outputs.format)}</div>`;
+    if(t.outputs.deliverables){
+      html+=`<div class="tpl-modal-deliverables">${t.outputs.deliverables.map(d=>`<span class="deliverable-tag">${d}</span>`).join('')}</div>`;
+    }
+    html+=`</div>`;
+  }
+
+  content.innerHTML=html;
+  modal.classList.add('active');
+  document.body.style.overflow='hidden';
+}
+
+function closeTemplateModal(){
+  const modal=document.getElementById('tplModal');
+  if(modal)modal.classList.remove('active');
+  document.body.style.overflow='';
+}
 
 
 </script>
 </body>
 </html>
+
+<!-- 模板说明弹窗 -->
+<div id="tplModal" class="tpl-modal">
+  <div class="tpl-modal-overlay" onclick="closeTemplateModal()"></div>
+  <div class="tpl-modal-dialog">
+    <button class="tpl-modal-close" onclick="closeTemplateModal()">&times;</button>
+    <div id="tplModalContent"></div>
+  </div>
+</div>

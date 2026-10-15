@@ -11,9 +11,9 @@ import wave
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from pipeline import tasks
-from pipeline.config import ROOT, catalog, load_config, publishers, select
-from pipeline.environment import check_environment, tts_headers
+from task_service import tasks
+from task_service.config import ROOT, catalog, load_config, publishers, select
+from task_service.environment import check_environment, tts_headers
 
 
 def synthesize(text_file, output):
